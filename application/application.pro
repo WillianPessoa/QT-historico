@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xlsx
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,10 +25,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    importer.cpp \
+    reader.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    importer.h \
+    reader.h
 
 FORMS += \
         mainwindow.ui
+
+RESOURCES += \
+    sample.qrc
