@@ -1,11 +1,24 @@
 #ifndef MATTERANDNOTES_H
 #define MATTERANDNOTES_H
 
+#include <QString>
 
-class MatterAndNotes
+class MatterAndNote
 {
+private:
+    QString m_matter;
+    QString m_note;
+
 public:
-    MatterAndNotes();
+    MatterAndNote(QString matter,
+                  QString note);
+
+    //Métodos getters
+    QString getMatter();
+    QString getNote();
+
+    //Métodos setters
+    void setNote(QString note);
 };
 
 #endif // MATTERANDNOTES_H

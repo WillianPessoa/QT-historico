@@ -25,10 +25,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    student.cpp \
+    standartdate.cpp \
+    matterandnotes.cpp \
+    managermattersandnotes.cpp \
+    managerstudents.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    student.h \
+    standartdate.h \
+    matterandnotes.h \
+    managermattersandnotes.h \
+    managerstudents.h
 
 FORMS += \
         mainwindow.ui
