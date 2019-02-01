@@ -61,5 +61,24 @@ QHash<StudentData, QString> Reader::getStudentsDataFrom(const QString &filename)
 
     // TODO: Realizar a leitura dos outros campos
 
+    const QString mothername = xlsx.read("Z16").toString().remove("MÃE:").simplified();
+    qDebug() << "Mãe:" << mothername;
+    data.insert(MotherName , mothername);  //Pega o nome da mãe
+
+    const QString fathername = xlsx.read("L16").toString().remove("PAI:").simplified();
+    qDebug() << "Pai:" << fathername;
+    data.insert(FatherName,fathername);  //Pega o nome do pai
+
+    const QString dateofbirth = xlsx.read("W13").toString().remove("DATA DE NASCIMENTO : ").simplified();
+    qDebug() << "Data de nascimento:" << dateofbirth;
+    data.insert(DateOfBirth,dateofbirth); //Data de nascimento e hora
+
+    const QString naturalness = xlsx.read("D16").toString().remove("NATURAL:").simplified();
+    qDebug() << "Natural:" << naturalness;
+    data.insert(Naturalness,naturalness);
+
+
+
+
     return data;
 }
