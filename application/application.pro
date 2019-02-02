@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     importer.cpp \
-    reader.cpp
+    reader.cpp \
+    individualsheet.cpp
 
 HEADERS += \
         mainwindow.h \
     importer.h \
-    reader.h
+    reader.h \
+    individualsheet.h
 
 FORMS += \
         mainwindow.ui
