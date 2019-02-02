@@ -6,7 +6,7 @@
 class Importer
 {
 public:
-    static QList<QHash<StudentData, QString> > importStudentsFrom(const QString &studentSheetDirName);
+    static QList<IndividualSheet> importStudentsFrom(const QString &studentSheetDirName);
 
 private:
     Importer();

@@ -12,18 +12,18 @@ Reader::Reader()
 
 }
 
-QList<QHash<StudentData, QString>> Reader::readStudentsFrom(const QDir &studentSheetDir)
+QList<IndividualSheet> Reader::readStudentsFrom(const QDir &studentSheetDir)
 {
-    QList<QHash<StudentData, QString>> data;
+    QList<IndividualSheet> studentSheets;
 
     QStringList studentSheetFiles(getStudentSheetFilenamesFrom(studentSheetDir));
 
     if (!studentSheetFiles.isEmpty()) {
         for (const QString &sheetFilename : studentSheetFiles) {
-            data.append(getStudentsDataFrom(studentSheetDir.absolutePath() + "/" + sheetFilename));
+            studentSheets.append(getStudentsDataFrom(studentSheetDir.absolutePath() + "/" + sheetFilename));
         }
     }
-    return data;
+    return studentSheets;
 }
 
 QStringList Reader::getStudentSheetFilenamesFrom(const QDir &studentSheetDir)
@@ -49,36 +49,34 @@ QStringList Reader::getStudentSheetFilenamesFrom(const QDir &studentSheetDir)
     return studentSheetFiles;
 }
 
-QHash<StudentData, QString> Reader::getStudentsDataFrom(const QString &filename)
+IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
 {
-    QHash<StudentData, QString> data;
+    IndividualSheet studentSheet;
 
     QXlsx::Document xlsx(filename);
 
     const QString name = xlsx.read("D13").toString().remove("NOME DO ALUNO : ").simplified();
     qDebug() << "Nome do aluno:" << name;
-    data.insert(Name, name);
+    studentSheet.setName(name);
 
     // TODO: Realizar a leitura dos outros campos
 
     const QString mothername = xlsx.read("Z16").toString().remove("MÃE:").simplified();
     qDebug() << "Mãe:" << mothername;
-    data.insert(MotherName , mothername);  //Pega o nome da mãe
+    studentSheet.setMotherName(mothername);  //Pega o nome da mãe
 
     const QString fathername = xlsx.read("L16").toString().remove("PAI:").simplified();
     qDebug() << "Pai:" << fathername;
-    data.insert(FatherName,fathername);  //Pega o nome do pai
+    studentSheet.setFatherName(fathername);  //Pega o nome do pai
 
     const QString dateofbirth = xlsx.read("W13").toString().remove("DATA DE NASCIMENTO : ").simplified();
     qDebug() << "Data de nascimento:" << dateofbirth;
-    data.insert(DateOfBirth,dateofbirth); //Data de nascimento e hora
+    studentSheet.setDateOfBirth(dateofbirth); //Data de nascimento e hora
 
     const QString naturalness = xlsx.read("D16").toString().remove("NATURAL:").simplified();
     qDebug() << "Natural:" << naturalness;
-    data.insert(Naturalness,naturalness);
+    studentSheet.setNaturalness(naturalness);
 
 
-
-
-    return data;
+    return studentSheet;
 }

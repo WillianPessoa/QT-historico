@@ -7,7 +7,7 @@ Importer::Importer()
 
 }
 
-QList<QHash<StudentData, QString>> Importer::importStudentsFrom(const QString &studentSheetDirName)
+QList<IndividualSheet> Importer::importStudentsFrom(const QString &studentSheetDirName)
 {
     return Reader::readStudentsFrom(QDir(studentSheetDirName));
 }
