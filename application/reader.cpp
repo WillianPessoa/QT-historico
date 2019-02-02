@@ -77,6 +77,40 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
     qDebug() << "Natural:" << naturalness;
     studentSheet.setNaturalness(naturalness);
 
+    // Identificar a primeira celula (linha) que contem as notas
+    // Verificar cada campo importante da linha, pra identificar qual materia estamos lendo
+    // Depois de identificar, guardar no seu devido local
+    const int subjectColumn = 7;
+    const int gradeColumn = 34;
+    QString subject = "Subject";
+    for (int row = 25; !subject.isEmpty(); ++row) {
+        subject = xlsx.read(row, subjectColumn).toString();
+        const QString grade = xlsx.read(row, gradeColumn).toString();
+        qDebug() << "Materia: " << subject << " | Nota: " << grade;
+
+
+        if (subject == "ARTES") {
+            studentSheet.setArtGrade(grade.toDouble());
+        } else if (subject == "BIOLOGIA") {
+            studentSheet.setBiologyGrade(grade.toDouble());
+        } else if (subject == "EDUCAÇÃO FÍSICA"){
+            studentSheet.setPhysicalEducationGrade(grade.toDouble());
+        } else if (subject == "FILOSOFIA"){
+            studentSheet.setPhilosophyGrade(grade.toDouble());
+        } else if (subject == "GEOGRAFIA"){
+            studentSheet.setGeographyGrade(grade.toDouble());
+        } else if (subject.contains("LINGUA ESTRANGEIRA")) {
+            studentSheet.setEnglishGrade(grade.toDouble());
+        } else if (subject == "HISTÓRIA") {
+            studentSheet.setHistoryGrade(grade.toDouble());
+        } else if (subject == "MATEMÁTICA"){
+            studentSheet.setMathGrade(grade.toDouble());
+        } elese if (subject == "")
+        else if(subject == "QUÍMICA"){
+            studentSheet.setChemistryGrade(grade.toDouble());
+        }
+    }
+
 
     return studentSheet;
 }

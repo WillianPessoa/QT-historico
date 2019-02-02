@@ -114,7 +114,7 @@ private:
     QString m_group;
     Turn m_turn;
 
-    // Subject grades info
+    // Subject grades info// Subject grades info
     double m_artGrade;
     double m_biologyGrade;
     double m_chemistryGrade;
