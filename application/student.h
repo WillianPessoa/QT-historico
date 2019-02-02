@@ -2,22 +2,22 @@
 #define STUDENT_H
 
 #include <standartdate.h>
-#include <managermattersandnotes.h>
+#include <managersubjectssandgrades.h>
 #include <QString>
 
 class Student
 {
 private:
     StandartDate *m_stdDate;
-    ManagerMattersAndNotes *m_ManagerMattersAndNotes;
+    ManagerSubjectsAndGrades *m_managerSubjectsAndGrades;
 
 public:
-    Student(QString name, QString father, QString mother,
-            QString naturalness, QString IDNumber,
+    Student(QString studentName, QString fatherName, QString motherName,
+            QString dateOfBirth, QString naturalness, QString IDNumber,
             QString IDissuingInstituation, QString IDissueDate);
 
-    StandartDate getStdDate();
-    ManagerMattersAndNotes getManagerMattersAndNotes();
+    StandartDate stdDate() const;  //retorna objeto com dados padrões do aluno
+    ManagerSubjectsAndGrades managerSubjectsAndGrades() const;    //retorna objeto que gerencia as materias e notas do aluno
 
 };
 

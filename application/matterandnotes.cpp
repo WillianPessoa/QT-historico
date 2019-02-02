@@ -1,25 +1,24 @@
-#include "matterandnotes.h"
+#include "subjectandgrade.h"
 
-MatterAndNote::MatterAndNote(QString matter,
-                             QString note)
+SubjectAndGrade::SubjectAndGrade(QString subject, QString grade)
 {
-    m_matter = matter;
-    m_note = note;
+    m_subject = subject;
+    m_grade = grade;
 }
 
 //Métodos getters
-QString MatterAndNote::getMatter()
+QString SubjectAndGrade::subject() const
 {
-    return m_matter;
+    return m_subject;
 }
 
-QString MatterAndNote::getNote()
+QString SubjectAndGrade::grade() const
 {
-    return m_note;
+    return m_grade;
 }
 
 //Métodos setters
-void MatterAndNote::setNote(QString note)
+void SubjectAndGrade::setGrade(const QString &grade)
 {
-    m_note = note;
+    m_grade = grade;
 }

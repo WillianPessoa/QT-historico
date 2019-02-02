@@ -36,9 +36,9 @@ HEADERS += \
         mainwindow.h \
     student.h \
     standartdate.h \
-    matterandnotes.h \
-    managermattersandnotes.h \
-    managerstudents.h
+    managerstudents.h \
+    managersubjectssandgrades.h \
+    subjectandgrade.h
 
 FORMS += \
         mainwindow.ui

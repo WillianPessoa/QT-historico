@@ -13,11 +13,11 @@ private:
 public:
     ManagerStudents();
 
-    Student getStudent(QString name);
-    void addStudent(QString name, QString father, QString mother,
-                    QString naturalness, QString IDNumber,
+    Student student(QString studentName) const;
+    void addStudent(QString studentName, QString fatherName, QString motherName,
+                    QString dateOfBirth, QString naturalness, QString IDNumber,
                     QString IDissuingInstituation, QString IDissueDate);
-    void addStudent(Student student);
+    void addStudent(Student studentObject);
 };
 
 #endif // MANAGERSTUDENT_H

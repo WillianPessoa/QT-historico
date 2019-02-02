@@ -1,19 +1,20 @@
 #include "student.h"
 
-Student::Student(QString name, QString father, QString mother, QString naturalness,
-                 QString IDNumber, QString IDissuingInstituation, QString IDissueDate)
+Student::Student(QString studentName, QString fatherName, QString motherName,
+                 QString dateOfBirth, QString naturalness, QString IDNumber,
+                 QString IDissuingInstituation, QString IDissueDate)
 {
-    m_stdDate = new StandartDate(name, father, mother, naturalness,
-                                 IDNumber, IDissuingInstituation, IDissueDate);
-    m_ManagerMattersAndNotes = new ManagerMattersAndNotes();
+    m_stdDate = new StandartDate(studentName, fatherName, motherName, dateOfBirth,
+                                 naturalness, IDNumber, IDissuingInstituation, IDissueDate);
+    m_managerSubjectsAndGrades = new ManagerSubjectsAndGrades();
 }
 
-StandartDate Student::getStdDate()
+StandartDate Student::stdDate() const
 {
     return *m_stdDate;
 }
 
-ManagerMattersAndNotes Student::getManagerMattersAndNotes()
+ManagerSubjectsAndGrades Student::managerSubjectsAndGrades() const
 {
-
+    return *m_managerSubjectsAndGrades;
 }

@@ -1,83 +1,91 @@
 #include "standartdate.h"
 
-StandartDate::StandartDate(QString name, QString father, QString mother,
-                           QString naturalness, QString IDNumber,
+StandartDate::StandartDate(QString studentName, QString fatherName, QString motherName,
+                           QString dateOfBirth, QString naturalness, QString IDNumber,
                            QString IDissuingInstituation, QString IDissueDate)
 {
-    m_name = name;
-    m_father = father;
-    m_mother = mother;
+    m_dateOfBirth = dateOfBirth;
+    m_studentName = studentName;
+    m_fatherName = fatherName;
+    m_motherName = motherName;
     m_naturalness = naturalness;
     m_IDNumber = IDNumber;
     m_IDissuingInstituation = IDissuingInstituation;
     m_IDissueDate = IDissueDate;
 }
 
-QString StandartDate::getName()
+//Métodos gettes
+QString StandartDate::dateOfBirth() const
 {
-    return m_name;
+    return m_dateOfBirth;
 }
 
-QString StandartDate::getFather()
+QString StandartDate::studentName() const
 {
-    return m_father;
+    return m_studentName;
 }
 
-QString StandartDate::getMother()
+QString StandartDate::fatherName() const
 {
-    return m_mother;
+    return m_fatherName;
 }
 
-QString StandartDate::getNaturalNess()
+QString StandartDate::motherName() const
+{
+    return m_motherName;
+}
+
+QString StandartDate::naturalNess() const
 {
     return m_naturalness;
 }
-QString StandartDate::getIDNumber()
+QString StandartDate::IDNumber() const
 {
     return m_IDNumber;
 }
 
-QString StandartDate::getIDIssuingInstituation()
+QString StandartDate::IDIssuingInstituation() const
 {
     return m_IDissuingInstituation;
 }
 
-QString StandartDate::getIDIssueDate()
+QString StandartDate::IDIssueDate() const
 {
     return m_IDissueDate;
 }
 
-void StandartDate::setName(QString name)
+//Métodos Setters
+void StandartDate::setStudentName(const QString &name)
 {
-    m_name = name;
+    m_studentName = name;
 }
 
-void StandartDate::setFather(QString father)
+void StandartDate::setFatherName(const QString &father)
 {
-    m_father = father;
+    m_fatherName = father;
 }
 
-void StandartDate::setMother(QString mother)
+void StandartDate::setMotherName(const QString &mother)
 {
-    m_mother = mother;
+    m_motherName = mother;
 }
 
-void StandartDate::setNaturalNess(QString naturalNess)
+void StandartDate::setNaturalNess(const QString &naturalNess)
 {
     m_naturalness = naturalNess;
 }
 
-void StandartDate::setIDNumber(QString IDNumber)
+void StandartDate::setIDNumber(const QString &IDNumber)
 {
     m_IDNumber = IDNumber;
 }
 
-void StandartDate::setIDIssuingInstituation(QString IDIssuingInstituation)
+void StandartDate::setIDIssuingInstituation(const QString &IDIssuingInstituation)
 {
     m_IDissuingInstituation = IDIssuingInstituation;
 }
 
-void StandartDate::setIDIssueDate(QString IDIssueDate)
+void StandartDate::setIDIssueDate(const QString &IDIssueDate)
 {
     m_IDissueDate = IDIssueDate;
 }

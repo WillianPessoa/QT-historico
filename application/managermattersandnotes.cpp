@@ -1,22 +1,22 @@
-#include "managermattersandnotes.h"
+#include "managersubjectssandgrades.h"
 
-ManagerMattersAndNotes::ManagerMattersAndNotes()
+ManagerSubjectsAndGrades::ManagerSubjectsAndGrades()
 {
 
 }
 
-void ManagerMattersAndNotes::addMatterAndNote(QString matter, QString note)
+void ManagerSubjectsAndGrades::addSubjectAndGrade(QString subject, QString grade)
 {
-    m_MattersAndNotes.append(MatterAndNote(matter, note));
+    m_subjectAndGrade.append(SubjectAndGrade(subject, grade));
 }
 
-MatterAndNote ManagerMattersAndNotes::getMatterAndNote(QString matter)
+SubjectAndGrade ManagerSubjectsAndGrades::subjectAndGrade(QString subject) const
 {
-    for(int i = 0; i < m_MattersAndNotes.size(); ++i)
+    for(int i = 0; i < m_subjectAndGrade.size(); ++i)
     {
-        if(m_MattersAndNotes[i].getMatter() == matter)
+        if(m_subjectAndGrade[i].subject() == subject)
         {
-            return m_MattersAndNotes[i];
+            return m_subjectAndGrade[i];
         }
     }
 }
