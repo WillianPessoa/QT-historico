@@ -28,9 +28,9 @@ SOURCES += \
         mainwindow.cpp \
     student.cpp \
     standartdate.cpp \
-    matterandnotes.cpp \
-    managermattersandnotes.cpp \
-    managerstudents.cpp
+    managerstudents.cpp \
+    managersubjectssandgrades.cpp \
+    subjectandgrade.cpp
 
 HEADERS += \
         mainwindow.h \
