@@ -5,20 +5,19 @@
 
 class SubjectAndGrade
 {
-private:
-    QString m_subject;
-    QString m_grade;
-
 public:
     SubjectAndGrade(QString subject,
-                    QString grade);
+                    double grade);
 
-    //Métodos getters
     QString subject() const;
-    QString grade() const;
+    void setSubject(const QString &subject);
 
-    //Métodos setters
-    void setGrade(const QString &grade);
+    double grade() const;
+    void setGrade(double grade);
+
+private:
+    QString m_subject;
+    double m_grade;
 };
 
 #endif // MATTERANDNOTES_H

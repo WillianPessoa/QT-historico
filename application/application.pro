@@ -27,17 +27,11 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     student.cpp \
-    standartdate.cpp \
-    managerstudents.cpp \
-    managersubjectssandgrades.cpp \
     subjectandgrade.cpp
 
 HEADERS += \
         mainwindow.h \
     student.h \
-    standartdate.h \
-    managerstudents.h \
-    managersubjectssandgrades.h \
     subjectandgrade.h
 
 FORMS += \
