@@ -21,7 +21,7 @@ double SubjectAndGrade::grade() const
     return m_grade;
 }
 
-void SubjectAndGrade::setGrade(double grade)
+void SubjectAndGrade::setGrade(const double &grade)
 {
     m_grade = grade;
 }

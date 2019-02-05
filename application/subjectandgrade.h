@@ -13,7 +13,7 @@ public:
     void setSubject(const QString &subject);
 
     double grade() const;
-    void setGrade(double grade);
+    void setGrade(const double &grade);
 
 private:
     QString m_subject;
