@@ -7,17 +7,17 @@
 class Student
 {
 public:
-    Student(QString name, QString dateOfBirth, QString fatherName, QString motherName,
-            QString naturalness, QString IDNumber, QString IDissuingInstituation,
-            QString IDissueDate);
-
     Student();
+
+    Student(const QString &name, const QDate &dateOfBirth, const QString &fatherName,
+            const QString &motherName, const QString &naturalness, const QString &IDNumber,
+            const QString &IDissuingInstituation, const QString &IDissueDate);
 
     QString name() const;
     void setName(const QString &name);
 
-    QDate dateOfBirth() const;    //Esse método vai ser do tipo QDate
-    void setDateOfBirth(const QString &dateOfBirth);
+    QDate dateOfBirth() const;
+    void setDateOfBirth(const QDate &dateOfBirth);
 
     QString fatherName() const;
     void setFatherName(const QString &fatherName);
@@ -31,8 +31,8 @@ public:
     QString IDNumber() const;
     void setIDNumber(const QString &IDNumber);
 
-    QString IDIssuingInstituation() const;
-    void setIDIssuingInstituation(const QString &IDissuingInstituation);
+    QString IDIssuingInstitution() const;
+    void setIDIssuingInstitution(const QString &IDissuingInstitution);
 
     QString IDIssueDate() const;
     void setIDIssueDate(const QString &IDissueDate);
@@ -44,7 +44,7 @@ private:
     QString m_motherName;
     QString m_naturalness;
     QString m_IDNumber;
-    QString m_IDIssuingInstituation;
+    QString m_IDIssuingInstitution;
     QString m_IDIssueDate;
 };
 
