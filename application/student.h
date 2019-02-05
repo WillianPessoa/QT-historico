@@ -1,6 +1,8 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
+#include "grades.h"
+
 #include <QDate>
 #include <QString>
 
@@ -37,6 +39,10 @@ public:
     QString IDIssueDate() const;
     void setIDIssueDate(const QString &IDissueDate);
 
+    Grades firstYearGrades() const;
+    Grades secondYearGrades() const;
+    Grades thirdYearGrades() const;
+
 private:
     QString m_name;
     QDate m_dateOfBirth;
@@ -46,6 +52,10 @@ private:
     QString m_IDNumber;
     QString m_IDIssuingInstituation;
     QString m_IDIssueDate;
+
+    Grades m_firstYearGrades;
+    Grades m_secondYearGrades;
+    Grades m_thirdYearGrades;
 };
 
 #endif // STUDENT_H

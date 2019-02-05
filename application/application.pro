@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     student.cpp \
-    subjectandgrade.cpp
+    subjectandgrade.cpp \
+    grades.cpp
 
 HEADERS += \
         mainwindow.h \
     student.h \
-    subjectandgrade.h
+    subjectandgrade.h \
+    grades.h
 
 FORMS += \
         mainwindow.ui

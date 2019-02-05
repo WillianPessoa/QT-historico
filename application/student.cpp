@@ -98,3 +98,18 @@ void Student::setIDIssueDate(const QString &IDIssueDate)
 {
    m_IDIssueDate = IDIssueDate;
 }
+
+Grades Student::firstYearGrades() const
+{
+    return m_firstYearGrades;
+}
+
+Grades Student::secondYearGrades() const
+{
+    return m_secondYearGrades;
+}
+
+Grades Student::thirdYearGrades() const
+{
+    return m_thirdYearGrades;
+}
