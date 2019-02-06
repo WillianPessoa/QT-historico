@@ -5,18 +5,19 @@ Student::Student()
 
 }
 
-Student::Student(QString name, QString dateOfBirth, QString fatherName, QString motherName,
-                 QString naturalness, QString IDNumber, QString IDIssuingInstituation,
-                 QString IDIssueDate)
+Student::Student(const QString &name, const QDate &dateOfBirth, const QString &fatherName,
+                 const QString &motherName, const QString &naturalness, const QString &IDNumber,
+                 const QString &IDissuingInstituation, const QString &IDissueDate) :
+    m_name(name),
+    m_dateOfBirth(dateOfBirth),
+    m_fatherName(fatherName),
+    m_motherName(motherName),
+    m_naturalness(naturalness),
+    m_IDNumber(IDNumber),
+    m_IDIssuingInstitution(IDissuingInstituation),
+    m_IDIssueDate(IDissueDate)
 {
-    m_name = name;
-    //m_dateOfBirth = dateOfBirth;
-    m_fatherName = fatherName;
-    m_motherName = motherName;
-    m_naturalness = naturalness;
-    m_IDNumber = IDNumber;
-    m_IDIssuingInstituation = IDIssuingInstituation;
-    m_IDIssueDate = IDIssueDate;
+
 }
 
 QString Student::name() const
@@ -31,12 +32,12 @@ void Student::setName(const QString &name)
 
 QDate Student::dateOfBirth() const
 {
-    //OBS.: Retornar QDate em formato de string
+    return m_dateOfBirth;
 }
 
-void Student::setDateOfBirth(const QString &dateOfBirth)
+void Student::setDateOfBirth(const QDate &dateOfBirth)
 {
-    //Transformar string em QDate
+    m_dateOfBirth = dateOfBirth;
 }
 
 QString Student::fatherName() const
@@ -79,14 +80,14 @@ void Student::setIDNumber(const QString &IDNumber)
     m_IDNumber = IDNumber;
 }
 
-QString Student::IDIssuingInstituation() const
+QString Student::IDIssuingInstitution() const
 {
-    return m_IDIssuingInstituation;
+    return m_IDIssuingInstitution;
 }
 
-void Student::setIDIssuingInstituation(const QString &IDissuingInstituation)
+void Student::setIDIssuingInstitution(const QString &IDissuingInstitution)
 {
-    m_IDIssuingInstituation = IDissuingInstituation;
+    m_IDIssuingInstitution = IDissuingInstitution;
 }
 
 QString Student::IDIssueDate() const
@@ -96,7 +97,7 @@ QString Student::IDIssueDate() const
 
 void Student::setIDIssueDate(const QString &IDIssueDate)
 {
-   m_IDIssueDate = IDIssueDate;
+    m_IDIssueDate = IDIssueDate;
 }
 
 Grades Student::firstYearGrades() const

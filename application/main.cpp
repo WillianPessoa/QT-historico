@@ -12,9 +12,9 @@ int main(int argc, char *argv[])
     w.show();
 
     Student *felipe = new Student();
+    felipe->firstYearGrades().setArtGrade(10);
 
-    felipe->firstYearGrades().setMathGrade(10);
-    qDebug() << felipe->firstYearGrades().mathGrade();
+    qDebug() << felipe->firstYearGrades().artGrade();
 
     return a.exec();
 }

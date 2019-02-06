@@ -7,58 +7,58 @@ public:
     Grades();
 
     double portugueseGrade() const;
-    void setPortugueseGrade(double portugueseGrade);
+    void setPortugueseGrade(const double &portugueseGrade);
 
     double artGrade() const;
-    void setArtGrade(double artGrade);
+    void setArtGrade(const double &artGrade);
 
     double physicalEducationGrade() const;
-    void setPhysicalEducationGrade(double physicalEducationGrade);
+    void setPhysicalEducationGrade(const double &physicalEducationGrade);
 
     double mathGrade() const;
-    void setMathGrade(const double mathGrade);
+    void setMathGrade(const double &mathGrade);
 
     double chemistryGrade() const;
-    void setChemistryGrade(double chemistryGrade);
+    void setChemistryGrade(const double &chemistryGrade);
 
     double physicsGrade() const;
-    void setPhysicsGrade(double physicsGrade);
+    void setPhysicsGrade(const double &physicsGrade);
 
     double biologyGrade() const;
-    void setBiologyGrade(double biologyGrade);
+    void setBiologyGrade(const double &biologyGrade);
 
     double storeGrade() const;
-    void setStoreGrade(double storeGrade);
+    void setStoreGrade(const double &storeGrade);
 
     double geographyGrade() const;
-    void setGeographyGrade(double geographyGrade);
+    void setGeographyGrade(const double &geographyGrade);
 
     double sociologyGrade() const;
-    void setSociologyGrade(double sociologyGrade);
+    void setSociologyGrade(const double &sociologyGrade);
 
     double philosophyGrade() const;
-    void setPhilosophyGrade(double philosophyGrade);
+    void setPhilosophyGrade(const double &philosophyGrade);
 
     double englishGrade() const;
-    void setEnglishGrade(double englishGrade);
+    void setEnglishGrade(const double &englishGrade);
 
     double religiousGrade() const;
-    void setReligiousGrade(double religiousGrade);
+    void setReligiousGrade(const double &religiousGrade);
 
     double projectGrade() const;
-    void setProjectGrade(double projectGrade);
+    void setProjectGrade(const double &projectGrade);
 
     double mathProblemSolvingGrade() const;
-    void setMathProblemSolvingGrade(double mathProblemSolvingGrade);
+    void setMathProblemSolvingGrade(const double &mathProblemSolvingGrade);
 
     double textProductionGrade() const;
-    void setTextProductionGrade(double textProductionGrade);
+    void setTextProductionGrade(const double &textProductionGrade);
 
 private:
     double m_portugueseGrade;
     double m_artGrade;
     double m_physicalEducationGrade;
-    double *m_mathGrade;
+    double m_mathGrade;
     double m_chemistryGrade;
     double m_physicsGrade;
     double m_biologyGrade;
