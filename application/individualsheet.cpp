@@ -255,6 +255,16 @@ void IndividualSheet::setTextProductionGrade(double textProductionGrade)
     m_textProductionGrade = textProductionGrade;
 }
 
+double IndividualSheet::historyGrade() const
+{
+    return m_historyGrade;
+}
+
+void IndividualSheet::setHistoryGrade(double historyGrade)
+{
+    m_historyGrade = historyGrade;
+}
+
 QString IndividualSheet::group() const
 {
     return m_group;

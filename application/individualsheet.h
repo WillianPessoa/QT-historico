@@ -96,6 +96,9 @@ public:
     double textProductionGrade() const;
     void setTextProductionGrade(double textProductionGrade);
 
+    double historyGrade() const;
+    void setHistoryGrade(double historyGrade);
+
 private:
     // Personal info
     QString m_name;
@@ -120,6 +123,7 @@ private:
     double m_chemistryGrade;
     double m_englishGrade;
     double m_geographyGrade;
+    double m_historyGrade;
     double m_mathGrade;
     double m_philosophyGrade;
     double m_physicalEducationGrade;

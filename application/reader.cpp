@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QTextStream>
 
-#include <QtXlsx>
+#include "xlsxdocument.h"
 
 Reader::Reader()
 {
@@ -105,8 +105,9 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
             studentSheet.setHistoryGrade(grade.toDouble());
         } else if (subject == "MATEMÁTICA"){
             studentSheet.setMathGrade(grade.toDouble());
-        } elese if (subject == "")
-        else if(subject == "QUÍMICA"){
+        } else if (subject == "") {
+
+        } else if(subject == "QUÍMICA"){
             studentSheet.setChemistryGrade(grade.toDouble());
         }
     }

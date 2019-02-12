@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui xlsx
+QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -41,3 +41,6 @@ FORMS += \
 
 RESOURCES += \
     sample.qrc
+
+# Adding QtXlsx source code to the project
+include(3rdparty/QtXlsxWriter/src/xlsx/qtxlsx.pri)
