@@ -29,14 +29,20 @@ SOURCES += \
     importer.cpp \
     reader.cpp \
     individualsheet.cpp \
-    transcriptmaker.cpp
+    transcriptmaker.cpp \
+    student.cpp \
+    subjectandgrade.cpp \
+    grades.cpp
 
 HEADERS += \
         mainwindow.h \
     importer.h \
     reader.h \
     individualsheet.h \
-    transcriptmaker.h
+    transcriptmaker.h \
+    student.h \
+    subjectandgrade.h \
+    grades.h
 
 FORMS += \
         mainwindow.ui
