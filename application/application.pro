@@ -28,13 +28,15 @@ SOURCES += \
         mainwindow.cpp \
     importer.cpp \
     reader.cpp \
-    individualsheet.cpp
+    individualsheet.cpp \
+    transcriptmaker.cpp
 
 HEADERS += \
         mainwindow.h \
     importer.h \
     reader.h \
-    individualsheet.h
+    individualsheet.h \
+    transcriptmaker.h
 
 FORMS += \
         mainwindow.ui
