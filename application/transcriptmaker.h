@@ -3,7 +3,8 @@
 
 #include <QObject>
 
-class MainWindow;
+#include "mainwindow.h"
+#include "studentmanager.h"
 
 class TranscriptMaker : public QObject
 {
@@ -33,7 +34,8 @@ private:
     void makeConnections();
 
 private:
-    MainWindow *m_mainWindow;
+    MainWindow m_mainWindow;
+    StudentManager m_studentManger;
 };
 
 #endif // TRANSCRIPTMAKER_H

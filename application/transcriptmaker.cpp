@@ -4,14 +4,14 @@
 
 TranscriptMaker::TranscriptMaker(QObject *parent) :
     QObject(parent),
-    m_mainWindow(new MainWindow())
+    m_mainWindow()
 {
 
 }
 
 void TranscriptMaker::startApp()
 {
-    m_mainWindow->show();
+    m_mainWindow.show();
 }
 
 void TranscriptMaker::initUi()

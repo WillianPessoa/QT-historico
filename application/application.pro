@@ -32,7 +32,8 @@ SOURCES += \
     transcriptmaker.cpp \
     student.cpp \
     subjectandgrade.cpp \
-    grades.cpp
+    grades.cpp \
+    studentmanager.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS += \
     transcriptmaker.h \
     student.h \
     subjectandgrade.h \
-    grades.h
+    grades.h \
+    studentmanager.h
 
 FORMS += \
         mainwindow.ui

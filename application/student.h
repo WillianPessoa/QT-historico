@@ -2,6 +2,7 @@
 #define STUDENT_H
 
 #include "grades.h"
+#include "individualsheet.h"
 
 #include <QDate>
 #include <QString>
@@ -10,6 +11,8 @@ class Student
 {
 public:
     Student();
+
+    Student(const IndividualSheet &studentSheet);
 
     Student(const QString &name, const QDate &dateOfBirth, const QString &fatherName,
             const QString &motherName, const QString &naturalness, const QString &IDNumber,

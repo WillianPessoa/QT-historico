@@ -5,6 +5,19 @@ Student::Student()
 
 }
 
+Student::Student(const IndividualSheet &studentSheet) :
+    m_name(studentSheet.name()),
+    m_dateOfBirth(studentSheet.dateOfBirth()),
+    m_fatherName(studentSheet.fatherName()),
+    m_motherName(studentSheet.motherName()),
+    m_naturalness(studentSheet.naturalness()),
+    m_IDNumber(studentSheet.IDNumber()),
+    m_IDIssuingInstitution(studentSheet.IDOrganDispatcher()),
+    m_IDIssueDate(studentSheet.IDDateExpedition())
+{
+    // TODO: Este construtor também deve setar as notas
+}
+
 Student::Student(const QString &name, const QDate &dateOfBirth, const QString &fatherName,
                  const QString &motherName, const QString &naturalness, const QString &IDNumber,
                  const QString &IDissuingInstituation, const QString &IDissueDate) :
