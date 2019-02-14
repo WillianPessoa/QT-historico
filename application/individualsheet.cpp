@@ -65,12 +65,12 @@ void IndividualSheet::setFatherName(const QString &FatherName)
     m_fatherName = FatherName;
 }
 
-QString IndividualSheet::dateOfBirth() const
+QDate IndividualSheet::dateOfBirth() const
 {
     return m_dateOfBirth;
 }
 
-void IndividualSheet::setDateOfBirth(const QString &DateOfBirth)
+void IndividualSheet::setDateOfBirth(const QDate &DateOfBirth)
 {
     m_dateOfBirth = DateOfBirth;
 }

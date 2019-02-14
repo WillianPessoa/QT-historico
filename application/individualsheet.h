@@ -1,6 +1,7 @@
 #ifndef INDIVIDUALSHEET_H
 #define INDIVIDUALSHEET_H
 
+#include <QDate>
 #include <QString>
 
 typedef enum _Sex {
@@ -36,8 +37,8 @@ public:
     QString fatherName() const;
     void setFatherName(const QString &FatherName);
 
-    QString dateOfBirth() const;
-    void setDateOfBirth(const QString &DateOfBirth);
+    QDate dateOfBirth() const;
+    void setDateOfBirth(const QDate &DateOfBirth);
 
     QString naturalness() const;
     void setNaturalness(const QString &Naturalness);
@@ -107,7 +108,7 @@ private:
     QString m_IDOrganDispatcher;
     QString m_motherName;
     QString m_fatherName;
-    QString m_dateOfBirth;
+    QDate m_dateOfBirth;
     QString m_naturalness;
     Sex m_sex;
 
