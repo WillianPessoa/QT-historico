@@ -33,6 +33,12 @@ private:
      */
     void makeConnections();
 
+
+    /**
+     * @brief tests Método de testes improvisado
+     */
+    void tests();
+
 private:
     MainWindow m_mainWindow;
     StudentManager m_studentManger;

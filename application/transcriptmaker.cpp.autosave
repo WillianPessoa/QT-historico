@@ -12,6 +12,7 @@ TranscriptMaker::TranscriptMaker(QObject *parent) :
 
 void TranscriptMaker::startApp()
 {
+    // Para verificar os dados, coloque um breakpoint na linha 
     tests();
     m_mainWindow.show();
 }
