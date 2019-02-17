@@ -15,36 +15,6 @@ void IndividualSheet::setName(const QString &Name)
     m_name = Name;
 }
 
-QString IndividualSheet::IDNumber() const
-{
-    return m_IDNumber;
-}
-
-void IndividualSheet::setIDNumber(const QString &IDNumber)
-{
-    m_IDNumber = IDNumber;
-}
-
-QString IndividualSheet::IDDateExpedition() const
-{
-    return m_IDDateExpedition;
-}
-
-void IndividualSheet::setIDDateExpedition(const QString &IDDateExpedition)
-{
-    m_IDDateExpedition = IDDateExpedition;
-}
-
-QString IndividualSheet::IDOrganDispatcher() const
-{
-    return m_IDOrganDispatcher;
-}
-
-void IndividualSheet::setIDOrganDispatcher(const QString &IDOrganDispatcher)
-{
-    m_IDOrganDispatcher = IDOrganDispatcher;
-}
-
 QString IndividualSheet::motherName() const
 {
     return m_motherName;
@@ -263,6 +233,26 @@ double IndividualSheet::historyGrade() const
 void IndividualSheet::setHistoryGrade(double historyGrade)
 {
     m_historyGrade = historyGrade;
+}
+
+double IndividualSheet::phisicsGrade() const
+{
+    return m_phisicsGrade;
+}
+
+void IndividualSheet::setPhisicsGrade(double phisicsGrade)
+{
+    m_phisicsGrade = phisicsGrade;
+}
+
+double IndividualSheet::mathProblemSolvingGrade() const
+{
+    return m_mathProblemSolvingGrade;
+}
+
+void IndividualSheet::setMathProblemSolvingGrade(double mathProblemSolvingGrade)
+{
+    m_mathProblemSolvingGrade = mathProblemSolvingGrade;
 }
 
 QString IndividualSheet::group() const

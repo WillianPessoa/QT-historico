@@ -1,6 +1,22 @@
 #include "grades.h"
 
 Grades::Grades()
+    :  m_portugueseGrade(-1),
+       m_artGrade(-1),
+       m_physicalEducationGrade(-1),
+       m_mathGrade(-1),
+       m_chemistryGrade(-1),
+       m_physicsGrade(-1),
+       m_biologyGrade(-1),
+       m_historyGrade(-1),
+       m_geographyGrade(-1),
+       m_sociologyGrade(-1),
+       m_philosophyGrade(-1),
+       m_englishGrade(-1),
+       m_religiousGrade(-1),
+       m_projectGrade(-1),
+       m_mathProblemSolvingGrade(-1),
+       m_textProductionGrade(-1)
 {
 
 }
@@ -75,14 +91,14 @@ void Grades::setBiologyGrade(const double &biologyGrade)
     m_biologyGrade = biologyGrade;
 }
 
-double Grades::storeGrade() const
+double Grades::historyGrade() const
 {
-    return m_storeGrade;
+    return m_historyGrade;
 }
 
-void Grades::setStoreGrade(const double &storeGrade)
+void Grades::setHistoryGrade(const double &storeGrade)
 {
-    m_storeGrade = storeGrade;
+    m_historyGrade = storeGrade;
 }
 
 double Grades::geographyGrade() const
@@ -163,4 +179,26 @@ double Grades::textProductionGrade() const
 void Grades::setTextProductionGrade(const double &textProductionGrade)
 {
     m_textProductionGrade = textProductionGrade;
+}
+
+bool Grades::wasInitialized() const
+{
+    bool wasInit = false;
+    if (m_portugueseGrade != -1) wasInit = true;
+    if (m_artGrade != -1) wasInit = true;
+    if (m_physicalEducationGrade != -1) wasInit = true;
+    if (m_mathGrade != -1) wasInit = true;
+    if (m_chemistryGrade != -1) wasInit = true;
+    if (m_physicsGrade != -1) wasInit = true;
+    if (m_biologyGrade != -1) wasInit = true;
+    if (m_historyGrade != -1) wasInit = true;
+    if (m_geographyGrade != -1) wasInit = true;
+    if (m_sociologyGrade != -1) wasInit = true;
+    if (m_philosophyGrade != -1) wasInit = true;
+    if (m_englishGrade != -1) wasInit = true;
+    if (m_religiousGrade != -1) wasInit = true;
+    if (m_projectGrade != -1) wasInit = true;
+    if (m_mathProblemSolvingGrade != -1) wasInit = true;
+    if (m_textProductionGrade != -1) wasInit = true;
+    return wasInit;
 }

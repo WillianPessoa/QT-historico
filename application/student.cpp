@@ -10,12 +10,9 @@ Student::Student(const IndividualSheet &studentSheet) :
     m_dateOfBirth(studentSheet.dateOfBirth()),
     m_fatherName(studentSheet.fatherName()),
     m_motherName(studentSheet.motherName()),
-    m_naturalness(studentSheet.naturalness()),
-    m_IDNumber(studentSheet.IDNumber()),
-    m_IDIssuingInstitution(studentSheet.IDOrganDispatcher()),
-    m_IDIssueDate(studentSheet.IDDateExpedition())
+    m_naturalness(studentSheet.naturalness())
 {
-    // TODO: Este construtor também deve setar as notas
+    insertGrades(studentSheet);
 }
 
 Student::Student(const QString &name, const QDate &dateOfBirth, const QString &fatherName,
@@ -127,3 +124,37 @@ Grades Student::thirdYearGrades() const
 {
     return m_thirdYearGrades;
 }
+
+Grades &Student::getGrades(const QString gradeYear)
+{
+    Grades &grades = m_firstYearGrades;
+    if (gradeYear == "2") {
+        grades = m_secondYearGrades;
+    } else if (gradeYear == "3") {
+        grades = m_secondYearGrades;
+    }
+    return grades;
+}
+
+void Student::insertGrades(const IndividualSheet &studentSheet)
+{
+    Grades &grades = getGrades(studentSheet.grade());
+    grades.setArtGrade(studentSheet.artGrade());
+    grades.setBiologyGrade(studentSheet.biologyGrade());
+    grades.setChemistryGrade(studentSheet.chemistryGrade());
+    grades.setEnglishGrade(studentSheet.englishGrade());
+    grades.setHistoryGrade(studentSheet.historyGrade());
+    grades.setGeographyGrade(studentSheet.geographyGrade());
+    grades.setMathGrade(studentSheet.mathGrade());
+    grades.setMathProblemSolvingGrade(studentSheet.mathProblemSolvingGrade());
+    grades.setPhilosophyGrade(studentSheet.philosophyGrade());
+    grades.setPhysicalEducationGrade(studentSheet.physicalEducationGrade());
+    grades.setPhysicsGrade(studentSheet.phisicsGrade());
+    grades.setPortugueseGrade(studentSheet.portugueseGrade());
+    grades.setProjectGrade(studentSheet.projectGrade());
+    grades.setReligiousGrade(studentSheet.religiousGrade());
+    grades.setSociologyGrade(studentSheet.sociologyGrade());
+    grades.setTextProductionGrade(studentSheet.textProductionGrade());
+}
+
+

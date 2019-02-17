@@ -46,6 +46,11 @@ public:
     Grades secondYearGrades() const;
     Grades thirdYearGrades() const;
 
+    void insertGrades(const IndividualSheet &studentSheet);
+
+private:
+    Grades &getGrades(const QString gradeYear);
+
 private:
     QString m_name;
     QDate m_dateOfBirth;

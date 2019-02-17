@@ -22,15 +22,6 @@ public:
     QString name() const;
     void setName(const QString &Name);
 
-    QString IDNumber() const;
-    void setIDNumber(const QString &IDNumber);
-
-    QString IDDateExpedition() const;
-    void setIDDateExpedition(const QString &IDDateExpedition);
-
-    QString IDOrganDispatcher() const;
-    void setIDOrganDispatcher(const QString &IDOrganDispatcher);
-
     QString motherName() const;
     void setMotherName(const QString &MotherName);
 
@@ -100,12 +91,15 @@ public:
     double historyGrade() const;
     void setHistoryGrade(double historyGrade);
 
+    double phisicsGrade() const;
+    void setPhisicsGrade(double phisicsGrade);
+
+    double mathProblemSolvingGrade() const;
+    void setMathProblemSolvingGrade(double mathProblemSolvingGrade);
+
 private:
     // Personal info
     QString m_name;
-    QString m_IDNumber;
-    QString m_IDDateExpedition;
-    QString m_IDOrganDispatcher;
     QString m_motherName;
     QString m_fatherName;
     QDate m_dateOfBirth;
@@ -126,7 +120,9 @@ private:
     double m_geographyGrade;
     double m_historyGrade;
     double m_mathGrade;
+    double m_mathProblemSolvingGrade;
     double m_philosophyGrade;
+    double m_phisicsGrade;
     double m_physicalEducationGrade;
     double m_portugueseGrade;
     double m_projectGrade;

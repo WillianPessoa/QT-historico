@@ -27,8 +27,8 @@ public:
     double biologyGrade() const;
     void setBiologyGrade(const double &biologyGrade);
 
-    double storeGrade() const;
-    void setStoreGrade(const double &storeGrade);
+    double historyGrade() const;
+    void setHistoryGrade(const double &historyGrade);
 
     double geographyGrade() const;
     void setGeographyGrade(const double &geographyGrade);
@@ -54,6 +54,8 @@ public:
     double textProductionGrade() const;
     void setTextProductionGrade(const double &textProductionGrade);
 
+    bool wasInitialized() const;
+
 private:
     double m_portugueseGrade;
     double m_artGrade;
@@ -62,7 +64,7 @@ private:
     double m_chemistryGrade;
     double m_physicsGrade;
     double m_biologyGrade;
-    double m_storeGrade;
+    double m_historyGrade;
     double m_geographyGrade;
     double m_sociologyGrade;
     double m_philosophyGrade;

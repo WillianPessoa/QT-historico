@@ -12,8 +12,19 @@ StudentManager::StudentManager(QObject *parent) :
 bool StudentManager::insertStudentData(const IndividualSheet &studentSheet)
 {
     if (containsStudent(studentSheet)) {
-        // TODO: Inserção de novos dados
-        //       Retornar falso se forem dados de um ano já inserido anteriormente
+        for (Student &student : m_students) {
+            if (isEqual(student, studentSheet)) {
+                const QString gradeSheet = studentSheet.grade();
+                if ((gradeSheet == "1" && student.firstYearGrades().wasInitialized()) ||
+                    (gradeSheet == "2" && student.secondYearGrades().wasInitialized()) ||
+                    (gradeSheet == "3" && student.thirdYearGrades().wasInitialized())) {
+                    qDebug() << "As notas do ano " << gradeSheet << " do aluno " << student.name() << "já foram adicionadas anteriormente. "
+                             << "Por favor, atualize os dados via interface";
+                    return false;
+                }
+                student.insertGrades(studentSheet);
+            }
+        }
     }
     m_students.append(Student(studentSheet));
     return true;

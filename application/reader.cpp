@@ -66,14 +66,12 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
     // TODO: Realizar a leitura dos outros campos
 
     const QString mothername = xlsx.read("Z16").toString().remove("MÃE:").simplified();
-    qDebug() << "Mãe:" << mothername;
+    qDebug() << "Mãe: " << mothername;
     studentSheet.setMotherName(mothername);  //Pega o nome da mãe
 
     const QString fathername = xlsx.read("L16").toString().remove("PAI:").simplified();
-    qDebug() << "Pai:" << fathername;
+    qDebug() << "Pai: " << fathername;
     studentSheet.setFatherName(fathername);  //Pega o nome do pai
-
-
 
     const QString fullDate = xlsx.read("W13").toString().remove("DATA DE NASCIMENTO : ").simplified().split(" ").first();
     qDebug() << "Data de nascimento:" << fullDate;
@@ -85,6 +83,26 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
     const QString naturalness = xlsx.read("D16").toString().remove("NATURAL:").simplified();
     qDebug() << "Natural:" << naturalness;
     studentSheet.setNaturalness(naturalness);
+
+    const QString sexStr = xlsx.read("AG12").toString().remove("SEXO:").simplified();
+    qDebug() << "Sexo: " << sexStr;
+    studentSheet.setSex(sexStr == "M" ? Feminine : Masculine);
+
+    const QString year = xlsx.read("AD20").toString().remove("ANO:").simplified();
+    qDebug() << "Ano: " << year;
+    studentSheet.setYear(year);
+
+    const QString gradeYear = xlsx.read("R21").toString().remove("SÉRIE:").simplified();
+    qDebug() << "Série: " << gradeYear;
+    studentSheet.setGrade(gradeYear);
+
+    const QString group = xlsx.read("J21").toString().remove("TURMA:").simplified();
+    qDebug() << "Turma: " << group;
+    studentSheet.setGroup(group);
+
+    const QString turnStr = xlsx.read("X21").toString().remove("TURNO:").simplified();
+    qDebug() << "Turno: " << turnStr;
+    studentSheet.setTurn(turnStr == "M" ? Diurnal : Nocturnal);
 
     // Identificar a primeira celula (linha) que contem as notas
     // Verificar cada campo importante da linha, pra identificar qual materia estamos lendo
@@ -107,26 +125,28 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
             studentSheet.setArtGrade(grade);
         } else if (subject == "BIOLOGIA") {
             studentSheet.setBiologyGrade(grade);
-        } else if (subject == "EDUCAÇÃO FÍSICA"){
+        } else if (subject == "EDUCAÇÃO FÍSICA") {
             studentSheet.setPhysicalEducationGrade(grade);
-        } else if (subject == "FILOSOFIA"){
+        } else if (subject == "FILOSOFIA") {
             studentSheet.setPhilosophyGrade(grade);
-        } else if (subject == "GEOGRAFIA"){
+        } else if (subject == "GEOGRAFIA") {
             studentSheet.setGeographyGrade(grade);
         } else if (subject.contains("LINGUA ESTRANGEIRA")) {
             studentSheet.setEnglishGrade(grade);
         } else if (subject == "HISTÓRIA") {
             studentSheet.setHistoryGrade(grade);
-        } else if (subject == "LÍNGUA ESTRANGEIRA - INGLÊS") { // TODO: Verif. agnóstica ao tipo de língua estrangeira
-            studentSheet.setEnglishGrade(grade);
-        } else if (subject == "MATEMÁTICA"){
+        } else if (subject == "MATEMÁTICA") {
             studentSheet.setMathGrade(grade);
         } else if (subject == "LÍNGUA PORTUGUESA/LITERATURA") {
             studentSheet.setPortugueseGrade(grade);
         } else if (subject == "PRODUÇÃO TEXTUAL") {
             studentSheet.setTextProductionGrade(grade);
-        } else if(subject == "QUÍMICA"){
+        } else if (subject == "PROJETO") {
+            studentSheet.setProjectGrade(grade);
+        } else if(subject == "QUÍMICA") {
             studentSheet.setChemistryGrade(grade);
+        } else if (subject == "ENSINO RELIGIOSO/PROJETO") {
+            studentSheet.setReligiousGrade(grade);
         } else if (subject == "SOCIOLOGIA") {
             studentSheet.setChemistryGrade(grade);
         }
