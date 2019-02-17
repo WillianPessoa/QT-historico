@@ -25,10 +25,32 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    importer.cpp \
+    reader.cpp \
+    individualsheet.cpp \
+    transcriptmaker.cpp \
+    student.cpp \
+    subjectandgrade.cpp \
+    grades.cpp \
+    studentmanager.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    importer.h \
+    reader.h \
+    individualsheet.h \
+    transcriptmaker.h \
+    student.h \
+    subjectandgrade.h \
+    grades.h \
+    studentmanager.h
 
 FORMS += \
         mainwindow.ui
+
+RESOURCES += \
+    sample.qrc
+
+# Adding QtXlsx source code to the project
+include(3rdparty/QtXlsxWriter/src/xlsx/qtxlsx.pri)

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>samples/ficha1.xlsx</file>
+        <file>samples/ficha2.xlsx</file>
+        <file>samples/ficha3.xlsx</file>
+    </qresource>
+</RCC>
