@@ -13,4 +13,7 @@ int main(int argc, char *argv[])
     // Realiza a leitura dos arquivos de teste
     QList<IndividualSheet> list = Importer::importStudentsFrom(":/samples");
     return 0;*/
+
+    //Testar classe Exporter
+
 }
