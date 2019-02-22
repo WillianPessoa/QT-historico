@@ -32,7 +32,7 @@ bool StudentManager::insertStudentData(const IndividualSheet &studentSheet)
 
 bool StudentManager::isEqual(const Student &student, const IndividualSheet &studentSheet) const
 {
-    if (student.name() == student.name()) {
+    if (student.name() == studentSheet.name()) {
         if (student.fatherName() == studentSheet.fatherName() && student.motherName() == studentSheet.motherName()) {
             return true;
         }

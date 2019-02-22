@@ -1,6 +1,11 @@
 #include "exporter.h"
 
+#include "studentmanager.h"
+
 #include "xlsxdocument.h"
+
+#include <QDebug>
+#include <QDir>
 
 Exporter::Exporter()
 {
@@ -9,15 +14,17 @@ Exporter::Exporter()
 
 void Exporter::exportHistory(const QList<Student> &students)
 {
-
+    exportHistory(students, QDir::currentPath() + "/historical");
 }
 
 void Exporter::exportHistory(const QList<Student> &students, const QDir &exportHistoryDir)
 {
     for(const Student &student : students){
 
-        //Criar documento do modelo de histórico
+        //Abrir modelo de histórico para escrever dados
         QXlsx::Document historic("modelHistoric.xlsx");
+
+        //Verificar se os dados basicos desse estudante ja foram inseridos no seu histórico
 
         //Gravar dados pessoais
         historic.write("J17", student.name());       //name
@@ -31,6 +38,15 @@ void Exporter::exportHistory(const QList<Student> &students, const QDir &exportH
         //Gravar notas do 1º, 2º e 3º anos
 
         //salvar histórico
-        //historic.saveAs();
+        historic.saveAs(exportHistoryDir.absolutePath());
+    }
+}
+
+bool Exporter::checkDate(const Student &student)
+{
+    if(!(student.firstYearGrades().wasInitialized() ||
+         student.secondYearGrades().wasInitialized() ||
+         student.thirdYearGrades().wasInitialized())){
+        //Escrever mensagem informando que esse estudante esta com os dados imcompletos
     }
 }
