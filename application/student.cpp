@@ -1,5 +1,35 @@
 #include "student.h"
 
+namespace {
+   const QString KEY_NAME = "Nome";
+   const QString KEY_MOTHER = "Mãe";
+   const QString KEY_FATHER = "Pai";
+   const QString KEY_NATURALNESS = "Naturalidade";
+   const QString KEY_ID_NUMBER = "RG";
+   const QString KEY_ID_ISSUING_INSTITUTION = "Órgão Emissor";
+   const QString KEY_ID_ISSUE_DATE = "Data de Emissão";
+
+   const QString KEY_DATE_BIRTH = "Nascimento";
+
+   const QString KEY_PORTUGUESE = "Português";
+   const QString KEY_ART = "Arte";
+   const QString KEY_PHYSICAL_EDUCATION = "Educação Física";
+   const QString KEY_MATH = "Matemática";
+   const QString KEY_CHEMISTRY = "Química";
+   const QString KEY_PHYSICS = "Física";
+   const QString KEY_BIOLOGY = "Biologia";
+   const QString KEY_HISTORY = "História";
+   const QString KEY_GEOGRAPHY = "Geografia";
+   const QString KEY_SOCIOLOGY = "Sociologia";
+   const QString KEY_PHILOSOPHY = "Filosofia";
+   const QString KEY_ENGLISH = "Inglês";
+   const QString KEY_RELIGIOUS = "Religião";
+   const QString KEY_PROJECT = "Projeto de Inglês";
+   const QString KEY_MATH_PROBLEM = "RPM";
+   const QString KEY_TEXT_PRODUCTION = "Produção Textual";
+
+}
+
 Student::Student()
 {
 
@@ -157,4 +187,22 @@ void Student::insertGrades(const IndividualSheet &studentSheet)
     grades.setTextProductionGrade(studentSheet.textProductionGrade());
 }
 
+void Student::writeInJsonObject(QJsonObject &obj) const
+{
+    obj.insert(KEY_NAME, m_name);
+    obj.insert(KEY_FATHER, m_fatherName);
+    obj.insert(KEY_MOTHER, m_motherName);
+    obj.insert(KEY_ID_NUMBER, m_IDNumber);
+    obj.insert(KEY_NATURALNESS, m_naturalness);
+    obj.insert(KEY_ID_ISSUING_INSTITUTION, m_IDIssuingInstitution);
+    obj.insert(KEY_ID_ISSUE_DATE, m_IDIssueDate);
+    obj.insert(KEY_DATE_BIRTH, m_dateOfBirth.toString("dd/MM/yyyy"));
 
+    QJsonObject portugueseObj;
+    portugueseObj.insert("1", m_firstYearGrades.portugueseGrade());
+    portugueseObj.insert("2", m_secondYearGrades.portugueseGrade());
+    portugueseObj.insert("3", m_thirdYearGrades.portugueseGrade());
+    obj.insert(KEY_PORTUGUESE, portugueseObj);
+
+    //TODO: Fazer inclusão das outras notas
+}
