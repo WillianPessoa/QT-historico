@@ -12,8 +12,9 @@ TranscriptMaker::TranscriptMaker(QObject *parent) :
 
 void TranscriptMaker::startApp()
 {
-    tests();
     m_mainWindow.show();
+    tests();
+    m_mainWindow.showStudent(m_studentManger.students().first());
 }
 
 void TranscriptMaker::initUi()

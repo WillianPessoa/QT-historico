@@ -67,6 +67,7 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
 
     const QString mothername = xlsx.read("Z16").toString().remove("MÃE:").simplified();
     qDebug() << "Mãe: " << mothername;
+
     studentSheet.setMotherName(mothername);  //Pega o nome da mãe
 
     const QString fathername = xlsx.read("L16").toString().remove("PAI:").simplified();
