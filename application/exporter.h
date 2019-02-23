@@ -3,6 +3,7 @@
 
 #include "student.h"
 
+#include <QDebug>
 #include <QDir>
 #include <QList>
 
@@ -14,6 +15,8 @@ public:
 
 private:
     Exporter();
+
+    bool checkDate(const Student &student);
 };
 
 #endif // EXPORTER_H
