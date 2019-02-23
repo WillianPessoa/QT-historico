@@ -48,8 +48,9 @@ public:
 
     void insertGrades(const IndividualSheet &studentSheet);
 
-private:
-    Grades &getGrades(const QString gradeYear);
+    Grades &getGradesRef(const QString gradeYear);
+
+    Grades getGrades(const QString &gradeYear) const;
 
 private:
     QString m_name;

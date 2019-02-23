@@ -4,4 +4,7 @@
         <file>samples/ficha2.xlsx</file>
         <file>samples/ficha3.xlsx</file>
     </qresource>
+    <qresource prefix="/transcript">
+        <file>samples/modelHistoric.xlsx</file>
+    </qresource>
 </RCC>

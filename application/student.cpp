@@ -125,7 +125,7 @@ Grades Student::thirdYearGrades() const
     return m_thirdYearGrades;
 }
 
-Grades &Student::getGrades(const QString gradeYear)
+Grades &Student::getGradesRef(const QString gradeYear)
 {
     Grades &grades = m_firstYearGrades;
     if (gradeYear == "2") {
@@ -136,9 +136,20 @@ Grades &Student::getGrades(const QString gradeYear)
     return grades;
 }
 
+Grades Student::getGrades(const QString &gradeYear) const
+{
+    Grades grades = m_firstYearGrades;
+    if (gradeYear == "2") {
+        grades = m_secondYearGrades;
+    } else if (gradeYear == "3") {
+        grades = m_secondYearGrades;
+    }
+    return grades;
+}
+
 void Student::insertGrades(const IndividualSheet &studentSheet)
 {
-    Grades &grades = getGrades(studentSheet.grade());
+    Grades &grades = getGradesRef(studentSheet.grade());
     grades.setArtGrade(studentSheet.artGrade());
     grades.setBiologyGrade(studentSheet.biologyGrade());
     grades.setChemistryGrade(studentSheet.chemistryGrade());
