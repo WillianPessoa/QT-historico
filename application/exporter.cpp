@@ -24,7 +24,8 @@ void Exporter::exportHistory(const QList<Student> &students, const QDir &exportH
         //Abrir modelo de histórico para escrever dados
         QXlsx::Document historic("modelHistoric.xlsx");
 
-        //Verificar se os dados basicos desse estudante ja foram inseridos no seu histórico
+        //Verificar se dados dos alunos estão completos, antes de fazer o histórico
+        //  - dados imcompletos: Fazer histórico e mostrar mensagem de histórico imcompleto
 
         //Gravar dados pessoais
         historic.write("J17", student.name());       //name
@@ -47,6 +48,7 @@ bool Exporter::checkDate(const Student &student)
     if(!(student.firstYearGrades().wasInitialized() ||
          student.secondYearGrades().wasInitialized() ||
          student.thirdYearGrades().wasInitialized())){
-        //Escrever mensagem informando que esse estudante esta com os dados imcompletos
+         return false;
     }
+    return true;
 }
