@@ -15,6 +15,11 @@ void TranscriptMaker::startApp()
     m_mainWindow.show();
     tests();
     m_mainWindow.showStudent(m_studentManger.students().first());
+
+    for(auto student : m_studentManger.students())
+        m_mainWindow.generateTree(student);
+
+    m_mainWindow.gradesDisplay(m_studentManger.students().first());
 }
 
 void TranscriptMaker::initUi()

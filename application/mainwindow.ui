@@ -159,7 +159,7 @@
      </widget>
     </item>
     <item row="0" column="0">
-     <widget class="QTreeWidget" name="treeWidget">
+     <widget class="QTreeWidget" name="studentsTree">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
         <horstretch>0</horstretch>
