@@ -2,6 +2,7 @@
 
 #include "importer.h"
 #include "mainwindow.h"
+#include "exporter.h"
 
 TranscriptMaker::TranscriptMaker(QObject *parent) :
     QObject(parent),
@@ -33,6 +34,7 @@ void TranscriptMaker::tests()
     for (const IndividualSheet &indSheet : studentsSheet) {
         m_studentManger.insertStudentData(indSheet);
     }
+    Exporter::exportHistoric(m_studentManger.students());
 }
 
 
