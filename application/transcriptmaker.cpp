@@ -34,7 +34,7 @@ void TranscriptMaker::tests()
     for (const IndividualSheet &indSheet : studentsSheet) {
         m_studentManger.insertStudentData(indSheet);
     }
-    Exporter::exportHistoric(m_studentManger.students());
+    //Exporter::exportHistoric(m_studentManger.students());
 }
 
 

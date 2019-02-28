@@ -9,6 +9,25 @@ Exporter::Exporter()
 
 }
 
+ QString Exporter::makeModelHistoricStudentAdress(const QString &nameOfStudent, const QDir &historicStudentDir)
+{
+    //Endereço com nome do estudante para salvar
+    const QString adressSaveStudent = historicStudentDir.absolutePath() + "/" + nameOfStudent + ".xlsx";
+
+    //Abrindo documento do tipo xlsx para escrever o modelo de histórico
+    QXlsx::Document historic;
+
+    //TODO: Começar a escrever o código para gerar o modelo de histórico dessa parte para baixo
+    historic.write("A1", nameOfStudent);
+
+
+    //Salvando histórico na pasta especificada pelo usuário com o nome do estudante no arquivo
+    historic.saveAs(adressSaveStudent);
+
+    //Retorna endereço em que o modelo de histórico do aluno esta contido para a escrita de dados
+    return adressSaveStudent;
+}
+
 void Exporter::exportHistoric(const QList<Student> &students, const QDir &exportHistoryDir)
 {
     for(const Student &student : students){

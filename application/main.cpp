@@ -6,12 +6,16 @@
 #include <QFile>
 #include <QDir>
 
+#include <exporter.h>
 #include "student.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    TranscriptMaker tm;
-    tm.startApp();
-    return a.exec();
+//    QApplication a(argc, argv);
+//    TranscriptMaker tm;
+//    tm.startApp();
+//    return a.exec();
+
+    qDebug() << Exporter::makeModelHistoricStudentAdress("Mari", QDir(QDir::homePath())) << endl;
+
 }
