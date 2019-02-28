@@ -18,7 +18,23 @@ Exporter::Exporter()
     QXlsx::Document historic;
 
     //TODO: Começar a escrever o código para gerar o modelo de histórico dessa parte para baixo
-    historic.write("A1", nameOfStudent);
+    historic.write("J5", "GOVERNO DO ESTADO DO RIO DE JANEIRO");
+    historic.write("J6","SECRETARIA DE ESTADO DE EDUCAÇÃO");
+    historic.write("C8","CIEP-BRIZOLÃO 165 -  BRIGADEIRO SERGIO CARVALHO\n\t\t\tEstabelecimento de Ensino");
+    historic.write("C12","Estrada do Lameirão Pequeno, s/nº-Campo Grande/RJ Endereço");
+    historic.write("C14","HISTÓRICO ESCOLAR");
+    historic.write("C15","CURSO: ENSINO MÉDIO");
+    historic.write("C17","NOME DO ALUNO:");
+    historic.write("C19","DATA DE NASCIMENTO:");
+    historic.write("S19","NACIONALIDADE:");
+    historic.write("AI19","NATURALIDADE:");
+    historic.write("C21","FILIAÇÃO:");
+    historic.write("AC21","E");
+    historic.write("C23","IDENTIDADE Nº:");
+    historic.write("S23","ORGÃO EXPEDITOR:");
+    historic.write("AI23","DATA DE EMISSÂO:");
+
+
 
 
     //Salvando histórico na pasta especificada pelo usuário com o nome do estudante no arquivo
