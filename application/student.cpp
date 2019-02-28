@@ -1,4 +1,5 @@
 #include "student.h"
+#include <QStringList>
 
 namespace {
 
@@ -32,6 +33,27 @@ namespace {
 
 Student::Student()
 {
+
+}
+
+Student::Student(QJsonObject aluno)
+{
+    QString strDate = aluno.value(KEY_DATE_BIRTH).toString();
+    QStringList listDate = strDate.split("/");
+
+    listDate.at(0).toInt();
+    m_name = aluno.value(KEY_NAME).toString();
+    m_dateOfBirth.setDate(listDate.at(2).toInt(), listDate.at(1).toInt(), listDate.at(0).toInt());
+    m_fatherName = aluno.value(KEY_MOTHER).toString();
+    m_motherName = aluno.value(KEY_FATHER).toString();
+    m_naturalness = aluno.value(KEY_NATURALNESS).toString();
+    m_IDNumber = aluno.value(KEY_ID_NUMBER).toString();
+    m_IDIssuingInstitution = aluno.value(KEY_ID_ISSUING_INSTITUTION).toString();
+    m_IDIssueDate = aluno.value(KEY_ID_ISSUE_DATE).toString();
+
+//    m_firstYearGrades;
+//    m_secondYearGrades;
+//    m_thirdYearGrades;
 
 }
 

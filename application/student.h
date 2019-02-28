@@ -6,12 +6,15 @@
 
 #include <QDate>
 #include <QJsonObject>
+#include <QList>
 #include <QString>
 
 class Student
 {
 public:
     Student();
+
+    Student(QJsonObject aluno);
 
     Student(const IndividualSheet &studentSheet);
 

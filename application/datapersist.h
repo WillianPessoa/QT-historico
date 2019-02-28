@@ -14,6 +14,8 @@ signals:
 
 public slots:
     static bool saveData(QList<Student> list);
+    static QList<Student> loadData();
+
 private:
     explicit DataPersist(QObject *parent = nullptr);
 
