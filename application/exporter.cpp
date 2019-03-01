@@ -24,15 +24,230 @@ Exporter::Exporter()
     historic.write("C12","Estrada do Lameirão Pequeno, s/nº-Campo Grande/RJ Endereço");
     historic.write("C14","HISTÓRICO ESCOLAR");
     historic.write("C15","CURSO: ENSINO MÉDIO");
-    historic.write("C17","NOME DO ALUNO:");
-    historic.write("C19","DATA DE NASCIMENTO:");
-    historic.write("S19","NACIONALIDADE:");
-    historic.write("AI19","NATURALIDADE:");
-    historic.write("C21","FILIAÇÃO:");
+    historic.write("C17","NOME DO ALUNO: ");
+    historic.write("C19","DATA DE NASCIMENTO: ");
+    historic.write("S19","NACIONALIDADE: ");
+    historic.write("AI19","NATURALIDADE: ");
+    historic.write("C21","FILIAÇÃO: ");
     historic.write("AC21","E");
-    historic.write("C23","IDENTIDADE Nº:");
-    historic.write("S23","ORGÃO EXPEDITOR:");
-    historic.write("AI23","DATA DE EMISSÂO:");
+    historic.write("C23","IDENTIDADE Nº: ");
+    historic.write("S23","ORGÃO EXPEDITOR: ");
+    historic.write("AI23","DATA DE EMISSÂO: ");
+    historic.write("C25","DISCIPLINAS");
+
+    //Matérias
+    historic.write("C29","LÍNGUA PORTUGUESA E LITERATURA");
+    historic.write("C30","ARTE");
+    historic.write("C31","ED. FÍSICA");
+    historic.write("C32","MATEMÁTICA");
+    historic.write("C33","QUÍMICA");
+    historic.write("C34","FÍSICA");
+    historic.write("C35","BIOLOGIA");
+    historic.write("C36","HISTÓRIA");
+    historic.write("C37","GEOGRAFIA");
+    historic.write("C38","SOCIOLOGIA");
+    historic.write("C39","FILOSOFIA");
+    historic.write("C40","LINGUA ESTRANGEIRA / INGLÊS");
+    historic.write("C41","ENSINO RELIGIOSO/PROJETO");
+    historic.write("C42","LÍNGUA ESTRANGEIRA/PROJETO");
+    historic.write("C43","RES. PROBL. MATEMÁTICOS");
+    historic.write("C44","PROD. TEXTUAL");
+    historic.write("C49","TOTAL");
+    historic.write("C50","% FREQUÊNCIA ANUAL");
+    historic.write("S50",">75%"); //frequencia anual
+    historic.write("C51","SITUAÇÃO FINAL");
+
+    //*******Primeiro ano*******
+    historic.write("S25","ANO: ");
+    historic.write("W25","2016"); //alterar o 2016 pelo ano da individualsheet
+    historic.write("S27","1º ANO");
+    historic.write("S28","Nota/Conc");
+
+    //carga horaria(deixar os numeros por padrao ou alterar)
+    historic.write("W28","C/H");
+    historic.write("W29","240"); //c.h portugues
+    historic.write("W30",""); //c.h arte
+    historic.write("W31","80"); //c.h ed fisica
+    historic.write("W32","240"); //c.h matematica
+    historic.write("W33","80"); //c.h quimica
+    historic.write("W34","80"); //c.h fisica
+    historic.write("W35","80"); //c.h biologia
+    historic.write("W36","80"); //c.h historia
+    historic.write("W37","80"); //c.h geografia
+    historic.write("W38","40"); //c.h sociologia
+    historic.write("W39","40"); //c.h filosofia
+    historic.write("W40","80"); //c.h ingles
+    historic.write("W41","40"); //c.h ensino religioso
+    historic.write("W42","40"); //c.h lingua estrangeira projeto
+    historic.write("W43",""); //c.h rpm
+    historic.write("W44",""); //c.h produção textual
+    historic.write("W49","1200"); //c.h total
+
+    //inserção das notas (substituir os numeros pelo treco que pega as notas)
+    historic.write("S29","0"); //portugues
+    historic.write("S30","1"); //arte
+    historic.write("S31","2"); //ed fisica
+    historic.write("S32","3"); //matematica
+    historic.write("S33","4"); //quimica
+    historic.write("S34","5"); //fisica
+    historic.write("S35","6"); //biologia
+    historic.write("S36","7"); //historia
+    historic.write("S37","8"); //geografia
+    historic.write("S38","9"); //sociologia
+    historic.write("S39","10"); //filosofia
+    historic.write("S40","11"); //ingles
+    historic.write("S41","12"); //ensino religioso
+    historic.write("S42","13"); //lingua estrangeira projeto
+    historic.write("S43","14"); //rpm
+    historic.write("S44","15"); //produção textual
+    historic.write("S51","APROVADO");
+
+
+    //*******SEGUNDO ANO*******
+    historic.write("AA25","ANO: ");
+    historic.write("AE25","2017"); //alterar o 2016 pelo ano da individualsheet
+    historic.write("AA27","2º ANO/ I");
+    historic.write("AA28","Nota/Conc");
+
+
+    //carga horaria(deixar os numeros por padrao ou alterar)
+    historic.write("AE28","C/H");
+    historic.write("AE29","160"); //c.h portugues
+    historic.write("AE30","80"); //c.h arte
+    historic.write("AE31","80"); //c.h ed fisica
+    historic.write("AE32","160"); //c.h matematica
+    historic.write("AE33","80"); //c.h quimica
+    historic.write("AE34","80"); //c.h fisica
+    historic.write("AE35","80"); //c.h biologia
+    historic.write("AE36","80"); //c.h historia
+    historic.write("AE37","80"); //c.h geografia
+    historic.write("AE38","40"); //c.h sociologia
+    historic.write("AE39","40"); //c.h filosofia
+    historic.write("AE40","80"); //c.h ingles
+    historic.write("AE41","40"); //c.h ensino religioso
+    historic.write("AE42","40"); //c.h lingua estrangeira projeto
+    historic.write("AE43","80"); //c.h rpm
+    historic.write("AE44",""); //c.h produção textual
+    historic.write("AE49","1200"); //c.h total
+
+    //inserção das notas (substituir os numeros pelo treco que pega as notas)
+    historic.write("AA29","0"); //portugues
+    historic.write("AA30","1"); //arte
+    historic.write("AA31","2"); //ed fisica
+    historic.write("AA32","3"); //matematica
+    historic.write("AA33","4"); //quimica
+    historic.write("AA34","5"); //fisica
+    historic.write("AA35","6"); //biologia
+    historic.write("AA36","7"); //historia
+    historic.write("AA37","8"); //geografia
+    historic.write("AA38","9"); //sociologia
+    historic.write("AA39","10"); //filosofia
+    historic.write("AA40","11"); //ingles
+    historic.write("AA41","12"); //ensino religioso
+    historic.write("AA42","13"); //lingua estrangeira projeto
+    historic.write("AA43","14"); //rpm
+    historic.write("AA44","15"); //produção textual
+    historic.write("AA51","APROVADO ");
+
+    //*******TeRcEiRo AnO*******
+    historic.write("AI25","ANO: ");
+    historic.write("AM25","2018"); //alterar o 2016 pelo ano da individualsheet
+    historic.write("AI27","3º ANO");
+    historic.write("AI28","Nota/Conc");
+
+    //carga horaria(deixar os numeros por padrao ou alterar)
+    historic.write("AM28","C/H");
+    historic.write("AM29","160"); //c.h portugues
+    historic.write("AM30",""); //c.h arte
+    historic.write("AM31","80"); //c.h ed fisica
+    historic.write("AM32","160"); //c.h matematica
+    historic.write("AM33","80"); //c.h quimica
+    historic.write("AM34","80"); //c.h fisica
+    historic.write("AM35","80"); //c.h biologia
+    historic.write("AM36","80"); //c.h historia
+    historic.write("AM37","80"); //c.h geografia
+    historic.write("AM38","80"); //c.h sociologia
+    historic.write("AM39","80"); //c.h filosofia
+    historic.write("AM40","80"); //c.h ingles
+    historic.write("AM41","40"); //c.h ensino religioso
+    historic.write("AM42","40"); //c.h lingua estrangeira projeto
+    historic.write("AM43",""); //c.h rpm
+    historic.write("AM44","80"); //c.h produção textual
+    historic.write("AM49","1200"); //c.h total
+
+    //inserção das notas (substituir os numeros pelo treco que pega as notas)
+    historic.write("AI29","0"); //portugues
+    historic.write("AI30","1"); //arte
+    historic.write("AI31","2"); //ed fisica
+    historic.write("AI32","3"); //matematica
+    historic.write("AI33","4"); //quimica
+    historic.write("AI34","5"); //fisica
+    historic.write("AI35","6"); //biologia
+    historic.write("AI36","7"); //historia
+    historic.write("AI37","8"); //geografia
+    historic.write("AI38","9"); //sociologia
+    historic.write("AI39","10"); //filosofia
+    historic.write("AI40","11"); //ingles
+    historic.write("AI41","12"); //ensino religioso
+    historic.write("AI42","13"); //lingua estrangeira projeto
+    historic.write("AI43","14"); //rpm
+    historic.write("AI44","15"); //produção textual
+    historic.write("AI51","APROVADO");
+
+    //CARGA HORARIA TOTAL
+    historic.write("AQ25","CARGA HORÁRIA");
+    historic.write("AQ27","TOTAL");
+    historic.write("AQ29","560"); //c.h portugues
+    historic.write("AQ30","80"); //c.h arte
+    historic.write("AQ31","240"); //c.h ed fisica
+    historic.write("AQ32","560"); //c.h matematica
+    historic.write("AQ33","240"); //c.h quimica
+    historic.write("AQ34","240"); //c.h fisica
+    historic.write("AQ35","240"); //c.h biologia
+    historic.write("AQ36","240"); //c.h historia
+    historic.write("AQ37","240"); //c.h geografia
+    historic.write("AQ38","160"); //c.h sociologia
+    historic.write("AQ39","160"); //c.h filosofia
+    historic.write("AQ40","240"); //c.h ingles
+    historic.write("AQ41","120"); //c.h ensino religioso
+    historic.write("AQ42","120"); //c.h lingua estrangeira projeto
+    historic.write("AQ43","80"); //c.h rpm
+    historic.write("AQ44","80"); //c.h produção textual
+    historic.write("AQ49","3600"); //c.h c.h total
+
+    //PARTE DE BAIXO DO HISTORICO(estabelecimento de ensino)
+    historic.write("C52","Série/Ano");
+    historic.write("F52","ESTABELECIMENTO DE ENSINO");
+    historic.write("AE52","MUNICÍPIO / ESTADO");
+    historic.write("AQ52","ANO");
+    //Primeiro ano
+    historic.write("C53","1ª");
+    historic.write("F53","CIEP 165  BRIGADEIRO SÉRGIO CARVALHO  ");
+    historic.write("AE53","RIO DE JANEIRO/RJ");
+    historic.write("AQ53","2016"); //substituir pelo ano desejado
+    //Segundo ano
+    historic.write("C54","2ª");
+    historic.write("F54","CIEP 165  BRIGADEIRO SÉRGIO CARVALHO  ");
+    historic.write("AE54","RIO DE JANEIRO/RJ");
+    historic.write("AQ54","2017"); //substituir pelo ano desejado
+    //Terceiro ano
+    historic.write("C55","3ª");
+    historic.write("F55","CIEP 165  BRIGADEIRO SÉRGIO CARVALHO  ");
+    historic.write("AE55","RIO DE JANEIRO/RJ");
+    historic.write("AQ55","2018"); //substituir pelo ano desejado
+
+    //FINAL
+    historic.write("C56","OBSERVAÇÕES: ");
+    historic.write("C59","Segue em Anexo  Histórico Escolar Anterior emitido pelo CE Professor Fernando Antonio Raja Gabaglia, de acordo com  Deliberação  CEE nº 363/17 , art. 5º.");
+    historic.write("M64","                           DATA DA EXPEDIÇÃO: ");
+    historic.write("Y64","RJ,   14/01/2019"); //substitur pela data de criação
+    historic.write("D67","_________________________________"); //campo de assinatura do secretario
+    historic.write("D68","SECRETÁRIO ESCOLAR");
+    historic.write("AE67","________________________________"); //campo de assinatura do diretor
+    historic.write("AA68","DIRETOR");
+    //Escrevendo os dados do 1° ano
+
+
 
 
 
