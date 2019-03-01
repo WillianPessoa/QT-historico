@@ -51,10 +51,73 @@ Student::Student(QJsonObject aluno)
     m_IDIssuingInstitution = aluno.value(KEY_ID_ISSUING_INSTITUTION).toString();
     m_IDIssueDate = aluno.value(KEY_ID_ISSUE_DATE).toString();
 
-//    m_firstYearGrades;
-//    m_secondYearGrades;
-//    m_thirdYearGrades;
+    QJsonObject art = aluno.value(KEY_ART).toObject();
+    QJsonObject math = aluno.value(KEY_MATH).toObject();
+    QJsonObject biology = aluno.value(KEY_BIOLOGY).toObject();
+    QJsonObject english = aluno.value(KEY_ENGLISH).toObject();
+    QJsonObject history = aluno.value(KEY_HISTORY).toObject();
+    QJsonObject physics = aluno.value(KEY_PHYSICS).toObject();
+    QJsonObject project = aluno.value(KEY_PROJECT).toObject();
+    QJsonObject chemisty = aluno.value(KEY_CHEMISTRY).toObject();
+    QJsonObject geography = aluno.value(KEY_GEOGRAPHY).toObject();
+    QJsonObject religious = aluno.value(KEY_RELIGIOUS).toObject();
+    QJsonObject sociology = aluno.value(KEY_SOCIOLOGY).toObject();
+    QJsonObject philosofy = aluno.value(KEY_PHILOSOPHY).toObject();
+    QJsonObject portuguese = aluno.value(KEY_PORTUGUESE).toObject();
+    QJsonObject textProduction = aluno.value(KEY_TEXT_PRODUCTION).toObject();
+    QJsonObject physicalEducation = aluno.value(KEY_PHYSICAL_EDUCATION).toObject();
+    QJsonObject mathProblemSolving = aluno.value(KEY_MATH_PROBLEM).toObject();
 
+    m_firstYearGrades.setArtGrade(art.value("1").toDouble());
+    m_firstYearGrades.setMathGrade(math.value("1").toDouble());
+    m_firstYearGrades.setBiologyGrade(biology.value("1").toDouble());
+    m_firstYearGrades.setEnglishGrade(english.value("1").toDouble());
+    m_firstYearGrades.setHistoryGrade(history.value("1").toDouble());
+    m_firstYearGrades.setPhysicsGrade(physics.value("1").toDouble());
+    m_firstYearGrades.setProjectGrade(project.value("1").toDouble());
+    m_firstYearGrades.setChemistryGrade(chemisty.value("1").toDouble());
+    m_firstYearGrades.setGeographyGrade(geography.value("1").toDouble());
+    m_firstYearGrades.setReligiousGrade(religious.value("1").toDouble());
+    m_firstYearGrades.setSociologyGrade(sociology.value("1").toDouble());
+    m_firstYearGrades.setPhilosophyGrade(philosofy.value("1").toDouble());
+    m_firstYearGrades.setPortugueseGrade(portuguese.value("1").toDouble());
+    m_firstYearGrades.setTextProductionGrade(textProduction.value("1").toDouble());
+    m_firstYearGrades.setPhysicalEducationGrade(physicalEducation.value("1").toDouble());
+    m_firstYearGrades.setMathProblemSolvingGrade(mathProblemSolving.value("1").toDouble());
+
+    m_secondYearGrades.setArtGrade(art.value("2").toDouble());
+    m_secondYearGrades.setMathGrade(math.value("2").toDouble());
+    m_secondYearGrades.setBiologyGrade(biology.value("2").toDouble());
+    m_secondYearGrades.setEnglishGrade(english.value("2").toDouble());
+    m_secondYearGrades.setHistoryGrade(history.value("2").toDouble());
+    m_secondYearGrades.setPhysicsGrade(physics.value("2").toDouble());
+    m_secondYearGrades.setProjectGrade(project.value("2").toDouble());
+    m_secondYearGrades.setChemistryGrade(chemisty.value("2").toDouble());
+    m_secondYearGrades.setGeographyGrade(geography.value("2").toDouble());
+    m_secondYearGrades.setReligiousGrade(religious.value("2").toDouble());
+    m_secondYearGrades.setSociologyGrade(sociology.value("2").toDouble());
+    m_secondYearGrades.setPhilosophyGrade(philosofy.value("2").toDouble());
+    m_secondYearGrades.setPortugueseGrade(portuguese.value("2").toDouble());
+    m_secondYearGrades.setTextProductionGrade(textProduction.value("2").toDouble());
+    m_secondYearGrades.setPhysicalEducationGrade(physicalEducation.value("2").toDouble());
+    m_secondYearGrades.setMathProblemSolvingGrade(mathProblemSolving.value("2").toDouble());
+
+    m_thirdYearGrades.setArtGrade(art.value("3").toDouble());
+    m_thirdYearGrades.setMathGrade(math.value("3").toDouble());
+    m_thirdYearGrades.setBiologyGrade(biology.value("3").toDouble());
+    m_thirdYearGrades.setEnglishGrade(english.value("3").toDouble());
+    m_thirdYearGrades.setHistoryGrade(history.value("3").toDouble());
+    m_thirdYearGrades.setPhysicsGrade(physics.value("3").toDouble());
+    m_thirdYearGrades.setProjectGrade(project.value("3").toDouble());
+    m_thirdYearGrades.setChemistryGrade(chemisty.value("3").toDouble());
+    m_thirdYearGrades.setGeographyGrade(geography.value("3").toDouble());
+    m_thirdYearGrades.setReligiousGrade(religious.value("3").toDouble());
+    m_thirdYearGrades.setSociologyGrade(sociology.value("3").toDouble());
+    m_thirdYearGrades.setPhilosophyGrade(philosofy.value("3").toDouble());
+    m_thirdYearGrades.setPortugueseGrade(portuguese.value("3").toDouble());
+    m_thirdYearGrades.setTextProductionGrade(textProduction.value("3").toDouble());
+    m_thirdYearGrades.setPhysicalEducationGrade(physicalEducation.value("3").toDouble());
+    m_thirdYearGrades.setMathProblemSolvingGrade(mathProblemSolving.value("3").toDouble());
 }
 
 Student::Student(const IndividualSheet &studentSheet) :
