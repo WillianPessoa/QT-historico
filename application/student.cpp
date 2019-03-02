@@ -39,11 +39,9 @@ Student::Student()
 Student::Student(QJsonObject aluno)
 {
     QString strDate = aluno.value(KEY_DATE_BIRTH).toString();
-    QStringList listDate = strDate.split("/");
 
-    listDate.at(0).toInt();
     m_name = aluno.value(KEY_NAME).toString();
-    m_dateOfBirth.setDate(listDate.at(2).toInt(), listDate.at(1).toInt(), listDate.at(0).toInt());
+    m_dateOfBirth = QDate::fromString(strDate, "dd/MM/yyyy");
     m_fatherName = aluno.value(KEY_MOTHER).toString();
     m_motherName = aluno.value(KEY_FATHER).toString();
     m_naturalness = aluno.value(KEY_NATURALNESS).toString();
