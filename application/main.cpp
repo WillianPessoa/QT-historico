@@ -16,6 +16,8 @@ int main(int argc, char *argv[])
 //    tm.startApp();
 //    return a.exec();
 
-    qDebug() << Exporter::makeModelHistoricStudentAdress("Mari", QDir(QDir::homePath())) << endl;
+    qDebug() << "Salvo no Endereço: "
+             << Exporter::makeModelHistoricStudentAdress("Modelo de Histórico", QDir(QDir::homePath()))
+             << endl;
 
 }

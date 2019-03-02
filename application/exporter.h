@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QList>
+#include <QImage>
 
 #include "xlsxdocument.h"
 
