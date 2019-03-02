@@ -41,7 +41,7 @@ private:
 
 private:
     MainWindow m_mainWindow;
-    StudentManager m_studentManger;
+    StudentManager m_studentManager;
 };
 
 #endif // TRANSCRIPTMAKER_H

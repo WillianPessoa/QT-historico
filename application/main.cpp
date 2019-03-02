@@ -11,13 +11,8 @@
 
 int main(int argc, char *argv[])
 {
-//    QApplication a(argc, argv);
-//    TranscriptMaker tm;
-//    tm.startApp();
-//    return a.exec();
-
-    qDebug() << "Salvo no Endereço: "
-             << Exporter::makeModelHistoricStudentAdress("Modelo de Histórico", QDir(QDir::homePath()))
-             << endl;
-
+    QApplication a(argc, argv);
+    TranscriptMaker tm;
+    tm.startApp();
+    return a.exec();
 }

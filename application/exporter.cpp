@@ -9,11 +9,12 @@ Exporter::Exporter()
  QString Exporter::makeModelHistoricStudentAdress(const QString &nameOfStudent, const QDir &historicStudentDir)
 {
     //Endereço com nome do estudante para salvar
-    const QString adressSaveStudent = historicStudentDir.absolutePath() + "/" + nameOfStudent + ".xlsx";
+    const QString adressSaveModelHistoricStudent = historicStudentDir.absolutePath() + "/" + nameOfStudent + ".xlsx";
 
     //Abrindo documento do tipo xlsx para escrever o modelo de histórico
     QXlsx::Document historic;
 
+    //****definindo variaveis de formatação das células
     //Coloca em negrito e no centro
     QXlsx::Format formatBoldAlignHCenter;
     formatBoldAlignHCenter.setFontBold(true);
@@ -377,10 +378,10 @@ Exporter::Exporter()
     historic.write("H60","DIRETOR", formatAlignHCenter);
 
     //Salvando histórico na pasta especificada pelo usuário com o nome do estudante no arquivo
-    historic.saveAs(adressSaveStudent);
+    historic.saveAs(adressSaveModelHistoricStudent);
 
     //Retorna endereço em que o modelo de histórico do aluno esta contido para a escrita de dados
-    return adressSaveStudent;
+    return adressSaveModelHistoricStudent;
 }
 
 void Exporter::exportHistoric(const QList<Student> &students, const QDir &exportHistoryDir)
@@ -389,118 +390,115 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
 
         qDebug() << "Montando histórico do aluno(a) " << student.name() << endl;
 
-        //Armazena o endereço no sistema do modelo de histórico do modelo do aluno
-        const QString addressModelHistoricStudent = exportHistoryDir.absolutePath() + "/" + student.name() + ".xlsx";
-
-        //Copia modelo de histórico para a pasta indicada pelo usuário com nome do aluno
-        QFile::copy(":/transcript/modelHistoric.xlsx", addressModelHistoricStudent);
+        //Variavel com endereço do modelo de histórico do aluno no sistema
+        const QString addressModelHistoricStudent = makeModelHistoricStudentAdress(student.name(), exportHistoryDir.absolutePath());
 
         //Abrir cópia do histórico no diretório especificado pelo usuário
         QXlsx::Document historic(addressModelHistoricStudent);
 
         //Adicionar dados pessoais
-        qDebug() << "Gravando dados pessoais ..." << endl;
+        qDebug() << "Gravando dados pessoais ...\n" << endl;
 
         const QString name = student.name();
-        historic.write("J17", name);                                  //name
+        historic.write("C13", name);                                  //name
         qDebug() << "Nome: " << name << endl;
 
         const QString dateOfBirth = student.dateOfBirth().toString("dd/MM/yyyy");
-        historic.write("L19", dateOfBirth);    //data de nascimento
+        historic.write("C14", dateOfBirth);    //data de nascimento
         qDebug() << "Data de Nascimento: " << dateOfBirth << endl;
 
         const QString fatherName = student.fatherName();
-        historic.write("G21", fatherName);                            //pai
+        historic.write("B15", fatherName);                            //pai
         qDebug() << "Nome do pai: " << fatherName << endl;
 
         const QString motherName = student.motherName();
-        historic.write("AD21", motherName);                           //mae
+        historic.write("I15", motherName);                           //mae
         qDebug() << "Nome da Mãe: " << motherName << endl;
 
         const QString IDNumber = student.IDNumber();
-        historic.write("I23", IDNumber);                              //rg
+        historic.write("C16", IDNumber);                              //rg
         qDebug() << "Número da Identidade: " << IDNumber << endl;
 
         const QString IDIssuingInstitution = student.IDIssuingInstitution();
-        historic.write("AA23", student.IDIssuingInstitution());                 //orgão expeditor
+        historic.write("H16", student.IDIssuingInstitution());                 //orgão expeditor
         qDebug() << "Orgão de Expedição: " << IDIssuingInstitution << endl;
 
         const QString IDIssueDate = student.IDIssueDate();
-        historic.write("AP23", IDIssueDate);                          //data de emissao
+        historic.write("L16", IDIssueDate);                          //data de emissao
         qDebug() << "Data de Emissão: " << IDIssueDate << endl;
 
         //Adicionar notas
-        const QString subjectLetter = "C";
-        const QStringList gradesLetters = {"S", "AA", "AI"};
-        const QStringList hourLetters = {"W", "AE", "AM"};
+        const QString subjectLetter = "A";
+        const QStringList gradesLetters = {"E", "G", "I"};
+        const QStringList hourLetters = {"F", "H", "J"};
 
         bool dataComplete = true;
 
-        for(int grade = 1; grade <= 3; grade++){
+        for(int numberGradeYear = 1; numberGradeYear <= 3; numberGradeYear++){
 
-            Grades gradesCurrent = student.getGrades(QString::number(grade));
+            Grades gradeYearCurrent = student.getGrades(QString::number(numberGradeYear));
 
-            if(!gradesCurrent.wasInitialized()){
-                dataComplete = false;
-                continue;
-            }
+            qDebug() << "GRADE ATUAL: " << numberGradeYear << endl;
 
-            qDebug() << "Adicionando notas do " << grade << "º ano ...\n" << endl;
-            for(int line = 29; line < 45; line++){
+            qDebug() << "Adicionando notas do " << numberGradeYear << "º ano ...\n" << endl;
+            for(int line = 21; line <= 36; line++){
 
                 double gradeTemp = 0;
-                QString lineString = QString::number(line);
+                QString numberLineStr = QString::number(line);
 
                 //Estrutura de decisões para achar a nota da matéria
-                QString subjectCell = historic.read(subjectLetter + lineString).toString();
+                QString subjectInCell = historic.read(subjectLetter + numberLineStr).toString();
 
-                qDebug() << "Cúlula da Materia: " << subjectLetter + lineString << endl;
-                qDebug() << "Matéria lida do histórico: " << subjectCell << endl;
-
-                if(subjectCell == "LÍNGUA PORTUGUESA E LITERATURA"){
-                    gradeTemp = gradesCurrent.portugueseGrade();
-                }else if(subjectCell == "ARTE"){
-                    gradeTemp = gradesCurrent.artGrade();
-                }else if(subjectCell == "ED. FÍSICA"){
-                    gradeTemp = gradesCurrent.physicalEducationGrade();
-                }else if(subjectCell == "MATEMÁTICA"){
-                    gradeTemp = gradesCurrent.mathGrade();
-                }else if(subjectCell == "QUÍMICA"){
-                    gradeTemp = gradesCurrent.chemistryGrade();
-                }else if(subjectCell == "FÍSICA"){
-                    gradeTemp = gradesCurrent.physicsGrade();
-                }else if(subjectCell == "BIOLOGIA"){
-                    gradeTemp = gradesCurrent.biologyGrade();
-                }else if(subjectCell == "HISTÓRIA"){
-                    gradeTemp = gradesCurrent.historyGrade();
-                }else if(subjectCell == "GEOGRAFIA"){
-                    gradeTemp = gradesCurrent.geographyGrade();
-                }else if(subjectCell == "SOCIOLOGIA"){
-                    gradeTemp = gradesCurrent.sociologyGrade();
-                }else if(subjectCell == "FILOSOFIA"){
-                    gradeTemp = gradesCurrent.philosophyGrade();
-                }else if(subjectCell == "LINGUA ESTRANGEIRA / INGLÊS"){
-                    gradeTemp = gradesCurrent.englishGrade();
-                }else if(subjectCell == "ENSINO RELIGIOSO/PROJETO"){
-                    gradeTemp = gradesCurrent.religiousGrade();
-                }else if(subjectCell == "LÍNGUA ESTRANGEIRA/PROJETO"){
-                    gradeTemp = gradesCurrent.projectGrade();
-                }else if(subjectCell == "RES. PROBL. MATEMÁTICOS"){
-                    gradeTemp = gradesCurrent.mathProblemSolvingGrade();
-                }else if(subjectCell == "PROD. TEXTUAL"){
-                    gradeTemp = gradesCurrent.textProductionGrade();
+                if(subjectInCell == "LÍNGUA PORTUGUESA E LITERATURA"){
+                    gradeTemp = gradeYearCurrent.portugueseGrade();
+                }else if(subjectInCell == "ARTE"){
+                    gradeTemp = gradeYearCurrent.artGrade();
+                }else if(subjectInCell == "ED. FÍSICA"){
+                    gradeTemp = gradeYearCurrent.physicalEducationGrade();
+                }else if(subjectInCell == "MATEMÁTICA"){
+                    gradeTemp = gradeYearCurrent.mathGrade();
+                }else if(subjectInCell == "QUÍMICA"){
+                    gradeTemp = gradeYearCurrent.chemistryGrade();
+                }else if(subjectInCell == "FÍSICA"){
+                    gradeTemp = gradeYearCurrent.physicsGrade();
+                }else if(subjectInCell == "BIOLOGIA"){
+                    gradeTemp = gradeYearCurrent.biologyGrade();
+                }else if(subjectInCell == "HISTÓRIA"){
+                    gradeTemp = gradeYearCurrent.historyGrade();
+                }else if(subjectInCell == "GEOGRAFIA"){
+                    gradeTemp = gradeYearCurrent.geographyGrade();
+                }else if(subjectInCell == "SOCIOLOGIA"){
+                    gradeTemp = gradeYearCurrent.sociologyGrade();
+                }else if(subjectInCell == "FILOSOFIA"){
+                    gradeTemp = gradeYearCurrent.philosophyGrade();
+                }else if(subjectInCell == "LINGUA ESTRANGEIRA / INGLÊS"){
+                    gradeTemp = gradeYearCurrent.englishGrade();
+                }else if(subjectInCell == "ENSINO RELIGIOSO/PROJETO"){
+                    gradeTemp = gradeYearCurrent.religiousGrade();
+                }else if(subjectInCell == "LÍNGUA ESTRANGEIRA/PROJETO"){
+                    gradeTemp = gradeYearCurrent.projectGrade();
+                }else if(subjectInCell == "RES. PROBL. MATEMÁTICOS"){
+                    gradeTemp = gradeYearCurrent.mathProblemSolvingGrade();
+                }else if(subjectInCell == "PROD. TEXTUAL"){
+                    gradeTemp = gradeYearCurrent.textProductionGrade();
                 }
 
+                qDebug() << "Materia: " << subjectInCell << " | "
+                         << "Nota: " << gradeTemp << endl;
+
                 //Escrever nota
-                int workLoad = historic.read(hourLetters.at(grade - 1) + lineString).toInt();
+                int workLoad = historic.read(hourLetters.at(numberGradeYear - 1) + numberLineStr).toInt();
+                QString positionGradeCurrentInHistoric = gradesLetters.at(numberGradeYear - 1) + numberLineStr;
                 if(gradeTemp < 0 && workLoad == 0){
-                    qDebug() << "Nota de " << subjectCell
+                    qDebug() << "Nota de " << subjectInCell
                              << " ou/e sua carga horaria é invalida." << endl;
+                    dataComplete = false;
                 }else if(gradeTemp < 0 && workLoad != 0){
-                    historic.write(gradesLetters.at(grade - 1) + lineString, "*");
+                    historic.write(positionGradeCurrentInHistoric, "*");
                 }else{
-                    historic.write(gradesLetters.at(grade - 1) + lineString, gradeTemp);
-                    qDebug() << "Materia: " << subjectCell << " | " << "Nota: " << gradeTemp << endl;
+                    historic.write(positionGradeCurrentInHistoric, gradeTemp);
+                    qDebug() << "Materia: " << subjectInCell << " | "
+                             << "Nota: " << gradeTemp << endl;
                 }
             }
         }
@@ -511,12 +509,13 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
 
         //salvar histórico
         qDebug() << "HISTÓRICO PRONTO!\n" << endl;
-        qDebug() << "Salvo no endereço: " << addressModelHistoricStudent << endl;
         historic.saveAs(addressModelHistoricStudent);
+        qDebug() << "Salvo no endereço: " << addressModelHistoricStudent << endl;
     }
 }
 
 void Exporter::exportHistoric(const QList<Student> &students)
 {
-    exportHistoric(students, QDir("../historical"));
+    exportHistoric(students, QDir(QDir::homePath()));   //Exporta para a pasta home do usuário
+    //exportHistoric(students, QDir("../historical"));  //ERRO: Não exporta para pasta de históricos do programa
 }

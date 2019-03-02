@@ -131,7 +131,7 @@ Grades &Student::getGradesRef(const QString gradeYear)
     if (gradeYear == "2") {
         grades = m_secondYearGrades;
     } else if (gradeYear == "3") {
-        grades = m_secondYearGrades;
+        grades = m_thirdYearGrades;
     }
     return grades;
 }
@@ -142,7 +142,7 @@ Grades Student::getGrades(const QString &gradeYear) const
     if (gradeYear == "2") {
         grades = m_secondYearGrades;
     } else if (gradeYear == "3") {
-        grades = m_secondYearGrades;
+        grades = m_thirdYearGrades;
     }
     return grades;
 }

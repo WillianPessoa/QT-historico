@@ -32,9 +32,9 @@ void TranscriptMaker::tests()
     QList<IndividualSheet> studentsSheet = Importer::importStudentsFrom(":/samples");
 
     for (const IndividualSheet &indSheet : studentsSheet) {
-        m_studentManger.insertStudentData(indSheet);
+        m_studentManager.insertStudentData(indSheet);
     }
-    //Exporter::exportHistoric(m_studentManger.students());
+    Exporter::exportHistoric(m_studentManager.students());
 }
 
 
