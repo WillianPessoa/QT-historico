@@ -53,34 +53,37 @@ Exporter::Exporter()
     QXlsx::Format formatBoldAlignTopLeft(formatAlignTopLeft);
     formatBoldAlignTopLeft.setFontBold(true);
 
-    //Mesclando celulas do cabeçalho
-    historic.mergeCells("C2:H2");       //texto do governo
-    historic.mergeCells("C3:H3");       //texto da secretaria
-    historic.mergeCells("A6:F6");       //nome da escola
-    historic.mergeCells("A7:F7");       //endereço da escola
-    historic.mergeCells("A9:F9");       //escrito endereço
-    historic.mergeCells("A10:F10");     //tipo de estabelecimento
-    historic.mergeCells("A11:M11");     //titulo do histórico
-    historic.mergeCells("B12:C12");     //Tipo de curso
+    //Lista com posições da parte inicial do histórico para mesclar
+    QStringList positionsRangeCellsMerge = {"C2:H2",     //texto do governo
+                                           "C3:H3",     //texto da secretaria
+                                           "A6:F6",     //nome da escola
+                                           "A7:F7",     //endereço da escola
+                                           "A9:F9",     //escrito endereço
+                                           "A10:F10",   //tipo de estabelecimento
+                                           "A11:M11",   //titulo do histórico
+                                           "B12:C12",   //Tipo de Curso
+                                           "A13:B13",   //Nome do aluno
+                                           "A14:B14",   //Data de Nascimento --> Pesquisar como aumentar tamanho de celula
+                                           "E14:F14",   //nacionalidade
+                                           "J14:K14",   //naturalidade
+                                           "A16:B16",   //identidade
+                                           "F16:G16",   //orgão expedidor
+                                           "J16:K16",   //data da emissão
+                                           "A17:D20",   //disciplinas
+                                           "E17:F18",   //Ano do 1º ano
+                                           "G17:H18",   //Ano do 2º ano
+                                           "I17:J18",   //Ano do 3º ano
+                                           "K17:M18",   //Carga Horária
+                                           "E19:F19",   //1º Ano
+                                           "G19:H19",   //2º Ano
+                                           "I19:J19",   //3º Ano
+                                           "K19:M19",   //Total
+                                           "K20:M20"};  //Total
 
-    //*******Mesclando células que tem textos fixos no modelo de histórico*******
-    historic.mergeCells("A13:B13");     //Nome do aluno
-    historic.mergeCells("A14:B14");     //Data de Nascimento --> Pesquisar como aumentar tamanho de celula
-    historic.mergeCells("E14:F14");     //nacionalidade
-    historic.mergeCells("J14:K14");     //naturalidade
-    historic.mergeCells("A16:B16");     //identidade
-    historic.mergeCells("F16:G16");     //orgão expedidor
-    historic.mergeCells("J16:K16");     //data da emissão
-    historic.mergeCells("A17:D20");     //disciplinas
-    historic.mergeCells("E17:F18");     //Ano do 1º ano
-    historic.mergeCells("G17:H18");     //Ano do 2º ano
-    historic.mergeCells("I17:J18");     //Ano do 3º ano
-    historic.mergeCells("K17:M18");     //Carga Horária
-    historic.mergeCells("E19:F19");     //1º Ano
-    historic.mergeCells("G19:H19");     //2º Ano
-    historic.mergeCells("I19:J19");     //3º Ano
-    historic.mergeCells("K19:M19");     //Total
-    historic.mergeCells("K20:M20");     //Total
+    //Mesclando conjunto de células especificadas em cada posição da lista acima, com for
+    for(int i = 0; i < positionsRangeCellsMerge.size(); i++){
+        historic.mergeCells(positionsRangeCellsMerge.at(i));
+    }
 
     //Mesclando Células para adicionar nomes fixos de matérias e cargas horárias
     for(int row = 21; row <= 43; row++){
@@ -92,9 +95,10 @@ Exporter::Exporter()
     }
 
     //Mesclando células para adionar aprovado em cada um dos três anos
-    historic.mergeCells("E43:F43");     //Aprovado 1º Ano
-    historic.mergeCells("G43:H43");     //Aprovado 2º Ano
-    historic.mergeCells("I43:J43");     //Aprovado 3º Ano
+    QStringList positionsRangeCells = {"E43:F43", "G43:H43", "I43:J43"};
+    for(int i = 0; i < positionsRangeCells.size(); i++){
+        historic.mergeCells(positionsRangeCells.at(i));
+    }
 
     //Mesclando células com nomes da escola, do estado e os anos de ensino
     for(int row = 44; row <= 47; row++){
@@ -108,31 +112,31 @@ Exporter::Exporter()
         historic.mergeCells(rangeCellsYears);
     }
 
-    historic.mergeCells("A48:M50");     //observações
-    historic.mergeCells("A51:M54");     //escola anterior e outras informações
-    historic.mergeCells("A55:M56");     //data de expedição
-    historic.mergeCells("A57:M58");
-    historic.mergeCells("B59:E59");     //Linha de Assinatura da Secretária
-    historic.mergeCells("H59:K59");     //Linha de Assinatura do diretor
-    historic.mergeCells("B60:E60");     //Assinatura da Secretária
-    historic.mergeCells("H60:K60");     //Assinatura do diretor
-    historic.mergeCells("A61:M63");
+    QStringList rangeCellsUndeground = {"A48:M50",     //observações
+                                        "A51:M54",     //escola anterior e outras informações
+                                        "A55:M56",     //data de expedição
+                                        "A57:M58",     //em branco
+                                        "B59:E59",     //Linha de Assinatura da Secretária
+                                        "H59:K59",     //Linha de Assinatura do diretor
+                                        "B60:E60",     //Assinatura da Secretária
+                                        "H60:K60",     //Assinatura do diretor
+                                        "A61:M63",     //em branco
+                                        "A59:A60",     //em branco
+                                        "F59:G60",     //em branco
+                                        "L59:M60",     //em branco
+                                        "C13:M13",     //exportar nome do aluno
+                                        "C14:D14",     //exportar data de nascimento
+                                        "G14:I14",     //exportar nacionalidade
+                                        "L14:M14",     //exportar naturalidade
+                                        "B15:G15",     //exportar nome do pai
+                                        "I15:M15",     //exportar nome da mãe
+                                        "C16:E16",     //exportar identidade
+                                        "H16:I16",     //exportar orgão expedidor
+                                        "L16:M16"};     //exportar data da emissão
 
-    //Espaços em branco
-    historic.mergeCells("A59:A60");
-    historic.mergeCells("F59:G60");
-    historic.mergeCells("L59:M60");
-
-    //Mesclando células para exportar dados
-    historic.mergeCells("C13:M13");     //nome do aluno
-    historic.mergeCells("C14:D14");     //data de nascimento
-    historic.mergeCells("G14:I14");     //nacionalidade
-    historic.mergeCells("L14:M14");     //naturalidade
-    historic.mergeCells("B15:G15");     //nome do pai
-    historic.mergeCells("I15:M15");     //nome da mãe
-    historic.mergeCells("C16:E16");     //identidade
-    historic.mergeCells("H16:I16");     //orgão expedidor
-    historic.mergeCells("L16:M16");     //data da emissão
+    for(int i = 0; i < rangeCellsUndeground.size(); i++){
+        historic.mergeCells(rangeCellsUndeground.at(i));
+    }
 
     //Escrevendos dados fixos do histórico
     historic.write("C2", "GOVERNO DO ESTADO DO RIO DE JANEIRO", formatBoldAlignHCenter);

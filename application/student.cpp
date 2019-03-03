@@ -1,4 +1,5 @@
 #include "student.h"
+#include <QDebug>
 
 Student::Student()
 {
@@ -139,6 +140,7 @@ Grades &Student::getGradesRef(const QString gradeYear)
 Grades Student::getGrades(const QString &gradeYear) const
 {
     Grades grades = m_firstYearGrades;
+    qDebug() << "ATENÇÃO: " << gradeYear + "== 2" << endl;
     if (gradeYear == "2") {
         grades = m_secondYearGrades;
     } else if (gradeYear == "3") {
