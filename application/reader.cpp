@@ -67,6 +67,7 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
 
     const QString mothername = xlsx.read("Z16").toString().remove("MÃE:").simplified();
     qDebug() << "Mãe: " << mothername;
+
     studentSheet.setMotherName(mothername);  //Pega o nome da mãe
 
     const QString fathername = xlsx.read("L16").toString().remove("PAI:").simplified();
@@ -131,7 +132,7 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
             studentSheet.setPhilosophyGrade(grade);
         } else if (subject == "GEOGRAFIA") {
             studentSheet.setGeographyGrade(grade);
-        } else if (subject.contains("LINGUA ESTRANGEIRA")) {
+        } else if (subject.contains("LÍNGUA ESTRANGEIRA")) {
             studentSheet.setEnglishGrade(grade);
         } else if (subject == "HISTÓRIA") {
             studentSheet.setHistoryGrade(grade);
@@ -147,8 +148,10 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
             studentSheet.setChemistryGrade(grade);
         } else if (subject == "ENSINO RELIGIOSO/PROJETO") {
             studentSheet.setReligiousGrade(grade);
+        } else if (subject == "FÍSICA") {
+            studentSheet.setPhisicsGrade(grade);
         } else if (subject == "SOCIOLOGIA") {
-            studentSheet.setChemistryGrade(grade);
+            studentSheet.setSociologyGrade(grade);
         }
 
         // Retornando para um valor default

@@ -20,6 +20,8 @@ public:
 signals:
 
 public slots:
+    void populateTree();
+    void displayStudent(QTreeWidgetItem *item, int column);
 
 private:
 
