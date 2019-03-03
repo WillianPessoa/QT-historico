@@ -139,247 +139,331 @@ Exporter::Exporter()
     }
 
     //Escrevendos dados fixos do histórico
-    historic.write("C2", "GOVERNO DO ESTADO DO RIO DE JANEIRO", formatBoldAlignHCenter);
-    historic.write("C3", "SECRETARIA DE ESTADO DE EDUCAÇÃO", formatBoldAlignHCenter);
-    historic.write("A6","CIEP-BRIZOLÃO 165 - BRIGADEIRO SERGIO CARVALHO", formatBoldAlignHCenterUnderline);
-    historic.write("A7", "Estabelecimento de Ensino", formatAlignHCenter);
-    historic.write("A9","Estrada do Lameirão Pequeno, s/nº-Campo Grande/RJ", formatBoldAlignHCenterUnderline);
-    historic.write("A10","Endereço", formatAlignHCenter);
-    historic.write("A11","HISTÓRICO ESCOLAR", formatBoldAlignHCenter);
-    historic.write("A12", "CURSO: ", formatBold);
-    historic.write("B12","ENSINO MÉDIO", formatBoldUnderline);
-    historic.write("A13","NOME DO ALUNO:");
-    historic.write("A14", "DATA DE NASCIMENTO:");
-    historic.write("E14","NACIONALIDADE:");
-    historic.write("J14","NATURALIDADE:");
-    historic.write("A15","FILIAÇÃO:");
-    historic.write("H15","E", formatAlignHCenter);
-    historic.write("A16","IDENTIDADE Nº:");
-    historic.write("F16","ORGÃO EXPEDITOR:");
-    historic.write("J16","DATA DE EMISSÂO:");
-    historic.write("A17","DISCIPLINAS", formatBoldAlignHVCenter);
+    QStringList dataCells = {"C2","C3","A6","A7","A9","A10",
+                             "A11","A12","B12","A13","A14","E14",
+                             "J14","A15","H15","A16","F16","J16","A17"};
+    QStringList dataText = {"GOVERNO DO ESTADO DO RIO DE JANEIRO",
+                            "SECRETARIA DE ESTADO DE EDUCAÇÃO",
+                            "CIEP-BRIZOLÃO 165 - BRIGADEIRO SERGIO CARVALHO",
+                            "Estabelecimento de Ensino",
+                            "Estrada do Lameirão Pequeno, s/nº-Campo Grande/RJ",
+                            "Endereço",
+                            "HISTÓRICO ESCOLAR",
+                            "CURSO: ",
+                            "ENSINO MÉDIO",
+                            "NOME DO ALUNO:"
+                            "DATA DE NASCIMENTO:"
+                            "NACIONALIDADE:",
+                            "NATURALIDADE:",
+                            "FILIAÇÃO:",
+                            "E",
+                            "IDENTIDADE Nº:",
+                            "ORGÃO EXPEDITOR:",
+                            "DATA DE EMISSÂO:",
+                            "DISCIPLINAS"};
+    QList<QXlsx::Format> dataFormat = {formatBoldAlignHCenter,
+                                       formatBoldAlignHCenter,
+                                       formatBoldAlignHCenterUnderline,
+                                       formatAlignHCenter,
+                                       formatBoldAlignHCenterUnderline,
+                                       formatAlignHCenter,
+                                       formatBoldAlignHCenter,
+                                       formatBold,
+                                       formatBoldUnderline,
+                                       QXlsx::Format(),
+                                       QXlsx::Format(),
+                                       QXlsx::Format(),
+                                       QXlsx::Format(),
+                                       QXlsx::Format(),
+                                       formatAlignHCenter,
+                                       QXlsx::Format(),
+                                       QXlsx::Format(),
+                                       QXlsx::Format(),
+                                       formatBoldAlignHVCenter};
 
+    for (int c=0; c<dataCells.size(); c++){
+        historic.write(dataCells.at(c),dataText.at(c),dataFormat.at(c));
+    }
     //Escrito o numero do ano no calendário --> xxxx
-    historic.write("E17", "ANO: 2016", formatBoldAlignHVCenter);
-    historic.write("G17", "ANO: 2017", formatBoldAlignHVCenter);
-    historic.write("I17", "ANO: 2018", formatBoldAlignHVCenter);
+    QStringList cellsYear = {"E17","G17","I17"};
+    QStringList year = {"2016","2017","2018"};
+
+    for(int j=0; j<year.size();j++) {
+        historic.write(cellsYear.at(j),year.at(j),formatBoldAlignHVCenter);
+    }
 
     //Escrito o numero do ano no ano escolar do aluno --> xº ano
-    historic.write("E19", "1º ANO", formatAlignHCenter);
-    historic.write("G19", "2º ANO", formatAlignHCenter);
-    historic.write("I19", "3º ANO", formatAlignHCenter);
+    QStringList schoolYearCells = {"E19","G19","I19"};
+    QStringList schoolYearText = {"1º ANO","2º ANO","3º ANO"};
+
+    for(int k=0; k<schoolYearCells.size(); k++){
+        historic.write(schoolYearCells.at(k),schoolYearText.at(k),formatAlignHCenter);
+    }
 
     //Escrito "Nota/Conc"
-    historic.write("E20", "Nota/Conc", formatAlignHCenter);
-    historic.write("G20", "Nota/Conc", formatAlignHCenter);
-    historic.write("I20", "Nota/Conc", formatAlignHCenter);
+    QStringList gradeCells = {"E20","G20","I20"};
+
+    for(int l=0; l<gradeCells.size(); l++){
+        historic.write(gradeCells.at(l),"Nota/Conc",formatAlignHCenter);
+    }
 
     //Escrito "C/H" --> Carga Horária
-    historic.write("F20", "C/H", formatAlignHCenter);
-    historic.write("H20", "C/H", formatAlignHCenter);
-    historic.write("J20", "C/H", formatAlignHCenter);
+    QStringList workload = {"F20","H20","J20"};
 
+    for(int m=0; m<workload.size(); m++){
+        historic.write(workload.at(m),"C/H",formatAlignHCenter);
+    }
     //Células escrito "Carga\nHorária" e "Total"
-    historic.write("K17", "CARGA\nHORÁRIA", formatBoldAlignHVCenter);
+    historic.write("K17", "CARGA\nHORÁRIA", formatBoldAlignHVCenter); //esses eu acho que nao precisa de lista
     historic.write("K19", "TOTAL", formatBoldAlignHCenter);
 
     //Matérias
-    historic.write("A21","LÍNGUA PORTUGUESA E LITERATURA");
-    historic.write("A22","ARTE");
-    historic.write("A23","ED. FÍSICA");
-    historic.write("A24","MATEMÁTICA");
-    historic.write("A25","QUÍMICA");
-    historic.write("A26","FÍSICA");
-    historic.write("A27","BIOLOGIA");
-    historic.write("A28","HISTÓRIA");
-    historic.write("A29","GEOGRAFIA");
-    historic.write("A30","SOCIOLOGIA");
-    historic.write("A31","FILOSOFIA");
-    historic.write("A32","LINGUA ESTRANGEIRA / INGLÊS");
-    historic.write("A33","ENSINO RELIGIOSO/PROJETO");
-    historic.write("A34","LÍNGUA ESTRANGEIRA/PROJETO");
-    historic.write("A35","RES. PROBL. MATEMÁTICOS");
-    historic.write("A36","PROD. TEXTUAL");
+    QStringList schoolStuffCells = {"A21","A22","A23","A24","A25",
+                                    "A26","A27","A28","A29","A30",
+                                    "A31","A32","A33","A34","A35","A36"};
+
+    QStringList schoolStuffText = {"LÍNGUA PORTUGUESA E LITERATURA",
+                                   "ARTE",
+                                   "ED. FÍSICA",
+                                   "MATEMÁTICA",
+                                   "QUÍMICA",
+                                   "FÍSICA",
+                                   "BIOLOGIA",
+                                   "HISTÓRIA",
+                                   "GEOGRAFIA",
+                                   "SOCIOLOGIA",
+                                   "FILOSOFIA",
+                                   "LINGUA ESTRANGEIRA / INGLÊS",
+                                   "ENSINO RELIGIOSO/PROJETO",
+                                   "LÍNGUA ESTRANGEIRA/PROJETO",
+                                   "RES. PROBL. MATEMÁTICOS",
+                                   "PROD. TEXTUAL"};
+    for(int n=0; n<schoolStuffText.size();n++){
+        historic.write(schoolStuffCells.at(n),schoolStuffText.at(n));
+    } //deixei esses debaixo fora da lista pq 2 deles tem formatação diferente
 
     historic.write("A41","TOTAL", formatBold);
     historic.write("A42","% FREQUÊNCIA ANUAL");
     historic.write("A43","SITUAÇÃO FINAL");
-
     historic.write("E42",">75%", formatAlignHCenter); //frequencia anual para ser aprovado (condição)
 
     //****Células escrito o tempo em carga horária****
     //1º ano (deixar os numeros por padrao ou alterar)
-    historic.write("F21","240", formatBoldAlignHCenter);    //c.h portugues
-    historic.write("F22","0", formatBoldAlignHCenter);      //c.h arte
-    historic.write("F23","80", formatBoldAlignHCenter);     //c.h ed fisica
-    historic.write("F24","240", formatBoldAlignHCenter);    //c.h matematica
-    historic.write("F25","80", formatBoldAlignHCenter);     //c.h quimica
-    historic.write("F26","80", formatBoldAlignHCenter);     //c.h fisica
-    historic.write("F27","80", formatBoldAlignHCenter);     //c.h biologia
-    historic.write("F28","80", formatBoldAlignHCenter);     //c.h historia
-    historic.write("F29","80", formatBoldAlignHCenter);     //c.h geografia
-    historic.write("F30","40", formatBoldAlignHCenter);     //c.h sociologia
-    historic.write("F31","40", formatBoldAlignHCenter);     //c.h filosofia
-    historic.write("F32","80", formatBoldAlignHCenter);     //c.h ingles
-    historic.write("F33","40", formatBoldAlignHCenter);     //c.h ensino religioso
-    historic.write("F34","40", formatBoldAlignHCenter);     //c.h lingua estrangeira projeto
-    historic.write("F35","0", formatBoldAlignHCenter);      //c.h rpm
-    historic.write("F36","0", formatBoldAlignHCenter);      //c.h produção textual
+    QStringList workloadGradeFirstCells = {"F21","F22","F23","F24",
+                                           "F25","F26","F27","F28",
+                                           "F29","F30","F31","F32",
+                                           "F33","F34","F35","F36"};
+
+    QStringList workloadGradeFirstText = {"240","0","80","240",
+                                          "80","80","80","80",
+                                          "80","40","40","80",
+                                          "40","40","0","0"};
+
+    for (int o=0; o<workloadGradeFirstCells.size(); o++){
+        historic.write(workloadGradeFirstCells.at(o),workloadGradeFirstText.at(o),formatBoldAlignHCenter);
+    }
 
     //2º ano (deixar os numeros por padrao ou alterar)
-    historic.write("H21","160", formatBoldAlignHCenter);    //c.h portugues
-    historic.write("H22","80", formatBoldAlignHCenter);     //c.h arte
-    historic.write("H23","80", formatBoldAlignHCenter);     //c.h ed fisica
-    historic.write("H24","160", formatBoldAlignHCenter);    //c.h matematica
-    historic.write("H25","80", formatBoldAlignHCenter);     //c.h quimica
-    historic.write("H26","80", formatBoldAlignHCenter);     //c.h fisica
-    historic.write("H27","80", formatBoldAlignHCenter);     //c.h biologia
-    historic.write("H28","80", formatBoldAlignHCenter);     //c.h historia
-    historic.write("H29","80", formatBoldAlignHCenter);     //c.h geografia
-    historic.write("H30","40", formatBoldAlignHCenter);     //c.h sociologia
-    historic.write("H31","40", formatBoldAlignHCenter);     //c.h filosofia
-    historic.write("H32","80", formatBoldAlignHCenter);     //c.h ingles
-    historic.write("H33","40", formatBoldAlignHCenter);     //c.h ensino religioso
-    historic.write("H34","40", formatBoldAlignHCenter);     //c.h lingua estrangeira projeto
-    historic.write("H35","80", formatBoldAlignHCenter);     //c.h rpm
-    historic.write("H36","0", formatBoldAlignHCenter);      //c.h produção textual
+    QStringList workloadGradeSecondCells = {"H21","H22","H23","H24",
+                                            "H25","H26","H27","H28",
+                                            "H29","H30","H31","H32",
+                                            "H33","H34","H35","H36"};
+
+    QStringList workloadGradeSecondText = {"160","80","80","160",
+                                           "80","80","80","80",
+                                           "80","40","40","80",
+                                           "40","40","80","0"};
+
+    for (int p=0; p<workloadGradeSecondCells.size(); p++){
+        historic.write(workloadGradeSecondCells.at(p),workloadGradeSecondText.at(p),formatBoldAlignHCenter);
+    }
 
     //3º ano (deixar os numeros por padrao ou alterar)
-    historic.write("J21","160", formatBoldAlignHCenter);    //c.h portugues
-    historic.write("J22","0", formatBoldAlignHCenter);      //c.h arte
-    historic.write("J23","80", formatBoldAlignHCenter);     //c.h ed fisica
-    historic.write("J24","160", formatBoldAlignHCenter);    //c.h matematica
-    historic.write("J25","80", formatBoldAlignHCenter);     //c.h quimica
-    historic.write("J26","80", formatBoldAlignHCenter);     //c.h fisica
-    historic.write("J27","80", formatBoldAlignHCenter);     //c.h biologia
-    historic.write("J28","80", formatBoldAlignHCenter);     //c.h historia
-    historic.write("J29","80", formatBoldAlignHCenter);     //c.h geografia
-    historic.write("J30","80", formatBoldAlignHCenter);     //c.h sociologia
-    historic.write("J31","80", formatBoldAlignHCenter);     //c.h filosofia
-    historic.write("J32","80", formatBoldAlignHCenter);     //c.h ingles
-    historic.write("J33","40", formatBoldAlignHCenter);     //c.h ensino religioso
-    historic.write("J34","40", formatBoldAlignHCenter);     //c.h lingua estrangeira projeto
-    historic.write("J35","0", formatBoldAlignHCenter);      //c.h rpm
-    historic.write("J36","80", formatBoldAlignHCenter);     //c.h produção textual
+    QStringList workloadGradeThirdCells = {"J21","J22","J23","J24",
+                                           "J25","J26","J27","J28",
+                                           "J29","J30","J31","J32",
+                                           "J33","J34","J35","J36"};
+
+    QStringList workloadGradeThirdText = {"160","0","80","160",
+                                           "80","80","80","80",
+                                           "80","80","80","80",
+                                           "40","40","0","80"};
+
+    for (int q=0; q<workloadGradeThirdCells.size(); q++){
+        historic.write(workloadGradeThirdCells.at(q),workloadGradeThirdText.at(q),formatBoldAlignHCenter);
+    }
 
     //CARGA HORARIA TOTAL
-    historic.write("K21","560", formatBoldAlignHCenter);    //c.h portugues
-    historic.write("K22","80", formatBoldAlignHCenter);     //c.h arte
-    historic.write("K23","240", formatBoldAlignHCenter);    //c.h ed fisica
-    historic.write("K24","560", formatBoldAlignHCenter);    //c.h matematica
-    historic.write("K25","240", formatBoldAlignHCenter);    //c.h quimica
-    historic.write("K26","240", formatBoldAlignHCenter);    //c.h fisica
-    historic.write("K27","240", formatBoldAlignHCenter);    //c.h biologia
-    historic.write("K28","240", formatBoldAlignHCenter);    //c.h historia
-    historic.write("K29","240", formatBoldAlignHCenter);    //c.h geografia
-    historic.write("K30","160", formatBoldAlignHCenter);    //c.h sociologia
-    historic.write("K31","160", formatBoldAlignHCenter);    //c.h filosofia
-    historic.write("K32","240", formatBoldAlignHCenter);    //c.h ingles
-    historic.write("K33","120", formatBoldAlignHCenter);    //c.h ensino religioso
-    historic.write("K34","120", formatBoldAlignHCenter);    //c.h lingua estrangeira projeto
-    historic.write("K35","80", formatBoldAlignHCenter);     //c.h rpm
-    historic.write("K36","80", formatBoldAlignHCenter);     //c.h produção textual
+    QStringList workloadGradeTotalCells = {"K21","K22","K23","K24",
+                                           "K25","K26","K27","K28",
+                                           "K29","K30","K31","K32",
+                                           "K33","K34","K35","K36"};
+
+    QStringList workloadGradeTotalText = {"560","80","240","560",
+                                          "240","240","240","240",
+                                          "240","160","160","240",
+                                          "120","120","80","80"};
+
+    for (int r=0; r<workloadGradeTotalCells.size(); r++){
+        historic.write(workloadGradeTotalCells.at(r),workloadGradeTotalText.at(r),formatBoldAlignHCenter);
+    }
 
     //Cargas Horárias totais
-    historic.write("F41", "1200", formatAlignHCenter);   //c.h total 1º ano
-    historic.write("H41", "1200", formatAlignHCenter);   //c.h total 2º ano
-    historic.write("J41", "1200", formatAlignHCenter);   //c.h total 3º ano
-    historic.write("K41", "3600", formatAlignHCenter);   //c.h total total
+    QStringList workloadGradeTotalYearsCells = {"F41","H41","J41","K41"};
+    QStringList workloadGradeTotalYearsText = {"1200","1200","1200","3600"};
+
+    for(int s=0; s<workloadGradeTotalYearsCells.size(); s++){
+        historic.write(workloadGradeTotalYearsCells.at(s),workloadGradeTotalYearsText.at(s),formatAlignHCenter);
+    }
 
     //Células escrito "APROVADO"
-    historic.write("E43", "APROVADO", formatAlignHCenter);  //1º ano
-    historic.write("G43", "APROVADO", formatAlignHCenter);  //2º ano
-    historic.write("I43", "APROVADO", formatAlignHCenter);  //3º ano
+    QStringList approvedCells = {"E43","G43","I43"};
+
+    for(int t=0; t<approvedCells.size(); t++){
+        historic.write(approvedCells.at(t),"APROVADO",formatAlignHCenter);
+    }
 
     //****Células para adicionar as notas****
     //1º ano --> substituir os numeros pelo treco que pega as notas
-    historic.write("E21","", formatBoldAlignHCenter); //portugues
-    historic.write("E22","", formatBoldAlignHCenter); //arte
-    historic.write("E23","", formatBoldAlignHCenter); //ed fisica
-    historic.write("E24","", formatBoldAlignHCenter); //matematica
-    historic.write("E25","", formatBoldAlignHCenter); //quimica
-    historic.write("E26","", formatBoldAlignHCenter); //fisica
-    historic.write("E27","", formatBoldAlignHCenter); //biologia
-    historic.write("E28","", formatBoldAlignHCenter); //historia
-    historic.write("E29","", formatBoldAlignHCenter); //geografia
-    historic.write("E30","", formatBoldAlignHCenter); //sociologia
-    historic.write("E31","", formatBoldAlignHCenter); //filosofia
-    historic.write("E32","", formatBoldAlignHCenter); //ingles
-    historic.write("E33","", formatBoldAlignHCenter); //ensino religioso
-    historic.write("E34","", formatBoldAlignHCenter); //lingua estrangeira projeto
-    historic.write("E35","", formatBoldAlignHCenter); //rpm
-    historic.write("E36","", formatBoldAlignHCenter); //produção textual
+    QStringList insertGradeFirstYeartCells = {"E21","E22","E23","E24",
+                                              "E25","E26","E27","E28",
+                                              "E29","E30","E31","E32",
+                                              "E33","E34","E35","E36",};
+
+    QStringList insertGradeFirstYearData = {"", //portugues
+                                            "", //arte
+                                            "", //ed fisica
+                                            "", //matematica
+                                            "", //quimica
+                                            "", //fisica
+                                            "", //biologia
+                                            "", //historia
+                                            "", //geografia
+                                            "", //sociologia
+                                            "", //filosofia
+                                            "", //ingles
+                                            "", //ensino religioso
+                                            "", //lingua estrangeira projeto
+                                            "", //rpm
+                                            "",}; //produção textual  //substituir pelos metodos que  pega as notas
+
+    for (int u=0; u<insertGradeFirstYeartCells.size(); u++) {
+        historic.write(insertGradeFirstYeartCells.at(u),insertGradeFirstYearData.at(u),formatBoldAlignHCenter);
+    }
+
 
     //2º ano --> substituir os numeros pelo treco que pega as notas
-    historic.write("G21","", formatBoldAlignHCenter); //portugues
-    historic.write("G22","", formatBoldAlignHCenter); //arte
-    historic.write("G23","", formatBoldAlignHCenter); //ed fisica
-    historic.write("G24","", formatBoldAlignHCenter); //matematica
-    historic.write("G25","", formatBoldAlignHCenter); //quimica
-    historic.write("G26","", formatBoldAlignHCenter); //fisica
-    historic.write("G27","", formatBoldAlignHCenter); //biologia
-    historic.write("G28","", formatBoldAlignHCenter); //historia
-    historic.write("G29","", formatBoldAlignHCenter); //geografia
-    historic.write("G30","", formatBoldAlignHCenter); //sociologia
-    historic.write("G31","", formatBoldAlignHCenter); //filosofia
-    historic.write("G32","", formatBoldAlignHCenter); //ingles
-    historic.write("G33","", formatBoldAlignHCenter); //ensino religioso
-    historic.write("G34","", formatBoldAlignHCenter); //lingua estrangeira projeto
-    historic.write("G35","", formatBoldAlignHCenter); //rpm
-    historic.write("G36","", formatBoldAlignHCenter); //produção textual
+    QStringList insertGradeSecondYearCells = {"G21","G22","G23","G24",
+                                              "G25","G26","G27","G28",
+                                              "G29","G30","G31","G32",
+                                              "G33","G34","G35","G36",};
+
+    QStringList insertGradeSecondYearData = {"", //portugues
+                                             "", //arte
+                                             "", //ed fisica
+                                             "", //matematica
+                                             "", //quimica
+                                             "", //fisica
+                                             "", //biologia
+                                             "", //historia
+                                             "", //geografia
+                                             "", //sociologia
+                                             "", //filosofia
+                                             "", //ingles
+                                             "", //ensino religioso
+                                             "", //lingua estrangeira projeto
+                                             "", //rpm
+                                             "",}; //produção textual  //substituir pelos metodos que  pega as notas
+
+    for (int v=0; v<insertGradeSecondYearCells.size(); v++) {
+        historic.write(insertGradeSecondYearCells.at(v),insertGradeSecondYearData.at(v),formatBoldAlignHCenter);
+    }
 
     //3º ano --> substituir os numeros pelo treco que pega as notas
-    historic.write("I21","", formatBoldAlignHCenter); //portugues
-    historic.write("I22","", formatBoldAlignHCenter); //arte
-    historic.write("I23","", formatBoldAlignHCenter); //ed fisica
-    historic.write("I24","", formatBoldAlignHCenter); //matematica
-    historic.write("I25","", formatBoldAlignHCenter); //quimica
-    historic.write("I26","", formatBoldAlignHCenter); //fisica
-    historic.write("I27","", formatBoldAlignHCenter); //biologia
-    historic.write("I28","", formatBoldAlignHCenter); //historia
-    historic.write("I29","", formatBoldAlignHCenter); //geografia
-    historic.write("I30","", formatBoldAlignHCenter); //sociologia
-    historic.write("I31","", formatBoldAlignHCenter); //filosofia
-    historic.write("I32","", formatBoldAlignHCenter); //ingles
-    historic.write("I33","", formatBoldAlignHCenter); //ensino religioso
-    historic.write("I34","", formatBoldAlignHCenter); //lingua estrangeira projeto
-    historic.write("I35","", formatBoldAlignHCenter); //rpm
-    historic.write("I36","", formatBoldAlignHCenter); //produção textual
+    QStringList insertGradeThirdYearCells = {"I21","I22","I23","I24",
+                                             "I25","I26","I27","I28",
+                                             "I29","I30","I31","I32",
+                                             "I33","I34","I35","I36",};
+
+    QStringList insertGradeThirdYearData = {"", //portugues
+                                            "", //arte
+                                            "", //ed fisica
+                                            "", //matematica
+                                            "", //quimica
+                                            "", //fisica
+                                            "", //biologia
+                                            "", //historia
+                                            "", //geografia
+                                            "", //sociologia
+                                            "", //filosofia
+                                            "", //ingles
+                                            "", //ensino religioso
+                                            "", //lingua estrangeira projeto
+                                            "", //rpm
+                                            "",}; //produção textual  //substituir pelos metodos que  pega as notas
+
+    for (int v=0; v<insertGradeThirdYearCells.size(); v++) {
+        historic.write(insertGradeThirdYearCells.at(v),insertGradeThirdYearData.at(v),formatBoldAlignHCenter);
+    }
 
     //*****PARTE DE BAIXO DO HISTORICO(estabelecimento de ensino)*****
-    historic.write("A44","Série/Ano", formatBoldAlignHCenter);
-    historic.write("B44","ESTABELECIMENTO DE ENSINO", formatBoldAlignHCenter);
-    historic.write("H44","MUNICÍPIO / ESTADO", formatBoldAlignHCenter);
-    historic.write("K44","ANO", formatBoldAlignHCenter);
+    QStringList subdataCells= {"A44","B44","H44","K44"};
+    QStringList subdataText = {"Série/Ano",
+                               "ESTABELECIMENTO DE ENSINO",
+                               "MUNICÍPIO / ESTADO",
+                               "ANO"};
+    for(int w=0; w<subdataCells.size(); w++){
+        historic.write(subdataCells.at(w),subdataText.at(w),formatBoldAlignHCenter);
+    }
 
     //Série/Ano --> xª
-    historic.write("A45","1ª", formatBoldAlignHCenter);
-    historic.write("A46","2ª", formatBoldAlignHCenter);
-    historic.write("A47","3ª", formatBoldAlignHCenter);
+    QStringList yearClassCells = {"A45","A46","A47"};
+    QStringList yearCLassNumber = {"1º","2º","3º"};
+    for (int x=0; x<yearClassCells.size();x++){
+        historic.write(yearClassCells.at(x),yearCLassNumber.at(x),formatBoldAlignHCenter);
+    }
 
     //Estabelecimento de Ensino
-    historic.write("B45","CIEP 165 BRIGADEIRO SÉRGIO CARVALHO");
-    historic.write("B46","CIEP 165 BRIGADEIRO SÉRGIO CARVALHO");
-    historic.write("B47","CIEP 165 BRIGADEIRO SÉRGIO CARVALHO");
+    QStringList nameSchoolCells = {"B45","B46","B47"};
+    for (int y=0;y<nameSchoolCells.size();y++) {
+        historic.write(nameSchoolCells.at(y),"CIEP 165 BRIGADEIRO SÉRGIO CARVALHO");
+
+    }
 
     //Municipio/Estado
-    historic.write("H45","RIO DE JANEIRO/RJ", formatAlignHCenter);
-    historic.write("H46","RIO DE JANEIRO/RJ", formatAlignHCenter);
-    historic.write("H47","RIO DE JANEIRO/RJ", formatAlignHCenter);
+    QStringList cityCells = {"H45","H46","H47"};
+    for (int z=0; z<cityCells.size(); z++) {
+        historic.write(cityCells.at(z),"RIO DE JANEIRO/RJ",formatAlignHCenter);
 
+    }
     //Ano --> xxxx
-    historic.write("K45","2016", formatAlignHCenter); //substituir pelo ano desejado
-    historic.write("K46","2017", formatAlignHCenter); //substituir pelo ano desejado
-    historic.write("K47","2018", formatAlignHCenter); //substituir pelo ano desejado
+    QStringList yearFinalCells = {"K45","K46","K47"};
+    QStringList yearFinalText = {"2016","2017","2018"};
 
+    for (int a=0; a<yearFinalCells.size(); a++) {
+        historic.write(yearFinalCells.at(a),yearFinalText,formatAlignHCenter);
+
+    }
     //FINAL
-    historic.write("A48","OBSERVAÇÕES:", formatAlignTopLeft);
-    historic.write("A51","Segue em Anexo Histórico Escolar Anterior emitido pelo(a) NOME-DA-ESCOLA, \nde acordo com  Deliberação  CEE nº 363/17 , art. 5º.", formatBoldAlignTopLeft);
-    historic.write("A55","DATA DA EXPEDIÇÃO: RJ, DATA/DE/CRIAÇÃO", formatAlignHVCenter); //Substituir pela data de criação
-    historic.write("B59","_________________________________", formatAlignHCenter); //campo de assinatura do secretario
-    historic.write("B60","SECRETÁRIO ESCOLAR", formatAlignHCenter);
-    historic.write("H59","________________________________", formatAlignHCenter); //campo de assinatura do diretor
-    historic.write("H60","DIRETOR", formatAlignHCenter);
+    QStringList finalCells = {"A48","A51","A55","B59","B60","H59","H60"};
+    QStringList finalText = {"OBSERVAÇÕES:",
+                             "Segue em Anexo Histórico Escolar Anterior emitido pelo(a) NOME-DA-ESCOLA, \nde acordo com  Deliberação  CEE nº 363/17 , art. 5º.",
+                             "DATA DA EXPEDIÇÃO: RJ, DATA/DE/CRIAÇÃO",
+                              "_________________________________",
+                              "SECRETÁRIO ESCOLAR",
+                              "________________________________",
+                              "DIRETOR"};
+    QList<QXlsx::Format> finalformat = {formatAlignTopLeft,
+                                        formatBoldAlignTopLeft,
+                                        formatAlignHVCenter,
+                                        formatAlignHCenter,
+                                        formatAlignHCenter,
+                                        formatAlignHCenter,
+                                        formatAlignHCenter};
+
+    for(int b=0; b<finalCells.size(); b++){
+        historic.write(finalCells.at(b),finalText.at(b),finalformat.at(b));
+    }
 
     //Salvando histórico na pasta especificada pelo usuário com o nome do estudante no arquivo
     historic.saveAs(adressSaveModelHistoricStudent);
