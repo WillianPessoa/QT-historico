@@ -5,12 +5,16 @@
 #include "individualsheet.h"
 
 #include <QDate>
+#include <QJsonObject>
+#include <QList>
 #include <QString>
 
 class Student
 {
 public:
     Student();
+
+    Student(QJsonObject aluno);
 
     Student(const IndividualSheet &studentSheet);
 
@@ -47,6 +51,8 @@ public:
     Grades thirdYearGrades() const;
 
     void insertGrades(const IndividualSheet &studentSheet);
+
+    void writeInJsonObject(QJsonObject &obj) const;
 
 private:
     Grades &getGrades(const QString gradeYear);

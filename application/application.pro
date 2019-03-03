@@ -33,7 +33,8 @@ SOURCES += \
     student.cpp \
     subjectandgrade.cpp \
     grades.cpp \
-    studentmanager.cpp
+    studentmanager.cpp \
+    datapersist.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +45,8 @@ HEADERS += \
     student.h \
     subjectandgrade.h \
     grades.h \
-    studentmanager.h
+    studentmanager.h \
+    datapersist.h
 
 FORMS += \
         mainwindow.ui
