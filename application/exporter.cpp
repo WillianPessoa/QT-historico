@@ -12,7 +12,7 @@ Exporter::Exporter()
     const QString adressSaveModelHistoricStudent = historicStudentDir.absolutePath() + "/" + nameOfStudent + ".xlsx";
 
     //Abrindo documento do tipo xlsx para escrever o modelo de histórico
-    QXlsx::Document historic;
+    QXlsx::Document modelHistoric;
 
     //****definindo variaveis de formatação das células
     QXlsx::Format formatBoldAlignHCenter;
@@ -44,24 +44,115 @@ Exporter::Exporter()
     QXlsx::Format formatBoldAlignTopLeft(formatAlignTopLeft);
     formatBoldAlignTopLeft.setFontBold(true);
 
+    //Variaveis de formatação de bordas das células
+    QXlsx::Format borderThinCell;
+    borderThinCell.setBorderStyle(QXlsx::Format::BorderThin);
+
+    QXlsx::Format borderMediumRightBoldHCenter(formatBoldAlignHCenter);
+    borderMediumRightBoldHCenter.setBorderStyle(QXlsx::Format::BorderThin);
+    borderMediumRightBoldHCenter.setRightBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderMediumLeftBoldHCenter(formatBoldAlignHCenter);
+    borderMediumLeftBoldHCenter.setBorderStyle(QXlsx::Format::BorderThin);
+    borderMediumLeftBoldHCenter.setLeftBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderLeftMedium(borderThinCell);
+    borderLeftMedium.setLeftBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderThinBoldAlignHCenter(formatBoldAlignHCenter);
+    borderThinBoldAlignHCenter.setBorderStyle(QXlsx::Format::BorderThin);
+
+    QXlsx::Format borderLeftTopMediumBoldHVCenter(formatBoldAlignHVCenter);
+    borderLeftTopMediumBoldHVCenter.setBorderStyle(QXlsx::Format::BorderThin);
+    borderLeftTopMediumBoldHVCenter.setTopBorderStyle(QXlsx::Format::BorderMedium);
+    borderLeftTopMediumBoldHVCenter.setLeftBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderTopMediumBoldHVCenter(borderLeftTopMediumBoldHVCenter);
+    borderTopMediumBoldHVCenter.setLeftBorderStyle(QXlsx::Format::BorderThin);
+
+    QXlsx::Format borderThinAlignHCenter(formatAlignHCenter);
+    borderThinAlignHCenter.setBorderStyle(QXlsx::Format::BorderThin);
+
+    QXlsx::Format borderLeftMediumBold(formatBold);
+    borderLeftMediumBold.setLeftBorderStyle(QXlsx::Format::BorderThin);
+    borderLeftMediumBold.setLeftBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderMediumTopThinAlignTopLeft(formatAlignTopLeft);
+    borderMediumTopThinAlignTopLeft.setBorderStyle(QXlsx::Format::BorderMedium);
+    borderMediumTopThinAlignTopLeft.setTopBorderStyle(QXlsx::Format::BorderThin);
+
+    QXlsx::Format borderMediumBoldAlignTopLeft(formatBoldAlignTopLeft);
+    borderMediumBoldAlignTopLeft.setBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderMediumAlignHVCenter(formatAlignHVCenter);
+    borderMediumAlignHVCenter.setVerticalAlignment(QXlsx::Format::AlignTop);
+    borderMediumAlignHVCenter.setBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderNoneAlignHCenter(formatAlignHCenter);
+    borderNoneAlignHCenter.setBorderStyle(QXlsx::Format::BorderNone);
+
+    QXlsx::Format borderMediumRightLeft;
+    borderMediumRightLeft.setBorderStyle(QXlsx::Format::BorderNone);
+    borderMediumRightLeft.setLeftBorderStyle(QXlsx::Format::BorderMedium);
+    borderMediumRightLeft.setRightBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderRightTopMediumBoldHVCenter(formatBoldAlignHVCenter);
+    borderRightTopMediumBoldHVCenter.setBorderStyle(QXlsx::Format::BorderThin);
+    borderRightTopMediumBoldHVCenter.setTopBorderStyle(QXlsx::Format::BorderMedium);
+    borderRightTopMediumBoldHVCenter.setRightBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderLeftMediumAlignTopLeft(formatAlignTopLeft);
+    borderLeftMediumAlignTopLeft.setBorderStyle(QXlsx::Format::BorderThin);
+    borderLeftMediumAlignTopLeft.setLeftBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderMediumBottomNoneAlignTopCenter(formatAlignHCenter);
+    borderMediumBottomNoneAlignTopCenter.setVerticalAlignment(QXlsx::Format::AlignTop);
+    borderMediumBottomNoneAlignTopCenter.setBorderStyle(QXlsx::Format::BorderMedium);
+    borderMediumBottomNoneAlignTopCenter.setBottomBorderStyle(QXlsx::Format::BorderNone);
+
+    QXlsx::Format borderMediumTopNoneAlignTopCenter(formatAlignHCenter);
+    borderMediumTopNoneAlignTopCenter.setVerticalAlignment(QXlsx::Format::AlignTop);
+    borderMediumTopNoneAlignTopCenter.setBorderStyle(QXlsx::Format::BorderMedium);
+    borderMediumTopNoneAlignTopCenter.setTopBorderStyle(QXlsx::Format::BorderNone);
+
+    QXlsx::Format borderMediumTopNone;
+    borderMediumTopNone.setBorderStyle(QXlsx::Format::BorderMedium);
+    borderMediumTopNone.setTopBorderStyle(QXlsx::Format::BorderNone);
+
+    QXlsx::Format borderLeftMediumHVCenter(formatAlignHVCenter);
+    borderLeftMediumHVCenter.setLeftBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderRightMediumHVCenter(formatAlignHVCenter);
+    borderRightMediumHVCenter.setRightBorderStyle(QXlsx::Format::BorderMedium);
+
+    QXlsx::Format borderMediumRightLeftAlignTopLeft(borderMediumRightLeft);
+    borderMediumRightLeftAlignTopLeft.setVerticalAlignment(QXlsx::Format::AlignTop);
+
     //*****************CRIANDO LISTAS***********************
     //Lista com conjunto de posições (range) do histórico para mesclar
-    QStringList rangeCellsMerge = {"C2:H2", "C3:H3", "A6:F6", "A7:F7", "A9:F9",
-                                            "A10:F10", "A11:M11", "B12:C12", "A13:B13",
-                                            "A14:B14", "E14:F14", "J14:K14", "A16:B16",
-                                            "F16:G16", "J16:K16", "A17:D20", "E17:F18",
-                                            "G17:H18", "I17:J18", "K17:M18", "E19:F19",
-                                            "G19:H19", "I19:J19", "K19:M19", "K20:M20",
-                                            "A48:M50", "A51:M54", "A55:M56", "A57:M58",
-                                            "B59:E59", "H59:K59", "B60:E60", "H60:K60",
-                                            "A61:M63", "A59:A60", "F59:G60", "L59:M60",
-                                            "C13:M13", "C14:D14", "G14:I14", "L14:M14",
-                                            "B15:G15", "I15:M15", "C16:E16", "H16:I16",
-                                            "L16:M16", "E43:F43", "G43:H43", "I43:J43"};
-
-    QStringList rangeCellsMergeFormats = {"C13:M13", "C14:D14", "G14:I14",
-                                          "L14:M14", "B15:G15", "I15:M15",
-                                          "C16:E16", "H16:I16", "L16:M16"};
+    QStringList rangeCellsMerge = {"C2:H2", "C3:H3",        //Tipo de governo, tipo de secretaria
+                                   "A6:F6", "A7:F7",        //nome da escola, tipo de estabelecimento
+                                   "A9:F9", "A10:F10",      //endereço da escola, endereço
+                                   "A11:M11", "B12:C12",    //Histórico escolar, Tipo de curso
+                                   "A13:B13", "C13:M13",    //nome, nome do aluno
+                                   "A14:B14", "C14:D14",    //data de nascimento, data/de/nascimento
+                                   "E14:F14", "G14:I14",    //"NACIONALIDADE", nacionalidade
+                                   "J14:K14", "L14:M14",    //"NATURALIDADE", naturalidade
+                                   "B15:G15", "I15:M15",    //nome do pai, nome da mãe
+                                   "A16:B16", "C16:E16",    //"IDENTIDADE nº", numero da ID
+                                   "F16:G16", "H16:I16",    //"ORGÃO EXPEDIDOR", orgão expedidor
+                                   "J16:K16", "L16:M16",    //"DATA DA EMISSÃO", data da emissão
+                                   "A17:D20", "E17:F18",    //"DISCIPLINAS", ano do 1º ano
+                                   "G17:H18", "I17:J18",    //ano do 2º ano, ano do 3º ano
+                                   "K17:M18", "E19:F19",    //"CARGA HORÁRIA", "1º ANO"
+                                   "G19:H19", "I19:J19",    //"2º ANO", "3º ANO"
+                                   "K19:M19", "K20:M20",    //"TOTAL", espaço em branco
+                                   "A48:M50", "A51:M54",    //"OBSERVAÇÕES", escola anterior
+                                   "A55:M59", "I43:J43",    //"DATA DE EXPEDIÇÃO", "APROVADO"(3º ano)
+                                   "E43:F43", "G43:H43",    //"APROVADO"(1º ano), "APROVADO" (2º ano)
+                                   "A60:F61", "H60:M61",    //assinatura do(a) secretário(a), do(a) diretor(a)
+                                   "A62:M63", "B44:G44",    //espaço em branco, "ESTABELECIMENTO DE ENSINO"
+                                   "H44:J44", "K44:M44"};   //"MUNICIPIO/ESTADO", "ANO"
 
     //Lista com posições de células com dados fixos do histórico
     QStringList dataCells = {"C2","C3","A6","A7","A9","A10", "A11","A12","B12","A13",
@@ -87,6 +178,9 @@ Exporter::Exporter()
                             "ORGÃO EXPEDITOR:",
                             "DATA DE EMISSÂO:",
                             "DISCIPLINAS"};
+
+    //Lista com algumas letras de células para adicionar bordas finas
+    QStringList cellsBorderThinLetters = {"E", "F", "G", "H", "I", "J"};
 
     //Letras do histórico que com o número da posição vão ter os textos: ano (xxxx), xº ANO e "Nota/Conc"
     QStringList cellsYearLetters = {"E","G","I"};
@@ -135,42 +229,55 @@ Exporter::Exporter()
     QStringList subDataText = {"Série/Ano", "ESTABELECIMENTO DE ENSINO", "MUNICÍPIO / ESTADO", "ANO"};
 
     //Lista de posições de células da parte final do histórico
-    QStringList finalCells = {"A48","A51","A55","B59","B60","H59","H60"};
+    QStringList finalCells = {"A48","A51","A55","A60", "H60"};
 
     //Lista com textos das células da parte final do histórico
     QStringList finalText = {"OBSERVAÇÕES:",
                              "Segue em Anexo Histórico Escolar Anterior emitido pelo(a) NOME-DA-ESCOLA, \nde acordo com  Deliberação  CEE nº 363/17 , art. 5º.",
                              "DATA DA EXPEDIÇÃO: RJ, DATA/DE/CRIAÇÃO",
-                              "_________________________________",
-                              "SECRETÁRIO ESCOLAR",
-                              "________________________________",
-                              "DIRETOR"};
+                              "_________________________________\nSECRETÁRIO ESCOLAR",
+                             "________________________________\nDIRETOR"};
 
-    //Lista com variaveis de formatação de textos da parte inicial do histórico
-    QList<QXlsx::Format> dataFormat = {formatBoldAlignHCenter, formatBoldAlignHCenter,
-                                       formatBoldAlignHCenterUnderline, formatAlignHCenter,
-                                       formatBoldAlignHCenterUnderline, formatAlignHCenter,
-                                       formatBoldAlignHCenter, formatBold, formatBoldUnderline,
-                                       QXlsx::Format(), QXlsx::Format(), QXlsx::Format(),
-                                       QXlsx::Format(), QXlsx::Format(), formatAlignHCenter,
-                                       QXlsx::Format(), QXlsx::Format(), QXlsx::Format(),
-                                       formatBoldAlignHVCenter};
+    QList<QXlsx::Format> rangeCellsMergeFormats = {formatBoldAlignHCenter, formatBoldAlignHCenter,
+                                                   formatBoldAlignHCenterUnderline, formatAlignHCenter,
+                                                   formatBoldAlignHCenterUnderline, formatAlignHCenter,
+                                                   formatBoldAlignHCenter, formatBoldUnderline,
+                                                   QXlsx::Format(), formatBold,
+                                                   QXlsx::Format(), formatBold,
+                                                   QXlsx::Format(), formatBold,
+                                                   QXlsx::Format(), formatBold,
+                                                   formatBold, formatBold,
+                                                   QXlsx::Format(), formatBold,
+                                                   QXlsx::Format(), formatBold,
+                                                   QXlsx::Format(), formatBold,
+                                                   borderLeftTopMediumBoldHVCenter, borderTopMediumBoldHVCenter,
+                                                   borderTopMediumBoldHVCenter, borderTopMediumBoldHVCenter,
+                                                   borderRightTopMediumBoldHVCenter, borderThinAlignHCenter,
+                                                   borderThinAlignHCenter, borderThinAlignHCenter,
+                                                   borderMediumRightBoldHCenter, borderMediumRightBoldHCenter,
+                                                   borderMediumRightLeftAlignTopLeft, borderMediumBoldAlignTopLeft,
+                                                   borderMediumBottomNoneAlignTopCenter, borderThinAlignHCenter,
+                                                   borderThinAlignHCenter, borderThinAlignHCenter,
+                                                   borderLeftMediumHVCenter, borderRightMediumHVCenter,
+                                                   borderMediumTopNone, borderThinBoldAlignHCenter,
+                                                   borderThinBoldAlignHCenter, borderMediumRightBoldHCenter};
 
-    //Lista com variaveis de formatação de textos da em baixo das matérias no histórico
-    QList<QXlsx::Format> formatUndergroundSubjectsList = {formatBold, QXlsx::Format(), QXlsx::Format()};
+    //lista com formatações de textos nas células das 3 linhas em cima de "OBSERVAÇÕES"
+    QList<QXlsx::Format> cellTopObservationsFormat = {borderThinCell, borderThinAlignHCenter,
+                                                      borderMediumRightBoldHCenter};
 
     //Lista com variaveis de formatação de textos da parte final do histórico
-    QList<QXlsx::Format> finalformat = {formatAlignTopLeft, formatBoldAlignTopLeft, formatAlignHVCenter,
-                                        formatAlignHCenter, formatAlignHCenter, formatAlignHCenter,
-                                        formatAlignHCenter};
-
+    QList<QXlsx::Format> finalformat = {borderMediumTopThinAlignTopLeft, borderMediumBoldAlignTopLeft,
+                                        borderMediumAlignHVCenter, borderNoneAlignHCenter,
+                                        borderNoneAlignHCenter, borderNoneAlignHCenter,
+                                        borderNoneAlignHCenter};
 
     //***********Adicionando imagens***************
     QImage img1(":/images/samples/image1.png");
-    historic.insertImage(0, 0, img1);
+    modelHistoric.insertImage(0, 0, img1);
 
     QImage img2(":/images/samples/image2.png");
-    historic.insertImage(0, 8, img2);
+    modelHistoric.insertImage(0, 8, img2);
 
     //*****Mesclando e adicionando textos "fixos" do modelo de histórico
     for(int i = 0; i <= 63; i++){
@@ -178,13 +285,7 @@ Exporter::Exporter()
         //********Mesclando Células/Preparando Histórico para escrever dados
         //Mesclando células para adicionar dados do histórico
         if(i < rangeCellsMerge.size()){
-            QString rangeCell = rangeCellsMerge.at(i);
-
-            //Condicional para adicionar formatação em células iniciais que o usuário pode alterar o valor
-            if(rangeCellsMergeFormats.contains(rangeCell)){
-                historic.mergeCells(rangeCell, formatBold);
-            }
-            historic.mergeCells(rangeCell);
+            modelHistoric.mergeCells(rangeCellsMerge.at(i), rangeCellsMergeFormats.at(i));
         }
 
         //Mesclando Células para adicionar nomes fixos de matérias e cargas horárias
@@ -193,109 +294,121 @@ Exporter::Exporter()
             QString rangeCellsSubject = "A" + row + ":D" + row;
             QString rangeCellsWorkload = "K" + row + ":M" + row;
 
-            historic.mergeCells(rangeCellsSubject);     //subject
-            historic.mergeCells(rangeCellsWorkload);        //carga horária
+            if(i == 41){
+                modelHistoric.mergeCells(rangeCellsSubject, borderLeftMediumBold);
+            }else{
+                modelHistoric.mergeCells(rangeCellsSubject, borderLeftMedium);
+            }
+
+            modelHistoric.mergeCells(rangeCellsWorkload, borderMediumRightBoldHCenter);      //carga horária
 
             //Adicionando Máterias, Cargas Horárias e Formatações para as notas no histórico
             if(i <= 36){
                 QString row = QString::number(i);
-                historic.write("A" + row, subjectsList.at(i - 21));  //Matéria
+                modelHistoric.write("A" + row, subjectsList.at(i - 21));  //Matéria
 
                 //Cargas horárias
-                historic.write("F" + row, workloadGradeFirstYear.at(i - 21), formatBoldAlignHCenter);     //1ºano
-                historic.write("H" + row, workloadGradeSecondYear.at(i - 21), formatBoldAlignHCenter);    //2ºano
-                historic.write("J" + row, workloadGradeThirdYear.at(i - 21), formatBoldAlignHCenter);     //3ºano
-                historic.write("K" + row, workloadTotal.at(i - 21), formatBoldAlignHCenter);              //total
+                modelHistoric.write("F" + row, workloadGradeFirstYear.at(i - 21), borderThinBoldAlignHCenter);     //1ºano
+                modelHistoric.write("H" + row, workloadGradeSecondYear.at(i - 21), borderThinBoldAlignHCenter);    //2ºano
+                modelHistoric.write("J" + row, workloadGradeThirdYear.at(i - 21), borderThinBoldAlignHCenter);     //3ºano
+                modelHistoric.write("K" + row, workloadTotal.at(i - 21));              //total
 
                 //Formatação nas células com notas
-                historic.write("E" + row, "", formatBoldAlignHCenter);   //1º ano
-                historic.write("G" + row, "", formatBoldAlignHCenter);   //2º ano
-                historic.write("I" + row, "", formatBoldAlignHCenter);   //3º ano
+                modelHistoric.write("E" + row, "", borderThinBoldAlignHCenter);   //1º ano
+                modelHistoric.write("G" + row, "", borderThinBoldAlignHCenter);   //2º ano
+                modelHistoric.write("I" + row, "", borderThinBoldAlignHCenter);   //3º ano
+            }
+        }
+
+        //Adicionando bordas finas em algumas células
+        if(i >= 37 && i <= 42){
+            QString row = QString::number(i);
+            for(int j = 0; j < cellsBorderThinLetters.size(); j++){
+                modelHistoric.write(cellsBorderThinLetters.at(j) + row, "", borderThinCell);
             }
         }
 
         //Mesclando células em cima das "OBSERVAÇÕES"
         if(i < 4){
             QString row = QString::number(44 + i);
-            QStringList rangeCellsPositions = {"A" + row, "B" + row + ":G" + row,
-                                               "H" + row + ":J" + row, "K" + row + ":M" + row};
+            QStringList rangeCellsPositions = {"B" + row + ":G" + row, "H" + row + ":J" + row,
+                                               "K" + row + ":M" + row};
 
             for(int j = 0; j < rangeCellsPositions.size(); j++){
-                historic.mergeCells(rangeCellsPositions.at(j));
+                modelHistoric.mergeCells(rangeCellsPositions.at(j), cellTopObservationsFormat.at(j));
             }
         }
 
         //adicionando textos da lista dataText
         if(i < dataCells.size()){
-            historic.write(dataCells.at(i), dataText.at(i), dataFormat.at(i));
+            modelHistoric.write(dataCells.at(i), dataText.at(i));
         }
 
         //adicionando textos do lado de "DISCIPLINAS" no histórico
         if(i < cellsYearLetters.size()) {
-            historic.write(cellsYearLetters.at(i) + "17", "ANO: " + QString::number(2016 + i),
-                           formatBoldAlignHVCenter);
-            historic.write(cellsYearLetters.at(i) + "19", QString::number(i + 1) + "º ANO",
-                           formatAlignHCenter);
-            historic.write(cellsYearLetters.at(i) + "20", "Nota/Conc", formatAlignHCenter);
+            modelHistoric.write(cellsYearLetters.at(i) + "17", "ANO: " + QString::number(2016 + i));
+            modelHistoric.write(cellsYearLetters.at(i) + "19", QString::number(i + 1) + "º ANO");
+            modelHistoric.write(cellsYearLetters.at(i) + "20", "Nota/Conc", borderThinAlignHCenter);
         }
 
-        //adcionando "C/H" no histórico
+        //adicionando "C/H" no histórico
         if(i < workload.size()){
-            historic.write(workload.at(i) + "20", "C/H", formatAlignHCenter);
+            modelHistoric.write(workload.at(i) + "20", "C/H", borderThinAlignHCenter);
         }
 
         //Adicionando textos em baixo das matérias
         if(i < undergroundSubjectsTextsList.size()){
-            historic.write("A" + QString::number(41 + i),
-                           undergroundSubjectsTextsList.at(i), formatUndergroundSubjectsList.at(i));
+            modelHistoric.write("A" + QString::number(41 + i), undergroundSubjectsTextsList.at(i));
         }
 
         //Adicionando as cargas horárias totais de cada ano
         if(i < workloadTotalYearsLetters.size()){
-            historic.write(workloadTotalYearsLetters.at(i) + "41", "1200", formatAlignHCenter);
+            modelHistoric.write(workloadTotalYearsLetters.at(i) + "41", "1200", borderThinAlignHCenter);
         }
 
         //Adicionando os textos "APROVADO" em suas posições no histórico
         if(i < approvedCells.size()){
-            historic.write(approvedCells.at(i) + "43", "APROVADO", formatAlignHCenter);
+            modelHistoric.write(approvedCells.at(i) + "43", "APROVADO");
         }
 
         //Adicionando textos nas células em baixo da situação final
         if(i < subDataCells.size()){
-            historic.write(subDataCells.at(i) + "44", subDataText.at(i), formatBoldAlignHCenter);
+            if(i == 0){
+                modelHistoric.write(subDataCells.at(i) + "44", subDataText.at(i), borderMediumLeftBoldHCenter);
+            }
+            modelHistoric.write(subDataCells.at(i) + "44", subDataText.at(i));
         }
 
         //Adicionando textos nas 3 células em cima de "OBSERVAÇÕES"
         if(i < subDataCells.size()){
             for(int j = 0; j < 3; j++){
-
                 QString cell = subDataCells.at(i) + QString::number(45 + j);
 
                 if(i == 0){     //colocando Série/Ano --> xª
-                    historic.write(cell, QString::number(j + 1) + "º", formatBoldAlignHCenter);
+                    modelHistoric.write(cell, QString::number(j + 1) + "ª", borderMediumLeftBoldHCenter);
                 }else if (i == 1){  //Estabelecimento de Ensino
-                    historic.write(cell, "CIEP 165 BRIGADEIRO SÉRGIO CARVALHO");
+                    modelHistoric.write(cell, "CIEP 165 BRIGADEIRO SÉRGIO CARVALHO");
                 }else if(i == 2){
-                    historic.write(cell, "RIO DE JANEIRO/RJ", formatAlignHCenter);
+                    modelHistoric.write(cell, "RIO DE JANEIRO/RJ");
                 }else if(i == 3){
-                    historic.write(cell, 2016 + j, formatBoldAlignHCenter);
+                    modelHistoric.write(cell, 2016 + j);
                 }
             }
         }
 
         //Adicionando textos nas células do final (Começa em "OBSERVAÇÕES")
         if(i < finalCells.size()){
-            historic.write(finalCells.at(i), finalText.at(i), finalformat.at(i));
+            modelHistoric.write(finalCells.at(i), finalText.at(i));
         }
     }
 
     //Escrevendo "Carga Horária" e "Total" e a carga horária total do E.M. no histórico
-    historic.write("K17", "CARGA\nHORÁRIA", formatBoldAlignHVCenter);
-    historic.write("K19", "TOTAL", formatBoldAlignHCenter);
-    historic.write("K41", 3600, formatAlignHCenter);
+    modelHistoric.write("K17", "CARGA\nHORÁRIA");
+    modelHistoric.write("K19", "TOTAL");
+    modelHistoric.write("K41", 3600);
 
     //Salvando histórico na pasta especificada pelo usuário com o nome do estudante no arquivo
-    historic.saveAs(adressSaveModelHistoricStudent);
+    modelHistoric.saveAs(adressSaveModelHistoricStudent);
 
     //Retorna endereço em que o modelo de histórico do aluno esta contido para a escrita de dados
     return adressSaveModelHistoricStudent;
