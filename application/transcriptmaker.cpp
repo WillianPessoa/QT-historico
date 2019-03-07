@@ -1,5 +1,6 @@
 #include "transcriptmaker.h"
 
+#include "datapersist.h"
 #include "importer.h"
 #include "mainwindow.h"
 #include "exporter.h"
@@ -35,4 +36,6 @@ void TranscriptMaker::tests()
         m_studentManager.insertStudentData(indSheet);
     }
     Exporter::exportHistoric(m_studentManager.students());
+
+    DataPersist::saveData(m_studentManager.students());
 }

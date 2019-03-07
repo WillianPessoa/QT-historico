@@ -5,12 +5,16 @@
 #include "individualsheet.h"
 
 #include <QDate>
+#include <QJsonObject>
+#include <QList>
 #include <QString>
 
 class Student
 {
 public:
     Student();
+
+    Student(QJsonObject aluno);
 
     Student(const IndividualSheet &studentSheet);
 
@@ -55,6 +59,11 @@ public:
 
     Grades getGrades(const QString &gradeYear) const;
 
+    void writeInJsonObject(QJsonObject &obj) const;
+
+private:
+    Grades &getGrades(const QString gradeYear);
+
 private:
     QString m_name;
     QDate m_dateOfBirth;
@@ -65,8 +74,6 @@ private:
     QString m_IDIssuingInstitution;
     QString m_IDIssueDate;
     QString m_institutionBack;
-
-    //TODO: Criar variavel para armazenar instituição de ensino
 
     Grades m_firstYearGrades;
     Grades m_secondYearGrades;

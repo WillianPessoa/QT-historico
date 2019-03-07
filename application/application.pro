@@ -34,7 +34,8 @@ SOURCES += \
     subjectandgrade.cpp \
     grades.cpp \
     studentmanager.cpp \
-    exporter.cpp
+    exporter.cpp \
+    datapersist.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,7 +47,8 @@ HEADERS += \
     subjectandgrade.h \
     grades.h \
     studentmanager.h \
-    exporter.h
+    exporter.h \
+    datapersist.h
 
 FORMS += \
         mainwindow.ui
