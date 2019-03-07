@@ -111,6 +111,16 @@ void Student::setIDIssueDate(const QString &IDIssueDate)
     m_IDIssueDate = IDIssueDate;
 }
 
+QString Student::institutionBack() const
+{
+    return m_institutionBack;
+}
+
+void Student::setInstitutionBack(const QString &institutionBack)
+{
+    m_institutionBack = institutionBack;
+}
+
 Grades Student::firstYearGrades() const
 {
     return m_firstYearGrades;
@@ -140,7 +150,6 @@ Grades &Student::getGradesRef(const QString gradeYear)
 Grades Student::getGrades(const QString &gradeYear) const
 {
     Grades grades = m_firstYearGrades;
-    qDebug() << "ATENÇÃO: " << gradeYear + "== 2" << endl;
     if (gradeYear == "2") {
         grades = m_secondYearGrades;
     } else if (gradeYear == "3") {
@@ -152,6 +161,8 @@ Grades Student::getGrades(const QString &gradeYear) const
 void Student::insertGrades(const IndividualSheet &studentSheet)
 {
     Grades &grades = getGradesRef(studentSheet.grade());
+    grades.setYear(studentSheet.year());
+    grades.setSeries(studentSheet.grade());
     grades.setArtGrade(studentSheet.artGrade());
     grades.setBiologyGrade(studentSheet.biologyGrade());
     grades.setChemistryGrade(studentSheet.chemistryGrade());

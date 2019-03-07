@@ -21,6 +21,26 @@ Grades::Grades()
 
 }
 
+QString Grades::year() const
+{
+    return m_year;
+}
+
+void Grades::setYear(const QString &year)
+{
+    m_year = year;
+}
+
+QString Grades::series() const
+{
+    return m_series;
+}
+
+void Grades::setSeries(const QString &series)
+{
+    m_series = series;
+}
+
 double Grades::portugueseGrade() const
 {
     return m_portugueseGrade;

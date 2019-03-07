@@ -42,6 +42,9 @@ public:
     QString IDIssueDate() const;
     void setIDIssueDate(const QString &IDissueDate);
 
+    QString institutionBack() const;
+    void setInstitutionBack(const QString &institutionBack);
+
     Grades firstYearGrades() const;
     Grades secondYearGrades() const;
     Grades thirdYearGrades() const;
@@ -61,6 +64,9 @@ private:
     QString m_IDNumber;
     QString m_IDIssuingInstitution;
     QString m_IDIssueDate;
+    QString m_institutionBack;
+
+    //TODO: Criar variavel para armazenar instituição de ensino
 
     Grades m_firstYearGrades;
     Grades m_secondYearGrades;

@@ -1,10 +1,18 @@
 #ifndef GRADES_H
 #define GRADES_H
 
+#include <QString>
+
 class Grades
 {
 public:
     Grades();
+
+    QString year() const;
+    void setYear(const QString &year);
+
+    QString series() const;
+    void setSeries(const QString &series);
 
     double portugueseGrade() const;
     void setPortugueseGrade(const double &portugueseGrade);
@@ -57,6 +65,9 @@ public:
     bool wasInitialized() const;
 
 private:
+    QString m_year;
+    QString m_series;
+
     double m_portugueseGrade;
     double m_artGrade;
     double m_physicalEducationGrade;

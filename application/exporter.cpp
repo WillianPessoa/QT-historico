@@ -136,8 +136,8 @@ Exporter::Exporter()
                                    "A11:M11", "B12:C12",    //Histórico escolar, Tipo de curso
                                    "A13:B13", "C13:M13",    //nome, nome do aluno
                                    "A14:B14", "C14:D14",    //data de nascimento, data/de/nascimento
-                                   "E14:F14", "G14:I14",    //"NACIONALIDADE", nacionalidade
-                                   "J14:K14", "L14:M14",    //"NATURALIDADE", naturalidade
+                                   "E14:F14", "G14:H14",    //"NACIONALIDADE", nacionalidade
+                                   "I14:J14", "K14:M14",    //"NATURALIDADE", naturalidade
                                    "B15:G15", "I15:M15",    //nome do pai, nome da mãe
                                    "A16:B16", "C16:E16",    //"IDENTIDADE nº", numero da ID
                                    "F16:G16", "H16:I16",    //"ORGÃO EXPEDIDOR", orgão expedidor
@@ -150,13 +150,14 @@ Exporter::Exporter()
                                    "A48:M50", "A51:M54",    //"OBSERVAÇÕES", escola anterior
                                    "A55:M59", "I43:J43",    //"DATA DE EXPEDIÇÃO", "APROVADO"(3º ano)
                                    "E43:F43", "G43:H43",    //"APROVADO"(1º ano), "APROVADO" (2º ano)
-                                   "A60:F61", "H60:M61",    //assinatura do(a) secretário(a), do(a) diretor(a)
+                                   "A60:F60", "A61:F61",    //linha, "SECRETÁRIO ESCOLAR"
+                                   "H60:M60", "H61:M61",    //linha, "DIRETOR"
                                    "A62:M63", "B44:G44",    //espaço em branco, "ESTABELECIMENTO DE ENSINO"
                                    "H44:J44", "K44:M44"};   //"MUNICIPIO/ESTADO", "ANO"
 
     //Lista com posições de células com dados fixos do histórico
     QStringList dataCells = {"C2","C3","A6","A7","A9","A10", "A11","A12","B12","A13",
-                             "A14","E14","J14","A15","H15","A16","F16","J16","A17"};
+                             "A14","E14","I14","A15","H15","A16","F16","J16","A17"};
 
     //Lista com textos fixos do histórico para adicionar em células
     QStringList dataText = {"GOVERNO DO ESTADO DO RIO DE JANEIRO",
@@ -223,20 +224,22 @@ Exporter::Exporter()
     QStringList approvedCells = {"E","G","I"};
 
     //Letras do histórico que com o número da posição vão ter os textos da parte de baixo do historico
-    QStringList subDataCells = {"A","B","H","K"};
+    QStringList subDataCells = {"A","B","H", "K"};
 
     //Textos da parte de baixo acima de "OBSERVAÇÕES" no histórico
     QStringList subDataText = {"Série/Ano", "ESTABELECIMENTO DE ENSINO", "MUNICÍPIO / ESTADO", "ANO"};
 
     //Lista de posições de células da parte final do histórico
-    QStringList finalCells = {"A48","A51","A55","A60", "H60"};
+    QStringList finalCells = {"A48", "A51", "A55", "A60", "A61", "H60", "H61"};
 
     //Lista com textos das células da parte final do histórico
     QStringList finalText = {"OBSERVAÇÕES:",
-                             "Segue em Anexo Histórico Escolar Anterior emitido pelo(a) NOME-DA-ESCOLA, \nde acordo com  Deliberação  CEE nº 363/17 , art. 5º.",
-                             "DATA DA EXPEDIÇÃO: RJ, DATA/DE/CRIAÇÃO",
-                              "_________________________________\nSECRETÁRIO ESCOLAR",
-                             "________________________________\nDIRETOR"};
+                             "Segue em Anexo Histórico Escolar Anterior emitido de acordo com Deliberação CEE nº 363/17, art. 5º.",
+                             "DATA DA EXPEDIÇÃO: RJ, " + QDate::currentDate().toString("dd/MM/yyyy"),
+                             "_________________________________",
+                             "SECRETÁRIO ESCOLAR",
+                             "_________________________________",
+                             "DIRETOR"};
 
     QList<QXlsx::Format> rangeCellsMergeFormats = {formatBoldAlignHCenter, formatBoldAlignHCenter,
                                                    formatBoldAlignHCenterUnderline, formatAlignHCenter,
@@ -258,7 +261,8 @@ Exporter::Exporter()
                                                    borderMediumRightLeftAlignTopLeft, borderMediumBoldAlignTopLeft,
                                                    borderMediumBottomNoneAlignTopCenter, borderThinAlignHCenter,
                                                    borderThinAlignHCenter, borderThinAlignHCenter,
-                                                   borderLeftMediumHVCenter, borderRightMediumHVCenter,
+                                                   borderLeftMediumHVCenter, borderLeftMediumHVCenter,
+                                                   borderRightMediumHVCenter, borderRightMediumHVCenter,
                                                    borderMediumTopNone, borderThinBoldAlignHCenter,
                                                    borderThinBoldAlignHCenter, borderMediumRightBoldHCenter};
 
@@ -346,7 +350,7 @@ Exporter::Exporter()
 
         //adicionando textos do lado de "DISCIPLINAS" no histórico
         if(i < cellsYearLetters.size()) {
-            modelHistoric.write(cellsYearLetters.at(i) + "17", "ANO: " + QString::number(2016 + i));
+            modelHistoric.write(cellsYearLetters.at(i) + "17", "ANO: ");
             modelHistoric.write(cellsYearLetters.at(i) + "19", QString::number(i + 1) + "º ANO");
             modelHistoric.write(cellsYearLetters.at(i) + "20", "Nota/Conc", borderThinAlignHCenter);
         }
@@ -380,18 +384,16 @@ Exporter::Exporter()
         }
 
         //Adicionando textos nas 3 células em cima de "OBSERVAÇÕES"
-        if(i < subDataCells.size()){
+        if(i < (subDataCells.size() - 1)){
             for(int j = 0; j < 3; j++){
                 QString cell = subDataCells.at(i) + QString::number(45 + j);
 
-                if(i == 0){     //colocando Série/Ano --> xª
+                if(i == 0){         //colocando Série/Ano --> xª
                     modelHistoric.write(cell, QString::number(j + 1) + "ª", borderMediumLeftBoldHCenter);
                 }else if (i == 1){  //Estabelecimento de Ensino
                     modelHistoric.write(cell, "CIEP 165 BRIGADEIRO SÉRGIO CARVALHO");
-                }else if(i == 2){
+                }else if(i == 2){   //Estado
                     modelHistoric.write(cell, "RIO DE JANEIRO/RJ");
-                }else if(i == 3){
-                    modelHistoric.write(cell, 2016 + j);
                 }
             }
         }
@@ -426,16 +428,26 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
         //Abrir cópia do histórico no diretório especificado pelo usuário
         QXlsx::Document historic(addressModelHistoricStudent);
 
-        //Adicionar dados pessoais
+        //Adicionar dados básicos do aluno
         qDebug() << "Gravando dados pessoais ...\n" << endl;
 
         const QString name = student.name();
         historic.write("C13", name);                                  //name
         qDebug() << "Nome: " << name << endl;
 
+        //TODO: implementar estrutura para verificar se a data de nascimento esta correta
+        //      se não estiver, concertar invertendo a ordem que aparecem os membros
         const QString dateOfBirth = student.dateOfBirth().toString("dd/MM/yyyy");
         historic.write("C14", dateOfBirth);    //data de nascimento
         qDebug() << "Data de Nascimento: " << dateOfBirth << endl;
+
+        const QString naturalness = student.naturalness();
+        historic.write("K14", naturalness);
+        qDebug() << "Naturalidade: " << naturalness << endl;
+
+        const QString nationalness = (naturalness == "RIO DE JANEIRO - RJ") ? "BRASILEIRA" : "";
+        historic.write("G14", nationalness);
+        qDebug() << "Nacionalidade: " << nationalness << endl;
 
         const QString fatherName = student.fatherName();
         historic.write("B15", fatherName);                            //pai
@@ -457,6 +469,23 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
         historic.write("L16", IDIssueDate);                          //data de emissao
         qDebug() << "Data de Emissão: " << IDIssueDate << endl;
 
+        //***Adicionando instituição anterior
+        QString instituitionBackText;
+
+        //verificando se instituição anterior existe
+        if(student.institutionBack().isEmpty()){
+            instituitionBackText.append("Segue em Anexo Histórico Escolar Anterior emitido de acordo com Deliberação CEE nº 363/17, art. 5º.");
+        }else{
+            instituitionBackText.append("Segue em Anexo Histórico Escolar Anterior emitido pelo(a) " + student.institutionBack() + " de acordo com Deliberação CEE nº 363/17, art. 5º.");
+        }
+
+        historic.write("A51", instituitionBackText);
+        qDebug() << "Escola Anterior: " << instituitionBackText << endl;
+
+        const QDate expeditionDate = QDate::currentDate();
+        historic.write("A55", "DATA DA EXPEDIÇÃO: RJ, " + expeditionDate.toString("dd/MM/yyyy"));
+        qDebug() << "Data da Expedição: " << expeditionDate.toString("dd/MM/yyyy") << endl;
+
         //Variaveis e Listas com letras de células de matérias, notas e cargas horárias
         const QString subjectLetter = "A";
         const QStringList gradesLetters = {"E", "G", "I"};
@@ -468,6 +497,19 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
         for(int numberGradeYear = 1; numberGradeYear <= 3; numberGradeYear++){
 
             Grades gradeYearCurrent = student.getGrades(QString::number(numberGradeYear));
+
+            //Escrevendo ano
+            QStringList cellsYear = {"E17", "K45"};
+            if(gradeYearCurrent.series() == "2"){
+                cellsYear.insert(0, "G17");
+                cellsYear.insert(1, "K46");
+            }else if(gradeYearCurrent.series() == "3"){
+                cellsYear.insert(0, "I17");
+                cellsYear.insert(1, "K47");
+            }
+
+            historic.write(cellsYear.at(0), "ANO: " + gradeYearCurrent.year());
+            historic.write(cellsYear.at(1), gradeYearCurrent.year());
 
             qDebug() << "Adicionando notas do " << numberGradeYear << "º ano ...\n" << endl;
             for(int line = 21; line <= 36; line++){

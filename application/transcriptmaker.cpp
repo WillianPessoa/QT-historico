@@ -36,5 +36,3 @@ void TranscriptMaker::tests()
     }
     Exporter::exportHistoric(m_studentManager.students());
 }
-
-
