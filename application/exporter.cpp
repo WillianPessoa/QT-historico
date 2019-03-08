@@ -202,16 +202,16 @@ Exporter::Exporter()
 
     //****Lista de cargas horárias****
     //1º ano
-    QStringList workloadGradeFirstYear = {"240","0","80","240","80","80","80","80",
-                                          "80","40","40","80","40","40","0","0"};
+    QStringList workloadGradeFirstYear = {"240","","80","240","80","80","80","80",
+                                          "80","40","40","80","40","40","",""};
 
     //2º ano
     QStringList workloadGradeSecondYear = {"160","80","80","160","80","80","80","80",
-                                           "80","40","40","80","40","40","80","0"};
+                                           "80","40","40","80","40","40","80",""};
 
     //3º ano
-    QStringList workloadGradeThirdYear = {"160","0","80","160","80","80","80","80",
-                                          "80","80","80","80","40","40","0","80"};
+    QStringList workloadGradeThirdYear = {"160","","80","160","80","80","80","80",
+                                          "80","80","80","80","40","40","","80"};
 
     //total
     QStringList workloadTotal = {"560","80","240","560", "240","240","240","240",
@@ -348,31 +348,20 @@ Exporter::Exporter()
             modelHistoric.write(dataCells.at(i), dataText.at(i));
         }
 
-        //adicionando textos do lado de "DISCIPLINAS" no histórico
-        if(i < cellsYearLetters.size()) {
+        //Adicionando outros textos nas posições do modelo de histórico
+        if(i < 3){
+
+            //Textos do lado de disciplinas
             modelHistoric.write(cellsYearLetters.at(i) + "17", "ANO: ");
             modelHistoric.write(cellsYearLetters.at(i) + "19", QString::number(i + 1) + "º ANO");
             modelHistoric.write(cellsYearLetters.at(i) + "20", "Nota/Conc", borderThinAlignHCenter);
-        }
 
-        //adicionando "C/H" no histórico
-        if(i < workload.size()){
-            modelHistoric.write(workload.at(i) + "20", "C/H", borderThinAlignHCenter);
-        }
-
-        //Adicionando textos em baixo das matérias
-        if(i < undergroundSubjectsTextsList.size()){
+            //cargas horarias totais, texto em baixo da ultima materia,
+            //"APROVADO" para cada série e "C/H" (Carga Horária)
+            modelHistoric.write(workloadTotalYearsLetters.at(i) + "41", 1200, borderThinAlignHCenter);
             modelHistoric.write("A" + QString::number(41 + i), undergroundSubjectsTextsList.at(i));
-        }
-
-        //Adicionando as cargas horárias totais de cada ano
-        if(i < workloadTotalYearsLetters.size()){
-            modelHistoric.write(workloadTotalYearsLetters.at(i) + "41", "1200", borderThinAlignHCenter);
-        }
-
-        //Adicionando os textos "APROVADO" em suas posições no histórico
-        if(i < approvedCells.size()){
             modelHistoric.write(approvedCells.at(i) + "43", "APROVADO");
+            modelHistoric.write(workload.at(i) + "20", "C/H", borderThinAlignHCenter);
         }
 
         //Adicionando textos nas células em baixo da situação final
@@ -498,18 +487,31 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
 
             Grades gradeYearCurrent = student.getGrades(QString::number(numberGradeYear));
 
-            //Escrevendo ano
-            QStringList cellsYear = {"E17", "K45"};
-            if(gradeYearCurrent.series() == "2"){
-                cellsYear.insert(0, "G17");
-                cellsYear.insert(1, "K46");
-            }else if(gradeYearCurrent.series() == "3"){
-                cellsYear.insert(0, "I17");
-                cellsYear.insert(1, "K47");
+            if(gradeYearCurrent.series().isEmpty()){
+                dataComplete = false;
+                continue;
             }
 
-            historic.write(cellsYear.at(0), "ANO: " + gradeYearCurrent.year());
-            historic.write(cellsYear.at(1), gradeYearCurrent.year());
+            //lista com células e letras de células no modelo de histórico
+            //Lista para auxiliar no processo de escrita das notas nas células corretas do histórico
+            //ordem: ano(ANO: ...), ano(xxxx), célula da matéria e carga horária da matéria
+            QStringList cellsAndLetters = {"E17", "K45", "E", "F"};
+
+            //Condições para definir os elementos da lista
+            if(gradeYearCurrent.series() == "2"){
+                cellsAndLetters.insert(0, "G17");
+                cellsAndLetters.insert(1, "K46");
+                cellsAndLetters.insert(2, "G");
+                cellsAndLetters.insert(3, "H");
+            }else if(gradeYearCurrent.series() == "3"){
+                cellsAndLetters.insert(0, "I17");
+                cellsAndLetters.insert(1, "K47");
+                cellsAndLetters.insert(2, "I");
+                cellsAndLetters.insert(3, "J");
+            }
+
+            historic.write(cellsAndLetters.at(0), "ANO: " + gradeYearCurrent.year());
+            historic.write(cellsAndLetters.at(1), gradeYearCurrent.year());
 
             qDebug() << "Adicionando notas do " << numberGradeYear << "º ano ...\n" << endl;
             for(int line = 21; line <= 36; line++){
@@ -554,22 +556,24 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
                     gradeTemp = gradeYearCurrent.textProductionGrade();
                 }
 
-                qDebug() << "Materia: " << subjectInCell << " | "
-                         << "Nota: " << gradeTemp << endl;
+//                Variaveis antigas para auxiliar na exportação das notas
+//                int workLoad = historic.read(workloadsLetters.at(numberGradeYear - 1) + numberLineStr).toInt();
+//                QString cellGradeInHistoric = gradesLetters.at(numberGradeYear - 1) + numberLineStr;
 
-                //Escrever nota
-                int workLoad = historic.read(workloadsLetters.at(numberGradeYear - 1) + numberLineStr).toInt();
-                QString cellGradeInHistoric = gradesLetters.at(numberGradeYear - 1) + numberLineStr;
-                if(gradeTemp < 0 && workLoad == 0){
+                //Variaveis que ajudam o programa a exportar as notas nas células corretas do histórico
+                //*Variaveis temporárias até o bug for resolvido
+                QString workload = historic.read(cellsAndLetters.at(3) + numberLineStr).toString();
+                QString cellGradeInHistoric = cellsAndLetters.at(2) + numberLineStr;
+
+                if((!workload.isEmpty()) && (gradeTemp < 0)){
+                    dataComplete = false;
+                    historic.write(cellGradeInHistoric, "*");
                     qDebug() << "Nota de " << subjectInCell
                              << " ou/e sua carga horaria é invalida." << endl;
-                    dataComplete = false;
-                }else if(gradeTemp < 0 && workLoad != 0){
-                    historic.write(cellGradeInHistoric, "*");
-                }else{
+                }else if((!workload.isEmpty()) && gradeTemp >= 1 && gradeTemp <= 40){
                     historic.write(cellGradeInHistoric, gradeTemp);
-                    qDebug() << "Materia: " << subjectInCell << " | "
-                             << "Nota: " << gradeTemp << endl;
+                }else if(!workload.isEmpty()){
+                    historic.write(cellGradeInHistoric, "*");
                 }
             }
         }
@@ -579,7 +583,7 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
         }
 
         //salvar histórico
-        qDebug() << "HISTÓRICO PRONTO!\n" << endl;
+        qDebug() << "HISTÓRICO PRONTO!" << endl;
         historic.saveAs(addressModelHistoricStudent);
         qDebug() << "Salvo no endereço: " << addressModelHistoricStudent << endl;
     }

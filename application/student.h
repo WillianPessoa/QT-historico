@@ -8,6 +8,7 @@
 #include <QJsonObject>
 #include <QList>
 #include <QString>
+#include <QDebug>
 
 class Student
 {
