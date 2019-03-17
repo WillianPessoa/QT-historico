@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
+#include <QStringList>
 #include <QTextStream>
 
 #include "xlsxdocument.h"
@@ -36,8 +37,11 @@ QStringList Reader::getStudentSheetFilenamesFrom(const QDir &studentSheetDir)
     if (studentSheetDir.isReadable()) {
         studentSheetFiles << studentSheetDir.entryList(QStringList() << "*.xlsx", QDir::Files);
 
-        // TODO: Verificar se os arquivos *.xslx são fichas válidas.
-        //       Caso não sejam, excluí-los da lista.
+        for (const QString &sheetFilename : studentSheetFiles) {
+            if (!isAValidSheet(studentSheetDir.absolutePath() + "/" + sheetFilename)) {
+                studentSheetFiles.removeOne(sheetFilename);
+            }
+        }
 
         if (studentSheetFiles.isEmpty()) {
             qDebug() << "O diretório \"" << studentSheetDir.absolutePath() << "\" não contém fichas de estudantes";
@@ -160,4 +164,24 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
     }
 
     return studentSheet;
+}
+
+bool Reader::isAValidSheet(const QString &filename)
+{
+    IndividualSheet studentSheet;
+    QXlsx::Document xlsx(filename);
+
+    const QString situation = xlsx.read("G38").toString().simplified().split(" ").last();
+    if (situation != "APROVADO") {
+        return false;
+    }
+
+    QStringList gradeYears;
+    gradeYears << "1" << "2" << "3";
+    const QString gradeYear = xlsx.read("R21").toString().remove("SÉRIE:").simplified();
+    if (!gradeYears.contains(gradeYear)) {
+       return false;
+    }
+
+    return true;
 }

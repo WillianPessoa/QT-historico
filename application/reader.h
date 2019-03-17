@@ -17,6 +17,7 @@ private:
 
     static QStringList getStudentSheetFilenamesFrom(const QDir &studentSheetDir);
     static IndividualSheet getStudentsDataFrom(const QString &filename);
+    static bool isAValidSheet(const QString &filename);
 
 
 };
