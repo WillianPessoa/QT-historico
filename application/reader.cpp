@@ -109,7 +109,7 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
     // Verificar cada campo importante da linha, pra identificar qual materia estamos lendo
     // Depois de identificar, guardar no seu devido local
     const int subjectColumn = 7;
-    const int gradeColumn = 34;
+    const int gradeColumn = 30;
     QString subject = "None";
     double grade = -1;
     for (int row = 25;; ++row) {
