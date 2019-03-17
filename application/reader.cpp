@@ -78,7 +78,7 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
     qDebug() << "Data de nascimento:" << fullDate;
     const QStringList splitedDate = fullDate.split("/");
     assert(splitedDate.size() == 3);
-    const QDate dateofbirth(splitedDate.at(2).toDouble(), splitedDate.at(1).toDouble(), splitedDate.at(0).toDouble());
+    const QDate dateofbirth(splitedDate.at(2).toInt(), splitedDate.at(1).toInt(), splitedDate.at(0).toInt());
     studentSheet.setDateOfBirth(dateofbirth); //Data de nascimento e hora
 
     const QString naturalness = xlsx.read("D16").toString().remove("NATURAL:").simplified();

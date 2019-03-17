@@ -1,4 +1,6 @@
 #include "student.h"
+
+#include <QDebug>
 #include <QStringList>
 
 namespace {
@@ -223,6 +225,16 @@ void Student::setIDIssueDate(const QString &IDIssueDate)
     m_IDIssueDate = IDIssueDate;
 }
 
+QString Student::institutionBack() const
+{
+    return m_institutionBack;
+}
+
+void Student::setInstitutionBack(const QString &institutionBack)
+{
+    m_institutionBack = institutionBack;
+}
+
 Grades Student::firstYearGrades() const
 {
     return m_firstYearGrades;
@@ -238,20 +250,33 @@ Grades Student::thirdYearGrades() const
     return m_thirdYearGrades;
 }
 
-Grades &Student::getGrades(const QString gradeYear)
+Grades &Student::getGradesRef(const QString gradeYear)
 {
     Grades &grades = m_firstYearGrades;
     if (gradeYear == "2") {
         grades = m_secondYearGrades;
     } else if (gradeYear == "3") {
+        grades = m_thirdYearGrades;
+    }
+    return grades;
+}
+
+Grades Student::getGrades(const QString &gradeYear) const
+{
+    Grades grades = m_firstYearGrades;
+    if (gradeYear == "2") {
         grades = m_secondYearGrades;
+    } else if (gradeYear == "3") {
+        grades = m_thirdYearGrades;
     }
     return grades;
 }
 
 void Student::insertGrades(const IndividualSheet &studentSheet)
 {
-    Grades &grades = getGrades(studentSheet.grade());
+    Grades &grades = getGradesRef(studentSheet.grade());
+    grades.setYear(studentSheet.year());
+    grades.setSeries(studentSheet.grade());
     grades.setArtGrade(studentSheet.artGrade());
     grades.setBiologyGrade(studentSheet.biologyGrade());
     grades.setChemistryGrade(studentSheet.chemistryGrade());
@@ -376,5 +401,4 @@ void Student::writeInJsonObject(QJsonObject &obj) const
     textProductionObj.insert("2", m_secondYearGrades.textProductionGrade());
     textProductionObj.insert("3", m_thirdYearGrades.textProductionGrade());
     obj.insert(KEY_TEXT_PRODUCTION, textProductionObj);
-
 }

@@ -21,6 +21,26 @@ Grades::Grades()
 
 }
 
+QString Grades::year() const
+{
+    return m_year;
+}
+
+void Grades::setYear(const QString &year)
+{
+    m_year = year;
+}
+
+QString Grades::series() const
+{
+    return m_series;
+}
+
+void Grades::setSeries(const QString &series)
+{
+    m_series = series;
+}
+
 double Grades::portugueseGrade() const
 {
     return m_portugueseGrade;
@@ -181,24 +201,24 @@ void Grades::setTextProductionGrade(const double &textProductionGrade)
     m_textProductionGrade = textProductionGrade;
 }
 
-bool Grades::wasInitialized() const
+bool Grades::wasInitialized() const   //Alteração de comparação "!= -1" para ">=0"
 {
     bool wasInit = false;
-    if (m_portugueseGrade != -1) wasInit = true;
-    if (m_artGrade != -1) wasInit = true;
-    if (m_physicalEducationGrade != -1) wasInit = true;
-    if (m_mathGrade != -1) wasInit = true;
-    if (m_chemistryGrade != -1) wasInit = true;
-    if (m_physicsGrade != -1) wasInit = true;
-    if (m_biologyGrade != -1) wasInit = true;
-    if (m_historyGrade != -1) wasInit = true;
-    if (m_geographyGrade != -1) wasInit = true;
-    if (m_sociologyGrade != -1) wasInit = true;
-    if (m_philosophyGrade != -1) wasInit = true;
-    if (m_englishGrade != -1) wasInit = true;
-    if (m_religiousGrade != -1) wasInit = true;
-    if (m_projectGrade != -1) wasInit = true;
-    if (m_mathProblemSolvingGrade != -1) wasInit = true;
-    if (m_textProductionGrade != -1) wasInit = true;
+    if (m_portugueseGrade >= 0) wasInit = true;
+    if (m_artGrade >= 0) wasInit = true;
+    if (m_physicalEducationGrade >= 0) wasInit = true;
+    if (m_mathGrade >= 0) wasInit = true;
+    if (m_chemistryGrade >= 0) wasInit = true;
+    if (m_physicsGrade >= 0) wasInit = true;
+    if (m_biologyGrade >= 0) wasInit = true;
+    if (m_historyGrade >= 0) wasInit = true;
+    if (m_geographyGrade >= 0) wasInit = true;
+    if (m_sociologyGrade >= 0) wasInit = true;
+    if (m_philosophyGrade >= 0) wasInit = true;
+    if (m_englishGrade >= 0) wasInit = true;
+    if (m_religiousGrade >= 0) wasInit = true;
+    if (m_projectGrade >= 0) wasInit = true;
+    if (m_mathProblemSolvingGrade >= 0) wasInit = true;
+    if (m_textProductionGrade >= 0) wasInit = true;
     return wasInit;
 }
