@@ -31,9 +31,9 @@ SOURCES += \
     individualsheet.cpp \
     transcriptmaker.cpp \
     student.cpp \
-    subjectandgrade.cpp \
     grades.cpp \
     studentmanager.cpp \
+    exporter.cpp \
     datapersist.cpp
 
 HEADERS += \
@@ -43,9 +43,9 @@ HEADERS += \
     individualsheet.h \
     transcriptmaker.h \
     student.h \
-    subjectandgrade.h \
     grades.h \
     studentmanager.h \
+    exporter.h \
     datapersist.h
 
 FORMS += \

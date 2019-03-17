@@ -8,6 +8,7 @@
 #include <QJsonObject>
 #include <QList>
 #include <QString>
+#include <QDebug>
 
 class Student
 {
@@ -46,11 +47,18 @@ public:
     QString IDIssueDate() const;
     void setIDIssueDate(const QString &IDissueDate);
 
+    QString institutionBack() const;
+    void setInstitutionBack(const QString &institutionBack);
+
     Grades firstYearGrades() const;
     Grades secondYearGrades() const;
     Grades thirdYearGrades() const;
 
     void insertGrades(const IndividualSheet &studentSheet);
+
+    Grades &getGradesRef(const QString gradeYear);
+
+    Grades getGrades(const QString &gradeYear) const;
 
     void writeInJsonObject(QJsonObject &obj) const;
 
@@ -66,6 +74,7 @@ private:
     QString m_IDNumber;
     QString m_IDIssuingInstitution;
     QString m_IDIssueDate;
+    QString m_institutionBack;
 
     Grades m_firstYearGrades;
     Grades m_secondYearGrades;

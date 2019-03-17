@@ -3,6 +3,7 @@
 #include "datapersist.h"
 #include "importer.h"
 #include "mainwindow.h"
+#include "exporter.h"
 
 TranscriptMaker::TranscriptMaker(QObject *parent) :
     QObject(parent),
@@ -32,10 +33,9 @@ void TranscriptMaker::tests()
     QList<IndividualSheet> studentsSheet = Importer::importStudentsFrom(":/samples");
 
     for (const IndividualSheet &indSheet : studentsSheet) {
-        m_studentManger.insertStudentData(indSheet);
+        m_studentManager.insertStudentData(indSheet);
     }
+    Exporter::exportHistoric(m_studentManager.students());
 
-    DataPersist::saveData(m_studentManger.students());
+    DataPersist::saveData(m_studentManager.students());
 }
-
-
