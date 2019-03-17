@@ -5,6 +5,8 @@
 #include "mainwindow.h"
 #include "exporter.h"
 
+#include <QMessageBox>
+
 
 TranscriptMaker::TranscriptMaker(QObject *parent) :
     QObject(parent),
@@ -16,19 +18,24 @@ TranscriptMaker::TranscriptMaker(QObject *parent) :
 
 void TranscriptMaker::startApp()
 {
-    tests();
-    m_mainWindow.show();
+    makeConnections();
+    initUi();
+    m_studentManager.insertStudents(DataPersist::loadData());
     populateTree();
 }
 
 void TranscriptMaker::initUi()
 {
-
+    m_mainWindow.show();
 }
 
 void TranscriptMaker::makeConnections()
 {
-
+    // Exportação dos dados
+    connect(&m_mainWindow, &MainWindow::exportTranscripts, [this] () {
+        Exporter::exportHistoric(m_studentManager.students(), QDir::home());
+        QMessageBox::about(&m_mainWindow, "Históricos exportados", "Os históricos foram exportados para o diretório " + QDir::homePath());
+    });
 }
 
 void TranscriptMaker::tests()

@@ -24,6 +24,9 @@ public slots:
     void gradesDisplay(const Student &student);
     QTreeWidget *getTree();
 
+signals:
+    void exportTranscripts();
+
 private:
     Ui::MainWindow *ui;
 };

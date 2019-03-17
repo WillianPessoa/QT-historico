@@ -36,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
         item->setText(subjects[i]);
         ui->gradesTable->setVerticalHeaderItem(i, item);
     }
+
+    connect(ui->exportPushButton, &QPushButton::clicked, this, &MainWindow::exportTranscripts);
 }
 
 MainWindow::~MainWindow()
