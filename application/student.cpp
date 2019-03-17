@@ -31,6 +31,7 @@ namespace {
    const QString KEY_MATH_PROBLEM = "RPM";
    const QString KEY_TEXT_PRODUCTION = "Producao Textual";
 
+   const QString KEY_REMARKS = "Observações";
 }
 
 Student::Student()
@@ -50,6 +51,7 @@ Student::Student(QJsonObject aluno)
     m_IDNumber = aluno.value(KEY_ID_NUMBER).toString();
     m_IDIssuingInstitution = aluno.value(KEY_ID_ISSUING_INSTITUTION).toString();
     m_IDIssueDate = aluno.value(KEY_ID_ISSUE_DATE).toString();
+    m_remarks = aluno.value(KEY_REMARKS).toString();
 
     QJsonObject art = aluno.value(KEY_ART).toObject();
     QJsonObject math = aluno.value(KEY_MATH).toObject();
@@ -125,14 +127,15 @@ Student::Student(const IndividualSheet &studentSheet) :
     m_dateOfBirth(studentSheet.dateOfBirth()),
     m_fatherName(studentSheet.fatherName()),
     m_motherName(studentSheet.motherName()),
-    m_naturalness(studentSheet.naturalness())
+    m_naturalness(studentSheet.naturalness()),
+    m_remarks("")
 {
     insertGrades(studentSheet);
 }
 
 Student::Student(const QString &name, const QDate &dateOfBirth, const QString &fatherName,
                  const QString &motherName, const QString &naturalness, const QString &IDNumber,
-                 const QString &IDissuingInstituation, const QString &IDissueDate) :
+                 const QString &IDissuingInstituation, const QString &IDissueDate, const QString &remarks) :
     m_name(name),
     m_dateOfBirth(dateOfBirth),
     m_fatherName(fatherName),
@@ -140,7 +143,8 @@ Student::Student(const QString &name, const QDate &dateOfBirth, const QString &f
     m_naturalness(naturalness),
     m_IDNumber(IDNumber),
     m_IDIssuingInstitution(IDissuingInstituation),
-    m_IDIssueDate(IDissueDate)
+    m_IDIssueDate(IDissueDate),
+    m_remarks(remarks)
 {
 
 }
@@ -304,6 +308,7 @@ void Student::writeInJsonObject(QJsonObject &obj) const
     obj.insert(KEY_NATURALNESS, m_naturalness);
     obj.insert(KEY_ID_ISSUING_INSTITUTION, m_IDIssuingInstitution);
     obj.insert(KEY_ID_ISSUE_DATE, m_IDIssueDate);
+    obj.insert(KEY_REMARKS, m_remarks);
 
     QJsonObject portugueseObj;
     portugueseObj.insert("1", m_firstYearGrades.portugueseGrade());
@@ -400,4 +405,14 @@ void Student::writeInJsonObject(QJsonObject &obj) const
     textProductionObj.insert("2", m_secondYearGrades.textProductionGrade());
     textProductionObj.insert("3", m_thirdYearGrades.textProductionGrade());
     obj.insert(KEY_TEXT_PRODUCTION, textProductionObj);
+}
+
+QString Student::getRemarks() const
+{
+    return m_remarks;
+}
+
+void Student::setRemarks(const QString &remarks)
+{
+    m_remarks = remarks;
 }
