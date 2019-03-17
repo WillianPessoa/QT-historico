@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
+#include <QStringList>
 #include <QTextStream>
 
 #include "xlsxdocument.h"
@@ -36,8 +37,11 @@ QStringList Reader::getStudentSheetFilenamesFrom(const QDir &studentSheetDir)
     if (studentSheetDir.isReadable()) {
         studentSheetFiles << studentSheetDir.entryList(QStringList() << "*.xlsx", QDir::Files);
 
-        // TODO: Verificar se os arquivos *.xslx são fichas válidas.
-        //       Caso não sejam, excluí-los da lista.
+        for (const QString &sheetFilename : studentSheetFiles) {
+            if (!isAValidSheet(studentSheetDir.absolutePath() + "/" + sheetFilename)) {
+                studentSheetFiles.removeOne(sheetFilename);
+            }
+        }
 
         if (studentSheetFiles.isEmpty()) {
             qDebug() << "O diretório \"" << studentSheetDir.absolutePath() << "\" não contém fichas de estudantes";
@@ -67,6 +71,7 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
 
     const QString mothername = xlsx.read("Z16").toString().remove("MÃE:").simplified();
     qDebug() << "Mãe: " << mothername;
+
     studentSheet.setMotherName(mothername);  //Pega o nome da mãe
 
     const QString fathername = xlsx.read("L16").toString().remove("PAI:").simplified();
@@ -108,7 +113,7 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
     // Verificar cada campo importante da linha, pra identificar qual materia estamos lendo
     // Depois de identificar, guardar no seu devido local
     const int subjectColumn = 7;
-    const int gradeColumn = 34;
+    const int gradeColumn = 30;
     QString subject = "None";
     double grade = -1;
     for (int row = 25;; ++row) {
@@ -131,7 +136,7 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
             studentSheet.setPhilosophyGrade(grade);
         } else if (subject == "GEOGRAFIA") {
             studentSheet.setGeographyGrade(grade);
-        } else if (subject.contains("LINGUA ESTRANGEIRA")) {
+        } else if (subject.contains("LÍNGUA ESTRANGEIRA")) {
             studentSheet.setEnglishGrade(grade);
         } else if (subject == "HISTÓRIA") {
             studentSheet.setHistoryGrade(grade);
@@ -147,8 +152,10 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
             studentSheet.setChemistryGrade(grade);
         } else if (subject == "ENSINO RELIGIOSO/PROJETO") {
             studentSheet.setReligiousGrade(grade);
+        } else if (subject == "FÍSICA") {
+            studentSheet.setPhisicsGrade(grade);
         } else if (subject == "SOCIOLOGIA") {
-            studentSheet.setChemistryGrade(grade);
+            studentSheet.setSociologyGrade(grade);
         }
 
         // Retornando para um valor default
@@ -157,4 +164,24 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
     }
 
     return studentSheet;
+}
+
+bool Reader::isAValidSheet(const QString &filename)
+{
+    IndividualSheet studentSheet;
+    QXlsx::Document xlsx(filename);
+
+    const QString situation = xlsx.read("G38").toString().simplified().split(" ").last();
+    if (situation != "APROVADO") {
+        return false;
+    }
+
+    QStringList gradeYears;
+    gradeYears << "1" << "2" << "3";
+    const QString gradeYear = xlsx.read("R21").toString().remove("SÉRIE:").simplified();
+    if (!gradeYears.contains(gradeYear)) {
+       return false;
+    }
+
+    return true;
 }

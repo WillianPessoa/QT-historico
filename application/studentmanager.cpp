@@ -30,6 +30,11 @@ bool StudentManager::insertStudentData(const IndividualSheet &studentSheet)
     return true;
 }
 
+bool StudentManager::insertStudents(const QList<Student> students)
+{
+    m_students.append(students);
+}
+
 bool StudentManager::isEqual(const Student &student, const IndividualSheet &studentSheet) const
 {
     if (student.name() == studentSheet.name()) {

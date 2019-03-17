@@ -1,4 +1,4 @@
-#ifndef STUDENT_H
+﻿#ifndef STUDENT_H
 #define STUDENT_H
 
 #include "grades.h"
@@ -21,7 +21,7 @@ public:
 
     Student(const QString &name, const QDate &dateOfBirth, const QString &fatherName,
             const QString &motherName, const QString &naturalness, const QString &IDNumber,
-            const QString &IDissuingInstituation, const QString &IDissueDate);
+            const QString &IDissuingInstituation, const QString &IDissueDate, const QString &remarks);
 
     QString name() const;
     void setName(const QString &name);
@@ -62,6 +62,9 @@ public:
 
     void writeInJsonObject(QJsonObject &obj) const;
 
+    QString getRemarks() const;
+    void setRemarks(const QString &remarks);
+
 private:
     Grades &getGrades(const QString gradeYear);
 
@@ -79,6 +82,8 @@ private:
     Grades m_firstYearGrades;
     Grades m_secondYearGrades;
     Grades m_thirdYearGrades;
+
+    QString m_remarks;
 };
 
 #endif // STUDENT_H
