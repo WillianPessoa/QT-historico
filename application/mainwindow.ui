@@ -206,20 +206,20 @@
     <property name="title">
      <string>Arquivo</string>
     </property>
-    <addaction name="actionNovo"/>
-    <addaction name="actionSalvar"/>
+    <addaction name="selectFileAction"/>
+    <addaction name="selectFolderAction"/>
    </widget>
    <addaction name="menuArquivo"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionNovo">
+  <action name="selectFileAction">
    <property name="text">
-    <string>Novo</string>
+    <string>Selecionar arquivo</string>
    </property>
   </action>
-  <action name="actionSalvar">
+  <action name="selectFolderAction">
    <property name="text">
-    <string>Salvar</string>
+    <string>Selecionar pasta</string>
    </property>
   </action>
  </widget>

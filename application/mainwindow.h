@@ -2,9 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
+
 #include <qtreewidget.h>
 
-#include"student.h"
+#include "student.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,10 +24,12 @@ public slots:
     void showStudent(const Student &student);
     void generateTree(const Student &student);
     void gradesDisplay(const Student &student);
+    void selectFolder();
     QTreeWidget *getTree();
 
 signals:
     void exportTranscripts();
+    void folderSelected(QString folderName);
 
 private:
     Ui::MainWindow *ui;

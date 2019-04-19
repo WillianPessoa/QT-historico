@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     connect(ui->exportPushButton, &QPushButton::clicked, this, &MainWindow::exportTranscripts);
+    connect(ui->selectFolderAction, &QAction::triggered, this, &MainWindow::selectFolder);
 }
 
 MainWindow::~MainWindow()
@@ -138,8 +139,10 @@ QTreeWidget *MainWindow::getTree()
     return ui->studentsTree;
 }
 
+void MainWindow::selectFolder()
+{
+    //abrir janela para selecionar pasta
+    QString folderName = QFileDialog::getExistingDirectory(this, tr("Open directory"), QDir::homePath());
 
-
-
-
-
+    emit folderSelected(folderName);
+}

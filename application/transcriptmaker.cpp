@@ -31,6 +31,15 @@ void TranscriptMaker::initUi()
 
 void TranscriptMaker::makeConnections()
 {
+    //Importação dos dados
+    connect(&m_mainWindow, &MainWindow::folderSelected, [this] (QString folderName) {
+        QList<IndividualSheet> studentsSheet = Importer::importStudentsFrom(folderName);
+        for (const IndividualSheet &indSheet : studentsSheet) {
+            m_studentManager.insertStudentData(indSheet);
+        }
+        populateTree();
+    });
+
     // Exportação dos dados
     connect(&m_mainWindow, &MainWindow::exportTranscripts, [this] () {
         Exporter::exportHistoric(m_studentManager.students(), QDir::home());
