@@ -495,19 +495,15 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
             //lista com células e letras de células no modelo de histórico
             //Lista para auxiliar no processo de escrita das notas nas células corretas do histórico
             //ordem: ano(ANO: ...), ano(xxxx), célula da matéria e carga horária da matéria
-            QStringList cellsAndLetters = {"E17", "K45", "E", "F"};
+            QStringList cellsAndLetters = {"E17", "K45"};
 
             //Condições para definir os elementos da lista
             if(gradeYearCurrent.series() == "2"){
                 cellsAndLetters.insert(0, "G17");
                 cellsAndLetters.insert(1, "K46");
-                cellsAndLetters.insert(2, "G");
-                cellsAndLetters.insert(3, "H");
             }else if(gradeYearCurrent.series() == "3"){
                 cellsAndLetters.insert(0, "I17");
                 cellsAndLetters.insert(1, "K47");
-                cellsAndLetters.insert(2, "I");
-                cellsAndLetters.insert(3, "J");
             }
 
             historic.write(cellsAndLetters.at(0), "ANO: " + gradeYearCurrent.year());
@@ -556,14 +552,9 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
                     gradeTemp = gradeYearCurrent.textProductionGrade();
                 }
 
-//                Variaveis antigas para auxiliar na exportação das notas
-//                int workLoad = historic.read(workloadsLetters.at(numberGradeYear - 1) + numberLineStr).toInt();
-//                QString cellGradeInHistoric = gradesLetters.at(numberGradeYear - 1) + numberLineStr;
-
-                //Variaveis que ajudam o programa a exportar as notas nas células corretas do histórico
-                //*Variaveis temporárias até o bug for resolvido
-                QString workload = historic.read(cellsAndLetters.at(3) + numberLineStr).toString();
-                QString cellGradeInHistoric = cellsAndLetters.at(2) + numberLineStr;
+                //Variaveis antigas para auxiliar na exportação das notas
+                QString workload = historic.read(workloadsLetters.at(numberGradeYear - 1) + numberLineStr).toString();
+                QString cellGradeInHistoric = gradesLetters.at(numberGradeYear - 1) + numberLineStr;
 
                 if((!workload.isEmpty()) && (gradeTemp < 0)){
                     dataComplete = false;
