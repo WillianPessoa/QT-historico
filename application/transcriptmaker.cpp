@@ -26,7 +26,7 @@ void TranscriptMaker::startApp()
 
 void TranscriptMaker::initUi()
 {
-    m_mainWindow.show();
+    m_mainWindow.showMaximized();
 }
 
 void TranscriptMaker::makeConnections()
