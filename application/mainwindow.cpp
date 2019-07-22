@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->exportPushButton, &QPushButton::clicked, this, &MainWindow::exportTranscripts);
     connect(ui->selectFolderAction, &QAction::triggered, this, &MainWindow::selectFolder);
+    connect(ui->selectFileAction, &QAction::triggered, this, &MainWindow::selectFile);
+
 }
 
 MainWindow::~MainWindow()
@@ -142,7 +144,20 @@ QTreeWidget *MainWindow::getTree()
 void MainWindow::selectFolder()
 {
     //abrir janela para selecionar pasta
-    QString folderName = QFileDialog::getExistingDirectory(this, tr("Open directory"), QDir::homePath());
+    QString folderName = QFileDialog::getExistingDirectory(this,
+                                                           tr("Open directory"),
+                                                           QDir::homePath());
 
     emit folderSelected(folderName);
+}
+
+void MainWindow::selectFile()
+{
+    //open window for select file
+    QString fileName = QFileDialog::getOpenFileName(this,
+                                                    tr("Open File"),
+                                                    QDir::homePath(),
+                                                    tr("Excel Files (*.xlsx)"));
+
+    emit fileSelected(fileName);
 }

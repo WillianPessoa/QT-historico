@@ -25,11 +25,13 @@ public slots:
     void generateTree(const Student &student);
     void gradesDisplay(const Student &student);
     void selectFolder();
+    void selectFile();
     QTreeWidget *getTree();
 
 signals:
     void exportTranscripts();
     void folderSelected(QString folderName);
+    void fileSelected(QString fileName);
 
 private:
     Ui::MainWindow *ui;

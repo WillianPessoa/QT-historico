@@ -31,18 +31,29 @@ void TranscriptMaker::initUi()
 
 void TranscriptMaker::makeConnections()
 {
-    //Importação dos dados
-    connect(&m_mainWindow, &MainWindow::folderSelected, [this] (QString folderName) {
+    //Importação dos dados de uma pasta
+    connect(&m_mainWindow, &MainWindow::folderSelected, [this] (QString folderName)
+    {
         QList<IndividualSheet> studentsSheet = Importer::importStudentsFrom(folderName);
-        for (const IndividualSheet &indSheet : studentsSheet) {
+        for (const IndividualSheet &indSheet : studentsSheet)
+        {
             m_studentManager.insertStudentData(indSheet);
         }
         populateTree();
     });
 
-    // Exportação dos dados
+    //Importação dos dados de um arquivo
+    connect(&m_mainWindow, &MainWindow::fileSelected, [this] (QString fileName)
+    {
+        IndividualSheet studentSheet = Reader::getStudentsDataFrom(fileName);
+        m_studentManager.insertStudentData(studentSheet);
+        populateTree();
+    });
+
+    // Exportar e Salvar dados
     connect(&m_mainWindow, &MainWindow::exportTranscripts, [this] () {
         Exporter::exportHistoric(m_studentManager.students(), QDir::home());
+        DataPersist::saveData(m_studentManager.students());
         QMessageBox::about(&m_mainWindow, "Históricos exportados", "Os históricos foram exportados para o diretório " + QDir::homePath());
     });
 }
