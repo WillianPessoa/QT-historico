@@ -51,8 +51,7 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
-RESOURCES += \
-    sample.qrc
+RESOURCES +=
 
 # Adding QtXlsx source code to the project
 include(3rdparty/QtXlsxWriter/src/xlsx/qtxlsx.pri)

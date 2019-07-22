@@ -73,13 +73,16 @@ void TranscriptMaker::tests()
 void TranscriptMaker::populateTree()
 {
     int index = 0;
-    for(Student st : this->m_studentManager.students())
+    int sizeStudents = m_studentManager.students().size();
+
+    for(index = m_index; index < sizeStudents; index++)
     {
-        QString itemName = st.name();
+        QString itemName = m_studentManager.students().at(index).name();
         QTreeWidgetItem *item = new QTreeWidgetItem;
         item->setText(0, itemName);
-        this->m_mainWindow.getTree()->insertTopLevelItem(index++, item);
+        this->m_mainWindow.getTree()->insertTopLevelItem(index, item);
     }
+    m_index = index;
 }
 
 void TranscriptMaker::displayStudent(QTreeWidgetItem *item, int column)
