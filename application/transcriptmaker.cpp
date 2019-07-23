@@ -10,7 +10,8 @@
 
 TranscriptMaker::TranscriptMaker(QObject *parent) :
     QObject(parent),
-    m_mainWindow()
+    m_mainWindow(),
+    m_index(0)
 {
     connect(this->m_mainWindow.getTree(), &QTreeWidget::itemClicked,
             this, &TranscriptMaker::displayStudent);

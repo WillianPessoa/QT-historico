@@ -3,7 +3,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_openFolder(QDir::homePath())
 {
     QString subjects[] = {"BIOLOGIA",
                          "EDUCAÇÃO FÍSICA",
@@ -146,8 +147,9 @@ void MainWindow::selectFolder()
     //abrir janela para selecionar pasta
     QString folderName = QFileDialog::getExistingDirectory(this,
                                                            tr("Open directory"),
-                                                           QDir::homePath());
+                                                           m_openFolder);
 
+    m_openFolder = folderName;  //Salvando última pasta acessada
     emit folderSelected(folderName);
 }
 
@@ -156,8 +158,15 @@ void MainWindow::selectFile()
     //open window for select file
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     tr("Open File"),
-                                                    QDir::homePath(),
+                                                    m_openFolder,
                                                     tr("Excel Files (*.xlsx)"));
+
+
+
+    //Salvando última pasta acessada
+    QStringList strListFileName = fileName.split("/");
+    strListFileName.removeLast();
+    m_openFolder = strListFileName.join("/");
 
     emit fileSelected(fileName);
 }

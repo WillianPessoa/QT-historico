@@ -45,7 +45,7 @@ private:
     MainWindow m_mainWindow;
     StudentManager m_studentManager;
 
-    int m_index = 0;
+    int m_index;
 };
 
 #endif // TRANSCRIPTMAKER_H

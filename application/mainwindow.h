@@ -35,6 +35,8 @@ signals:
 
 private:
     Ui::MainWindow *ui;
+
+    QString m_openFolder;
 };
 
 #endif // MAINWINDOW_H
