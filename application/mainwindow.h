@@ -1,8 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QDebug>
 #include <QFileDialog>
+#include <QMainWindow>
 
 #include <qtreewidget.h>
 

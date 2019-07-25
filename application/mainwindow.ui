@@ -36,13 +36,6 @@
       </column>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="exportPushButton">
-      <property name="text">
-       <string>Exportar</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1" rowspan="3">
      <widget class="QWidget" name="widget" native="true">
       <property name="sizePolicy">
@@ -51,29 +44,22 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="3" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QLabel" name="label_6">
+          <widget class="QLabel" name="label">
            <property name="text">
-            <string>Instituição anterior</string>
+            <string>Nome</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="issuingInstitutionLine">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
+          <widget class="QLineEdit" name="nameLine"/>
          </item>
         </layout>
        </item>
-       <item row="1" column="0">
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QLabel" name="label_2">
@@ -123,24 +109,7 @@
          </item>
         </layout>
        </item>
-       <item row="6" column="0">
-        <widget class="QTableWidget" name="gradesTable"/>
-       </item>
-       <item row="0" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Nome</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="nameLine"/>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="0">
+       <item>
         <layout class="QGridLayout" name="gridLayout">
          <item row="1" column="0">
           <widget class="QLabel" name="label_5">
@@ -164,7 +133,28 @@
          </item>
         </layout>
        </item>
-       <item row="4" column="0">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Instituição anterior</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="issuingInstitutionLine">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="bottomMargin">
           <number>0</number>
@@ -181,13 +171,42 @@
          </item>
         </layout>
        </item>
+       <item>
+        <widget class="QTableWidget" name="gradesTable">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>272</number>
+         </attribute>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>200</number>
+         </attribute>
+         <attribute name="verticalHeaderMinimumSectionSize">
+          <number>38</number>
+         </attribute>
+         <attribute name="verticalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
     <item row="1" column="0">
      <widget class="QPushButton" name="updateStudentButton">
       <property name="text">
-       <string>Atualizar</string>
+       <string>Editar</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="exportPushButton">
+      <property name="text">
+       <string>Exportar</string>
       </property>
      </widget>
     </item>

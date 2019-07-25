@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     m_openFolder(QDir::homePath())
 {
+
     QString subjects[] = {"BIOLOGIA",
                          "EDUCAÇÃO FÍSICA",
                          "FILOSOFIA",
@@ -30,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->gradesTable->setHorizontalHeaderItem(i, item);
     }
 
-    for(int i = 0; i < /*subjects->size()*/ 12; i++)
+    for(int i = 0; i < 12; i++)   //subjects->size() = 12
     {
         ui->gradesTable->insertRow(i);
         QTableWidgetItem *item = new QTableWidgetItem();
@@ -41,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->exportPushButton, &QPushButton::clicked, this, &MainWindow::exportTranscripts);
     connect(ui->selectFolderAction, &QAction::triggered, this, &MainWindow::selectFolder);
     connect(ui->selectFileAction, &QAction::triggered, this, &MainWindow::selectFile);
-
 }
 
 MainWindow::~MainWindow()
@@ -79,57 +79,78 @@ void MainWindow::gradesDisplay(const Student &student)
         item->setText( yearGrades[i].biologyGrade()>=0? QString::number(yearGrades[i].biologyGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
     }
+
     for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].physicalEducationGrade()>=0? QString::number(yearGrades[i].physicalEducationGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
-    }    for(int i = 0; i < 3; i++)
+    }
+
+    for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].philosophyGrade()>=0? QString::number(yearGrades[i].philosophyGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
-    }    for(int i = 0; i < 3; i++)
+    }
+
+    for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].physicsGrade()>=0? QString::number(yearGrades[i].physicsGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
-    }    for(int i = 0; i < 3; i++)
+    }
+
+    for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].geographyGrade()>=0? QString::number(yearGrades[i].geographyGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
-    }    for(int i = 0; i < 3; i++)
+    }
+
+    for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].historyGrade()>=0? QString::number(yearGrades[i].historyGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
-    }    for(int i = 0; i < 3; i++)
+    }
+
+    for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].englishGrade()>=0? QString::number(yearGrades[i].englishGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
-    }    for(int i = 0; i < 3; i++)
+    }
+
+    for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].mathGrade()>=0? QString::number(yearGrades[i].mathGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
-    }    for(int i = 0; i < 3; i++)
+    }
+
+    for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].portugueseGrade()>=0? QString::number(yearGrades[i].portugueseGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
-    }    for(int i = 0; i < 3; i++)
+    }
+
+    for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].textProductionGrade()>=0? QString::number(yearGrades[i].textProductionGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
-    }    for(int i = 0; i < 3; i++)
+    }
+
+    for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].chemistryGrade()>=0? QString::number(yearGrades[i].chemistryGrade()) : "Sem Nota" );
         ui->gradesTable->setItem(n++/3,i,item);
-    }    for(int i = 0; i < 3; i++)
+    }
+
+    for(int i = 0; i < 3; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem();
         item->setText( yearGrades[i].sociologyGrade()>=0? QString::number(yearGrades[i].sociologyGrade()) : "Sem Nota" );
@@ -160,8 +181,6 @@ void MainWindow::selectFile()
                                                     tr("Open File"),
                                                     m_openFolder,
                                                     tr("Excel Files (*.xlsx)"));
-
-
 
     //Salvando última pasta acessada
     QStringList strListFileName = fileName.split("/");
