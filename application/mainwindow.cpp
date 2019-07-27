@@ -198,8 +198,11 @@ void MainWindow::selectFolder()
     //abrir janela para selecionar pasta
     QString folderName = QFileDialog::getExistingDirectory(this, tr("Open directory"), m_openFolder);
 
-    m_openFolder = folderName;  //Salvando última pasta acessada
-    emit folderSelected(folderName);
+    if(!folderName.isEmpty())
+    {
+        m_openFolder = folderName;  //Salvando última pasta acessada
+        emit folderSelected(folderName);
+    }
 }
 
 void MainWindow::selectFile()
@@ -210,12 +213,15 @@ void MainWindow::selectFile()
                                                     m_openFolder,
                                                     tr("Excel Files (*.xlsx)"));
 
-    //Salvando última pasta acessada
-    QStringList strListFileName = fileName.split("/");
-    strListFileName.removeLast();
-    m_openFolder = strListFileName.join("/");
+    if(!fileName.isEmpty())
+    {
+        //Salvando última pasta acessada
+        QStringList strListFileName = fileName.split("/");
+        strListFileName.removeLast();
+        m_openFolder = strListFileName.join("/");
 
-    emit fileSelected(fileName);
+        emit fileSelected(fileName);
+    }
 }
 
 void MainWindow::editStudent()
@@ -223,11 +229,8 @@ void MainWindow::editStudent()
     //Se pelo menos o nome for somente leitura, então habilite todos os campos de edição
     if(ui->nameLine->isReadOnly())
     {
-        //Bloquear árvore de estudantes
-        ui->studentsTree->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
-        ui->studentsTree->setEditTriggers(QTreeWidget::EditTrigger::NoEditTriggers);
-
-        //Bloquear botão de exportar
+        //Bloquear árvore de estudantes e botão de exportar
+        ui->studentsTree->setEnabled(false);
         ui->exportPushButton->setEnabled(false);
 
         //Desbloquear campos para a edição do estudante
@@ -366,9 +369,9 @@ void MainWindow::saveStudent(Student &student)
         }
     }
 
-    //Desbloquear arvore de estudantes
-    ui->studentsTree->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
-    ui->studentsTree->setEditTriggers(QTreeWidget::EditTrigger::AllEditTriggers);
+    //Habilitar árvore de estudantes e botão de exportar históricos
+    ui->studentsTree->setEnabled(true);
+    ui->exportPushButton->setEnabled(true);
 
     //Bloquear campos de edição
     ui->nameLine->setReadOnly(true);
@@ -382,9 +385,6 @@ void MainWindow::saveStudent(Student &student)
 
     //Bloquear tabelas de notas
     ui->gradesTable->setEditTriggers(QTableWidget::EditTrigger::NoEditTriggers);
-
-    //Desbloquear botão de exportar
-    ui->exportPushButton->setEnabled(true);
 }
 
 QString MainWindow::nameStudentEdit() const
