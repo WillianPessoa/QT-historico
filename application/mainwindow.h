@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QAbstractItemView>
 #include <QDebug>
 #include <QFileDialog>
 #include <QMainWindow>
@@ -21,12 +22,19 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    QTreeWidgetItem *getBackStudent() const;
+    void setBackStudent(QTreeWidgetItem *value);
+
 public slots:
     void showStudent(const Student &student);
     void generateTree(const Student &student);
     void gradesDisplay(const Student &student);
+
     void selectFolder();
     void selectFile();
+
+    void setDataStudent(Student student);
+
     QTreeWidget *getTree();
 
 signals:

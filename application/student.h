@@ -66,9 +66,6 @@ public:
     void setRemarks(const QString &remarks);
 
 private:
-    Grades &getGrades(const QString gradeYear);
-
-private:
     QString m_name;
     QDate m_dateOfBirth;
     QString m_fatherName;

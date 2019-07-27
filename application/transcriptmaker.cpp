@@ -51,11 +51,21 @@ void TranscriptMaker::makeConnections()
         populateTree();
     });
 
+    //TODO: conexão para editar estudantes
+
+    //TODO: conexão para atualizar estudantes
+
     // Exportar e Salvar dados
-    connect(&m_mainWindow, &MainWindow::exportTranscripts, [this] () {
-        Exporter::exportHistoric(m_studentManager.students(), QDir::home());
-        DataPersist::saveData(m_studentManager.students());
-        QMessageBox::about(&m_mainWindow, "Históricos exportados", "Os históricos foram exportados para o diretório " + QDir::homePath());
+    connect(&m_mainWindow, &MainWindow::exportTranscripts, [this] ()
+    {
+
+        if(this->m_mainWindow.getTree()->topLevelItemCount() > 0){
+            Exporter::exportHistoric(m_studentManager.students(), QDir::home());
+            DataPersist::saveData(m_studentManager.students());
+            QMessageBox::about(&m_mainWindow, "Históricos exportados", "Os históricos foram exportados para o diretório " + QDir::homePath());
+        }else{
+            QMessageBox::about(&m_mainWindow, "Erro", "Não há alunos para criação de históricos!");
+        }
     });
 }
 

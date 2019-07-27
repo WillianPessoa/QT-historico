@@ -21,22 +21,14 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
-     <widget class="QTreeWidget" name="studentsTree">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+    <item row="4" column="0">
+     <widget class="QPushButton" name="updateStudentButton">
+      <property name="text">
+       <string>Salvar</string>
       </property>
-      <column>
-       <property name="text">
-        <string notr="true">1</string>
-       </property>
-      </column>
      </widget>
     </item>
-    <item row="0" column="1" rowspan="3">
+    <item row="0" column="1" rowspan="6">
      <widget class="QWidget" name="widget" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
@@ -48,7 +40,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="nameLabel">
            <property name="text">
             <string>Nome</string>
            </property>
@@ -62,7 +54,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="birthDateLabel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -85,7 +77,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="naturalnessLabel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -98,7 +90,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="nationalityLine">
+          <widget class="QLineEdit" name="naturalnessLine">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -112,31 +104,31 @@
        <item>
         <layout class="QGridLayout" name="gridLayout">
          <item row="1" column="0">
-          <widget class="QLabel" name="label_5">
+          <widget class="QLabel" name="motherNameLabel">
            <property name="text">
             <string>Nome da mãe</string>
            </property>
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="fatherNameLabel">
            <property name="text">
             <string>Nome do pai</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="motherLine"/>
+          <widget class="QLineEdit" name="motherNameLine"/>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="fatherLine"/>
+          <widget class="QLineEdit" name="fatherNameLine"/>
          </item>
         </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLabel" name="label_6">
+          <widget class="QLabel" name="issuingInstituitionLabel">
            <property name="text">
             <string>Instituição anterior</string>
            </property>
@@ -160,7 +152,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="remarksLabel">
            <property name="text">
             <string>Observações</string>
            </property>
@@ -196,18 +188,33 @@
       </layout>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="updateStudentButton">
+    <item row="5" column="0">
+     <widget class="QPushButton" name="exportPushButton">
+      <property name="text">
+       <string>Exportar</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="editPushButton">
       <property name="text">
        <string>Editar</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="exportPushButton">
-      <property name="text">
-       <string>Exportar</string>
+    <item row="0" column="0" rowspan="3">
+     <widget class="QTreeWidget" name="studentsTree">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
+      <column>
+       <property name="text">
+        <string notr="true">1</string>
+       </property>
+      </column>
      </widget>
     </item>
    </layout>
