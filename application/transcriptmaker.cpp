@@ -6,7 +6,7 @@
 #include "exporter.h"
 
 #include <QMessageBox>
-
+#include <QPushButton>
 
 TranscriptMaker::TranscriptMaker(QObject *parent) :
     QObject(parent),
@@ -51,14 +51,42 @@ void TranscriptMaker::makeConnections()
         populateTree();
     });
 
-    //TODO: conexão para editar estudantes
+    //Edição de estudantes
+    connect(this->m_mainWindow.getEditStudentButton(), &QPushButton::clicked, [this] ()
+    {
+        if(this->m_mainWindow.getTree()->topLevelItemCount() > 0){
 
-    //TODO: conexão para atualizar estudantes
+            if(this->m_mainWindow.nameLineIsReadOnly())
+            {
+                this->m_mainWindow.editStudent();
+            }
+
+        }else{
+            QMessageBox::about(&m_mainWindow, "Erro", "Não há alunos para editar!");
+        }
+    });
+
+    //Salvar dados editados do estudante
+    connect(this->m_mainWindow.getSaveStudentButton(), &QPushButton::clicked, [this] ()
+    {
+        if(this->m_mainWindow.getTree()->topLevelItemCount() > 0){
+
+            //Procurar estudante na lista de estudantes e atualizar as informações deste estudante
+            for(Student &student : m_studentManager.students())
+            {
+                if(student.name() == this->m_mainWindow.nameStudentEdit())
+                {
+                    this->m_mainWindow.saveStudent(student);
+                }
+            }
+        }else{
+            QMessageBox::about(&m_mainWindow, "Erro", "Não há alunos para salvar informações!");
+        }
+    });
 
     // Exportar e Salvar dados
     connect(&m_mainWindow, &MainWindow::exportTranscripts, [this] ()
     {
-
         if(this->m_mainWindow.getTree()->topLevelItemCount() > 0){
             Exporter::exportHistoric(m_studentManager.students(), QDir::home());
             DataPersist::saveData(m_studentManager.students());
@@ -101,6 +129,7 @@ void TranscriptMaker::displayStudent(QTreeWidgetItem *item, int column)
     for(Student st : this->m_studentManager.students())
         if(st.name() == item->text(column))
         {
+            m_mainWindow.setNameStudentEdit(st.name());
             this->m_mainWindow.showStudent(st);
             this->m_mainWindow.gradesDisplay(st);
         }

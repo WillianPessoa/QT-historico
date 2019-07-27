@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="4" column="0">
-     <widget class="QPushButton" name="updateStudentButton">
+     <widget class="QPushButton" name="saveStudentPushButton">
       <property name="text">
        <string>Salvar</string>
       </property>
@@ -196,7 +196,7 @@
      </widget>
     </item>
     <item row="3" column="0">
-     <widget class="QPushButton" name="editPushButton">
+     <widget class="QPushButton" name="editStudentPushButton">
       <property name="text">
        <string>Editar</string>
       </property>

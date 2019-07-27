@@ -4,7 +4,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_openFolder(QDir::homePath())
+    m_openFolder(QDir::homePath()),
+    m_nameStudentEdit()
 {
     QStringList subjects = {"BIOLOGIA",
                             "EDUCAÇÃO FÍSICA",
@@ -177,6 +178,21 @@ QTreeWidget *MainWindow::getTree()
     return ui->studentsTree;
 }
 
+QPushButton *MainWindow::getEditStudentButton()
+{
+    return ui->editStudentPushButton;
+}
+
+QPushButton *MainWindow::getSaveStudentButton()
+{
+    return ui->saveStudentPushButton;
+}
+
+bool MainWindow::nameLineIsReadOnly()
+{
+    return ui->nameLine->isReadOnly();
+}
+
 void MainWindow::selectFolder()
 {
     //abrir janela para selecionar pasta
@@ -202,15 +218,41 @@ void MainWindow::selectFile()
     emit fileSelected(fileName);
 }
 
-void MainWindow::setDataStudent(Student student)
+void MainWindow::editStudent()
+{
+    //Se pelo menos o nome for somente leitura, então habilite todos os campos de edição
+    if(ui->nameLine->isReadOnly())
+    {
+        //Bloquear árvore de estudantes
+        ui->studentsTree->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
+        ui->studentsTree->setEditTriggers(QTreeWidget::EditTrigger::NoEditTriggers);
+
+        //Bloquear botão de exportar
+        ui->exportPushButton->setEnabled(false);
+
+        //Desbloquear campos para a edição do estudante
+        ui->nameLine->setReadOnly(false);
+        ui->birthDate->setReadOnly(false);
+        ui->nameLine->setReadOnly(false);
+        ui->naturalnessLine->setReadOnly(false);
+        ui->fatherNameLine->setReadOnly(false);
+        ui->motherNameLine->setReadOnly(false);
+        ui->issuingInstitutionLine->setReadOnly(false);
+        ui->remarksLine->setReadOnly(false);
+
+        //Desbloquear campos para colocar notas
+        ui->gradesTable->setEditTriggers(QTableWidget::EditTrigger::AllEditTriggers);
+    }
+}
+
+void MainWindow::saveStudent(Student &student)
 {
     //Armazenando endereço das grades de cada ano do aluno
     Grades &firstYear = student.getGradesRef("1");
     Grades &secondYear = student.getGradesRef("2");
     Grades &thirdYear = student.getGradesRef("3");
 
-    //Atualizar nome, nome do pai, nome da mãe, data de nascimento, naturalidade
-    //Identidade, orgão de expedição, orgão emissor, observações, instituição anterior
+    //Atualizar dados pessoais do aluno
     student.setName(ui->nameLine->text());
     student.setFatherName(ui->fatherNameLine->text());
     student.setMotherName(ui->motherNameLine->text());
@@ -226,101 +268,131 @@ void MainWindow::setDataStudent(Student student)
     */
 
     //Salvar notas
-    for(int j = 1; j <= 3; j++)
+    for(int j = 0; j < 3; j++)
     {
-        for(int i = 1; i <= 12; i++)
+        for(int i = 0; i < 12; i++)
         {
             QString value = ui->gradesTable->item(i, j)->text();
 
             if(value != "Sem nota"){
 
                 //Atualiza notas do primeiro ano
-                if(j == 1){
-                    if(i == 1){
+                if(j == 0){
+                    if(i == 0){
                         firstYear.setBiologyGrade(value.toDouble());
-                    }else if(i == 2){
+                    }else if(i == 1){
                         firstYear.setPhysicalEducationGrade(value.toDouble());
-                    }else if(i == 3){
+                    }else if(i == 2){
                         firstYear.setPhilosophyGrade(value.toDouble());
-                    }else if(i == 4){
+                    }else if(i == 3){
                         firstYear.setPhysicsGrade(value.toDouble());
-                    }else if(i == 5){
+                    }else if(i == 4){
                         firstYear.setGeographyGrade(value.toDouble());
-                    }else if(i == 6){
+                    }else if(i == 5){
                         firstYear.setHistoryGrade(value.toDouble());
-                    }else if(i == 7){
+                    }else if(i == 6){
                         firstYear.setProjectGrade(value.toDouble());
-                    }else if(i == 8){
+                    }else if(i == 7){
                         firstYear.setMathGrade(value.toDouble());
-                    }else if(i == 9){
+                    }else if(i == 8){
                         firstYear.setPortugueseGrade(value.toDouble());
-                    }else if(i == 10){
+                    }else if(i == 9){
                         firstYear.setTextProductionGrade(value.toDouble());
-                    }else if(i == 11){
+                    }else if(i == 10){
                         firstYear.setChemistryGrade(value.toDouble());
-                    }else if(i == 12){
+                    }else if(i == 11){
                         firstYear.setSociologyGrade(value.toDouble());
                     }
                 }
 
                 //Atualiza notas do segundo ano
-                if(j == 2){
-                    if(i == 1){
+                if(j == 1){
+                    if(i == 0){
                         secondYear.setBiologyGrade(value.toDouble());
-                    }else if(i == 2){
+                    }else if(i == 1){
                         secondYear.setPhysicalEducationGrade(value.toDouble());
-                    }else if(i == 3){
+                    }else if(i == 2){
                         secondYear.setPhilosophyGrade(value.toDouble());
-                    }else if(i == 4){
+                    }else if(i == 3){
                         secondYear.setPhysicsGrade(value.toDouble());
-                    }else if(i == 5){
+                    }else if(i == 4){
                         secondYear.setGeographyGrade(value.toDouble());
-                    }else if(i == 6){
+                    }else if(i == 5){
                         secondYear.setHistoryGrade(value.toDouble());
-                    }else if(i == 7){
+                    }else if(i == 6){
                         secondYear.setProjectGrade(value.toDouble());
-                    }else if(i == 8){
+                    }else if(i == 7){
                         secondYear.setMathGrade(value.toDouble());
-                    }else if(i == 9){
+                    }else if(i == 8){
                         secondYear.setPortugueseGrade(value.toDouble());
-                    }else if(i == 10){
+                    }else if(i == 9){
                         secondYear.setTextProductionGrade(value.toDouble());
-                    }else if(i == 11){
+                    }else if(i == 10){
                         secondYear.setChemistryGrade(value.toDouble());
-                    }else if(i == 12){
+                    }else if(i == 11){
                         secondYear.setSociologyGrade(value.toDouble());
                     }
                 }
 
                 //Atualiza notas do terceiro ano
-                if(j == 3){
-                    if(i == 1){
+                if(j == 2){
+                    if(i == 0){
                         thirdYear.setBiologyGrade(value.toDouble());
-                    }else if(i == 2){
+                    }else if(i == 1){
                         thirdYear.setPhysicalEducationGrade(value.toDouble());
-                    }else if(i == 3){
+                    }else if(i == 2){
                         thirdYear.setPhilosophyGrade(value.toDouble());
-                    }else if(i == 4){
+                    }else if(i == 3){
                         thirdYear.setPhysicsGrade(value.toDouble());
-                    }else if(i == 5){
+                    }else if(i == 4){
                         thirdYear.setGeographyGrade(value.toDouble());
-                    }else if(i == 6){
+                    }else if(i == 5){
                         thirdYear.setHistoryGrade(value.toDouble());
-                    }else if(i == 7){
+                    }else if(i == 6){
                         thirdYear.setProjectGrade(value.toDouble());
-                    }else if(i == 8){
+                    }else if(i == 7){
                         thirdYear.setMathGrade(value.toDouble());
-                    }else if(i == 9){
+                    }else if(i == 8){
                         thirdYear.setPortugueseGrade(value.toDouble());
-                    }else if(i == 10){
+                    }else if(i == 9){
                         thirdYear.setTextProductionGrade(value.toDouble());
-                    }else if(i == 11){
+                    }else if(i == 10){
                         thirdYear.setChemistryGrade(value.toDouble());
-                    }else if(i == 12){
+                    }else if(i == 11){
                         thirdYear.setSociologyGrade(value.toDouble());
                     }
                 }
             }
         }
     }
+
+    //Desbloquear arvore de estudantes
+    ui->studentsTree->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
+    ui->studentsTree->setEditTriggers(QTreeWidget::EditTrigger::AllEditTriggers);
+
+    //Bloquear campos de edição
+    ui->nameLine->setReadOnly(true);
+    ui->birthDate->setReadOnly(true);
+    ui->nameLine->setReadOnly(true);
+    ui->naturalnessLine->setReadOnly(true);
+    ui->fatherNameLine->setReadOnly(true);
+    ui->motherNameLine->setReadOnly(true);
+    ui->issuingInstitutionLine->setReadOnly(true);
+    ui->remarksLine->setReadOnly(true);
+
+    //Bloquear tabelas de notas
+    ui->gradesTable->setEditTriggers(QTableWidget::EditTrigger::NoEditTriggers);
+
+    //Desbloquear botão de exportar
+    ui->exportPushButton->setEnabled(true);
+}
+
+QString MainWindow::nameStudentEdit() const
+{
+    return m_nameStudentEdit;
+}
+
+void MainWindow::setNameStudentEdit(const QString &nameStudentEdit)
+{
+    m_nameStudentEdit = nameStudentEdit;
 }

@@ -33,9 +33,16 @@ public slots:
     void selectFolder();
     void selectFile();
 
-    void setDataStudent(Student student);
+    void editStudent();
+    void saveStudent(Student &student);
+
+    QString nameStudentEdit() const;
+    void setNameStudentEdit(const QString &nameStudentEdit);
 
     QTreeWidget *getTree();
+    QPushButton *getEditStudentButton();
+    QPushButton *getSaveStudentButton();
+    bool nameLineIsReadOnly();
 
 signals:
     void exportTranscripts();
@@ -46,6 +53,7 @@ private:
     Ui::MainWindow *ui;
 
     QString m_openFolder;
+    QString m_nameStudentEdit;
 };
 
 #endif // MAINWINDOW_H
