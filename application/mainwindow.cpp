@@ -22,7 +22,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    //Criar colunas com titulo: 1º ano, 2º ano ...
     ui->gradesTable->setColumnCount(3);
     for(int i = 0; i < 3; i++)
     {
@@ -48,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->naturalnessLine->setReadOnly(true);
     ui->fatherNameLine->setReadOnly(true);
     ui->motherNameLine->setReadOnly(true);
-    ui->issuingInstitutionLine->setReadOnly(true);
+    ui->institutionBackLineEdit->setReadOnly(true);
     ui->remarksLine->setReadOnly(true);
 
     ui->gradesTable->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
@@ -71,7 +70,10 @@ void MainWindow::showStudent(const Student &student)
     ui->birthDate->setDate(student.dateOfBirth());
     ui->naturalnessLine->setText(student.naturalness());
     ui->nameLine->setText(student.name());
-    ui->issuingInstitutionLine->setText(student.IDIssuingInstitution()); // INSERIR BUSCA POR ÓRGAO EMISSOR
+    ui->institutionBackLineEdit->setText(student.institutionBack().toUpper());
+    ui->remarksLine->setText(student.remarks().toUpper());
+
+    //TODO: Inserir número da identidade, orgão emissor e data de emissão.
 }
 
 void MainWindow::generateTree(const Student &student)
@@ -224,14 +226,22 @@ void MainWindow::selectFile()
     }
 }
 
+void MainWindow::setNameStudent(Student &student, const QString &newName)
+{
+    student.setName(newName);
+}
+
 void MainWindow::editStudent()
 {
     //Se pelo menos o nome for somente leitura, então habilite todos os campos de edição
     if(ui->nameLine->isReadOnly())
     {
-        //Bloquear árvore de estudantes e botão de exportar
+        //Bloquear árvore de estudantes, botão de exportar e de editar
         ui->studentsTree->setEnabled(false);
         ui->exportPushButton->setEnabled(false);
+        ui->editStudentPushButton->setEnabled(false);
+        ui->selectFileAction->setEnabled(false);
+        ui->selectFolderAction->setEnabled(false);
 
         //Desbloquear campos para a edição do estudante
         ui->nameLine->setReadOnly(false);
@@ -240,7 +250,7 @@ void MainWindow::editStudent()
         ui->naturalnessLine->setReadOnly(false);
         ui->fatherNameLine->setReadOnly(false);
         ui->motherNameLine->setReadOnly(false);
-        ui->issuingInstitutionLine->setReadOnly(false);
+        ui->institutionBackLineEdit->setReadOnly(false);
         ui->remarksLine->setReadOnly(false);
 
         //Desbloquear campos para colocar notas
@@ -256,12 +266,12 @@ void MainWindow::saveStudent(Student &student)
     Grades &thirdYear = student.getGradesRef("3");
 
     //Atualizar dados pessoais do aluno
-    student.setName(ui->nameLine->text());
-    student.setFatherName(ui->fatherNameLine->text());
-    student.setMotherName(ui->motherNameLine->text());
+    student.setName(ui->nameLine->text().toUpper());
+    student.setFatherName(ui->fatherNameLine->text().toUpper());
+    student.setMotherName(ui->motherNameLine->text().toUpper());
     student.setDateOfBirth(ui->birthDate->date());
-    student.setNaturalness(ui->naturalnessLine->text());
-    student.setInstitutionBack(ui->issuingInstitutionLine->text());
+    student.setNaturalness(ui->naturalnessLine->text().toUpper());
+    student.setInstitutionBack(ui->institutionBackLineEdit->text());
     student.setRemarks(ui->remarksLine->text());
 
     /*Colocar na interface primeiro
@@ -277,7 +287,7 @@ void MainWindow::saveStudent(Student &student)
         {
             QString value = ui->gradesTable->item(i, j)->text();
 
-            if(value != "Sem nota"){
+            if(!(value == "Sem Nota")){
 
                 //Atualiza notas do primeiro ano
                 if(j == 0){
@@ -294,7 +304,7 @@ void MainWindow::saveStudent(Student &student)
                     }else if(i == 5){
                         firstYear.setHistoryGrade(value.toDouble());
                     }else if(i == 6){
-                        firstYear.setProjectGrade(value.toDouble());
+                        firstYear.setEnglishGrade(value.toDouble());
                     }else if(i == 7){
                         firstYear.setMathGrade(value.toDouble());
                     }else if(i == 8){
@@ -323,7 +333,7 @@ void MainWindow::saveStudent(Student &student)
                     }else if(i == 5){
                         secondYear.setHistoryGrade(value.toDouble());
                     }else if(i == 6){
-                        secondYear.setProjectGrade(value.toDouble());
+                        secondYear.setEnglishGrade(value.toDouble());
                     }else if(i == 7){
                         secondYear.setMathGrade(value.toDouble());
                     }else if(i == 8){
@@ -352,7 +362,7 @@ void MainWindow::saveStudent(Student &student)
                     }else if(i == 5){
                         thirdYear.setHistoryGrade(value.toDouble());
                     }else if(i == 6){
-                        thirdYear.setProjectGrade(value.toDouble());
+                        thirdYear.setEnglishGrade(value.toDouble());
                     }else if(i == 7){
                         thirdYear.setMathGrade(value.toDouble());
                     }else if(i == 8){
@@ -369,9 +379,12 @@ void MainWindow::saveStudent(Student &student)
         }
     }
 
-    //Habilitar árvore de estudantes e botão de exportar históricos
+    //Habilitar árvore de estudantes, botão de exportar e editar
     ui->studentsTree->setEnabled(true);
     ui->exportPushButton->setEnabled(true);
+    ui->editStudentPushButton->setEnabled(true);
+    ui->selectFileAction->setEnabled(true);
+    ui->selectFolderAction->setEnabled(true);
 
     //Bloquear campos de edição
     ui->nameLine->setReadOnly(true);
@@ -380,14 +393,15 @@ void MainWindow::saveStudent(Student &student)
     ui->naturalnessLine->setReadOnly(true);
     ui->fatherNameLine->setReadOnly(true);
     ui->motherNameLine->setReadOnly(true);
-    ui->issuingInstitutionLine->setReadOnly(true);
+    ui->institutionBackLineEdit->setReadOnly(true);
     ui->remarksLine->setReadOnly(true);
 
     //Bloquear tabelas de notas
     ui->gradesTable->setEditTriggers(QTableWidget::EditTrigger::NoEditTriggers);
+
 }
 
-QString MainWindow::nameStudentEdit() const
+QString MainWindow::nameStudentForEdit() const
 {
     return m_nameStudentEdit;
 }
@@ -395,4 +409,9 @@ QString MainWindow::nameStudentEdit() const
 void MainWindow::setNameStudentEdit(const QString &nameStudentEdit)
 {
     m_nameStudentEdit = nameStudentEdit;
+}
+
+QString MainWindow::nameLineEditText() const
+{
+    return ui->nameLine->text();
 }

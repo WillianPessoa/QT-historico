@@ -50,6 +50,9 @@ public:
     QString institutionBack() const;
     void setInstitutionBack(const QString &institutionBack);
 
+    QString remarks() const;
+    void setRemarks(const QString &remarks);
+
     Grades firstYearGrades() const;
     Grades secondYearGrades() const;
     Grades thirdYearGrades() const;
@@ -62,9 +65,6 @@ public:
 
     void writeInJsonObject(QJsonObject &obj) const;
 
-    QString getRemarks() const;
-    void setRemarks(const QString &remarks);
-
 private:
     QString m_name;
     QDate m_dateOfBirth;
@@ -75,12 +75,11 @@ private:
     QString m_IDIssuingInstitution;
     QString m_IDIssueDate;
     QString m_institutionBack;
+    QString m_remarks;
 
     Grades m_firstYearGrades;
     Grades m_secondYearGrades;
     Grades m_thirdYearGrades;
-
-    QString m_remarks;
 };
 
 #endif // STUDENT_H

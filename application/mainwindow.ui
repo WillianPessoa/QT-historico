@@ -135,7 +135,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="issuingInstitutionLine">
+          <widget class="QLineEdit" name="institutionBackLineEdit">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>

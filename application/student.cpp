@@ -407,7 +407,7 @@ void Student::writeInJsonObject(QJsonObject &obj) const
     obj.insert(KEY_TEXT_PRODUCTION, textProductionObj);
 }
 
-QString Student::getRemarks() const
+QString Student::remarks() const
 {
     return m_remarks;
 }

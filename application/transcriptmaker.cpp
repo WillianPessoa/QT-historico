@@ -54,31 +54,37 @@ void TranscriptMaker::makeConnections()
     //Edição de estudantes
     connect(this->m_mainWindow.getEditStudentButton(), &QPushButton::clicked, [this] ()
     {
-        if(this->m_mainWindow.getTree()->topLevelItemCount() > 0){
-
-            if(this->m_mainWindow.nameLineIsReadOnly())
-            {
-                this->m_mainWindow.editStudent();
-            }
-
+        if(!(this->m_mainWindow.nameLineEditText() == "")){
+            this->m_mainWindow.editStudent();
         }else{
-            QMessageBox::about(&m_mainWindow, "Erro", "Não há alunos para editar!");
+            QMessageBox::about(&m_mainWindow, "Erro", "Não há informações de alunos \n      para serem editadas!");
         }
     });
 
     //Salvar dados editados do estudante
     connect(this->m_mainWindow.getSaveStudentButton(), &QPushButton::clicked, [this] ()
     {
-        if(this->m_mainWindow.getTree()->topLevelItemCount() > 0){
-
-            //Procurar estudante na lista de estudantes e atualizar as informações deste estudante
-            for(Student &student : m_studentManager.students())
+        if(!(this->m_mainWindow.nameLineEditText() == ""))
+        {
+            for(int i = 0; i < this->m_studentManager.students().size(); i++)
             {
-                if(student.name() == this->m_mainWindow.nameStudentEdit())
+                if(this->m_studentManager.students().at(i).name() == this->m_mainWindow.nameStudentForEdit())
                 {
+                    Student student = this->m_studentManager.students().at(i);
                     this->m_mainWindow.saveStudent(student);
+                    this->m_studentManager.replaceStudent(i, student);
+                    m_index = 0;
+                    this->m_mainWindow.getTree()->clear();
+                    populateTree();
                 }
             }
+
+            qDebug() << "Nomes dos estudantes: ";
+            for(int i = 0; i < this->m_studentManager.students().size(); i++)
+            {
+                qDebug() << "\t" << this->m_studentManager.students().at(i).name();
+            }
+
         }else{
             QMessageBox::about(&m_mainWindow, "Erro", "Não há alunos para salvar informações!");
         }
@@ -116,7 +122,7 @@ void TranscriptMaker::populateTree()
 
     for(index = m_index; index < sizeStudents; index++)
     {
-        QString itemName = m_studentManager.students().at(index).name();
+        QString itemName = m_studentManager.students().at(index).name().toUpper();
         QTreeWidgetItem *item = new QTreeWidgetItem;
         item->setText(0, itemName);
         this->m_mainWindow.getTree()->insertTopLevelItem(index, item);

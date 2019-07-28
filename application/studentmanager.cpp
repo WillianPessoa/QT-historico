@@ -30,9 +30,14 @@ bool StudentManager::insertStudentData(const IndividualSheet &studentSheet)
     return true;
 }
 
-bool StudentManager::insertStudents(const QList<Student> students)
+void StudentManager::insertStudents(const QList<Student> students)
 {
     m_students.append(students);
+}
+
+void StudentManager::replaceStudent(int index, const Student &student)
+{
+    m_students.replace(index, student);
 }
 
 bool StudentManager::isEqual(const Student &student, const IndividualSheet &studentSheet) const

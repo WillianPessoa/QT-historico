@@ -24,7 +24,9 @@ public:
      */
     bool insertStudentData(const IndividualSheet &studentSheet);
 
-    bool insertStudents(const QList<Student> students);
+    void insertStudents(const QList<Student> students);
+
+    void replaceStudent(int index, const Student &student);
 
     /**
      * @brief containsStudent Verifica se contém um determinado estudante através do IDNumber

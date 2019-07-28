@@ -22,9 +22,6 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    QTreeWidgetItem *getBackStudent() const;
-    void setBackStudent(QTreeWidgetItem *value);
-
 public slots:
     void showStudent(const Student &student);
     void generateTree(const Student &student);
@@ -36,13 +33,16 @@ public slots:
     void editStudent();
     void saveStudent(Student &student);
 
-    QString nameStudentEdit() const;
-    void setNameStudentEdit(const QString &nameStudentEdit);
+    QString nameStudentForEdit() const;
+    void setNameStudentEdit(const QString &nameStudentForEdit);
 
     QTreeWidget *getTree();
     QPushButton *getEditStudentButton();
     QPushButton *getSaveStudentButton();
     bool nameLineIsReadOnly();
+    QString nameLineEditText() const;
+
+    void setNameStudent(Student &student, const QString &newName);
 
 signals:
     void exportTranscripts();
