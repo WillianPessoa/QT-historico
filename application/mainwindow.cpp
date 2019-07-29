@@ -31,8 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->gradesTable->setHorizontalHeaderItem(i, item);
     }
 
-    //Criar linhas com titulos das materias
-    for(int i = 0; i < 12; i++)   //subjects->size() = 12
+    for(int i = 0; i < 12; i++)
     {
         ui->gradesTable->insertRow(i);
         QTableWidgetItem *item = new QTableWidgetItem();
@@ -40,18 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->gradesTable->setVerticalHeaderItem(i, item);
     }
 
-    //Bloquear edição de todos os campos do aluno na interface gráfica
-    ui->nameLine->setReadOnly(true);
-    ui->birthDate->setReadOnly(true);
-    ui->nameLine->setReadOnly(true);
-    ui->naturalnessLine->setReadOnly(true);
-    ui->fatherNameLine->setReadOnly(true);
-    ui->motherNameLine->setReadOnly(true);
-    ui->institutionBackLineEdit->setReadOnly(true);
-    ui->remarksLine->setReadOnly(true);
-
-    ui->gradesTable->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
-    ui->gradesTable->setEditTriggers(QTableWidget::EditTrigger::NoEditTriggers);
+    lockUi(true);
 
     connect(ui->exportPushButton, &QPushButton::clicked, this, &MainWindow::exportTranscripts);
     connect(ui->selectFolderAction, &QAction::triggered, this, &MainWindow::selectFolder);
@@ -63,11 +51,47 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+QTreeWidget *MainWindow::studentsTree()
+{
+    return ui->studentsTree;
+}
+
+QPushButton *MainWindow::editStudentPushButton()
+{
+    return ui->editStudentPushButton;
+}
+
+QPushButton *MainWindow::saveStudentPushButton()
+{
+    return ui->saveStudentPushButton;
+}
+
+void MainWindow::setNameStudent(Student &student, const QString &name)
+{
+    student.setName(name);
+}
+
+QString MainWindow::nameStudentForEdit() const
+{
+    return m_nameStudentEdit;
+}
+
+void MainWindow::setNameStudentForEdit(const QString &nameStudentForEdit)
+{
+    m_nameStudentEdit = nameStudentForEdit;
+}
+
+QString MainWindow::nameLineEditText() const
+{
+    return ui->nameLine->text();
+}
+
 void MainWindow::showStudent(const Student &student)
 {
     ui->motherNameLine->setText(student.motherName());
     ui->fatherNameLine->setText(student.fatherName());
     ui->birthDate->setDate(student.dateOfBirth());
+    //TODO: Colocar campo para nacionalidade
     ui->naturalnessLine->setText(student.naturalness());
     ui->nameLine->setText(student.name());
     ui->institutionBackLineEdit->setText(student.institutionBack().toUpper());
@@ -175,26 +199,6 @@ void MainWindow::gradesDisplay(const Student &student)
     }
 }
 
-QTreeWidget *MainWindow::getTree()
-{
-    return ui->studentsTree;
-}
-
-QPushButton *MainWindow::getEditStudentButton()
-{
-    return ui->editStudentPushButton;
-}
-
-QPushButton *MainWindow::getSaveStudentButton()
-{
-    return ui->saveStudentPushButton;
-}
-
-bool MainWindow::nameLineIsReadOnly()
-{
-    return ui->nameLine->isReadOnly();
-}
-
 void MainWindow::selectFolder()
 {
     //abrir janela para selecionar pasta
@@ -210,10 +214,7 @@ void MainWindow::selectFolder()
 void MainWindow::selectFile()
 {
     //open window for select file
-    QString fileName = QFileDialog::getOpenFileName(this,
-                                                    tr("Open File"),
-                                                    m_openFolder,
-                                                    tr("Excel Files (*.xlsx)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), m_openFolder, tr("Excel Files (*.xlsx)"));
 
     if(!fileName.isEmpty())
     {
@@ -226,50 +227,49 @@ void MainWindow::selectFile()
     }
 }
 
-void MainWindow::setNameStudent(Student &student, const QString &newName)
+void MainWindow::lockUi(bool value)
 {
-    student.setName(newName);
+    ui->studentsTree->setEnabled(value);
+    ui->exportPushButton->setEnabled(value);
+    ui->editStudentPushButton->setEnabled(value);
+    ui->selectFileAction->setEnabled(value);
+    ui->selectFolderAction->setEnabled(value);
+
+    ui->nameLine->setReadOnly(value);
+    ui->birthDate->setReadOnly(value);
+    ui->nameLine->setReadOnly(value);
+    ui->naturalnessLine->setReadOnly(value);
+    ui->fatherNameLine->setReadOnly(value);
+    ui->motherNameLine->setReadOnly(value);
+    ui->institutionBackLineEdit->setReadOnly(value);
+    ui->remarksLine->setReadOnly(value);
+
+    //TODO: Bloquear outros campos: Identidade
+
+    if(value){  //Bloqueia tabela com notas
+        ui->gradesTable->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
+        ui->gradesTable->setEditTriggers(QTableWidget::EditTrigger::NoEditTriggers);
+    }else{      //Desbloqueia tabela para inserção de notas
+        ui->gradesTable->setEditTriggers(QTableWidget::EditTrigger::AllEditTriggers);
+    }
 }
 
-void MainWindow::editStudent()
+void MainWindow::editStudent()  //false
 {
-    //Se pelo menos o nome for somente leitura, então habilite todos os campos de edição
-    if(ui->nameLine->isReadOnly())
+    if(ui->nameLine->isReadOnly())  //Se pelo menos o nome for somente leitura, então habilite todos os campos de edição
     {
-        //Bloquear árvore de estudantes, botão de exportar e de editar
-        ui->studentsTree->setEnabled(false);
-        ui->exportPushButton->setEnabled(false);
-        ui->editStudentPushButton->setEnabled(false);
-        ui->selectFileAction->setEnabled(false);
-        ui->selectFolderAction->setEnabled(false);
-
-        //Desbloquear campos para a edição do estudante
-        ui->nameLine->setReadOnly(false);
-        ui->birthDate->setReadOnly(false);
-        ui->nameLine->setReadOnly(false);
-        ui->naturalnessLine->setReadOnly(false);
-        ui->fatherNameLine->setReadOnly(false);
-        ui->motherNameLine->setReadOnly(false);
-        ui->institutionBackLineEdit->setReadOnly(false);
-        ui->remarksLine->setReadOnly(false);
-
-        //Desbloquear campos para colocar notas
-        ui->gradesTable->setEditTriggers(QTableWidget::EditTrigger::AllEditTriggers);
+        lockUi(false);
     }
 }
 
 void MainWindow::saveStudent(Student &student)
 {
-    //Armazenando endereço das grades de cada ano do aluno
-    Grades &firstYear = student.getGradesRef("1");
-    Grades &secondYear = student.getGradesRef("2");
-    Grades &thirdYear = student.getGradesRef("3");
-
     //Atualizar dados pessoais do aluno
     student.setName(ui->nameLine->text().toUpper());
     student.setFatherName(ui->fatherNameLine->text().toUpper());
     student.setMotherName(ui->motherNameLine->text().toUpper());
     student.setDateOfBirth(ui->birthDate->date());
+    //TODO: Atualizar nacionalidade
     student.setNaturalness(ui->naturalnessLine->text().toUpper());
     student.setInstitutionBack(ui->institutionBackLineEdit->text());
     student.setRemarks(ui->remarksLine->text());
@@ -283,135 +283,40 @@ void MainWindow::saveStudent(Student &student)
     //Salvar notas
     for(int j = 0; j < 3; j++)
     {
+        Grades &grade = student.getGradesRef(QString::number(j + 1));
+
         for(int i = 0; i < 12; i++)
         {
             QString value = ui->gradesTable->item(i, j)->text();
 
-            if(!(value == "Sem Nota")){
-
-                //Atualiza notas do primeiro ano
-                if(j == 0){
-                    if(i == 0){
-                        firstYear.setBiologyGrade(value.toDouble());
-                    }else if(i == 1){
-                        firstYear.setPhysicalEducationGrade(value.toDouble());
-                    }else if(i == 2){
-                        firstYear.setPhilosophyGrade(value.toDouble());
-                    }else if(i == 3){
-                        firstYear.setPhysicsGrade(value.toDouble());
-                    }else if(i == 4){
-                        firstYear.setGeographyGrade(value.toDouble());
-                    }else if(i == 5){
-                        firstYear.setHistoryGrade(value.toDouble());
-                    }else if(i == 6){
-                        firstYear.setEnglishGrade(value.toDouble());
-                    }else if(i == 7){
-                        firstYear.setMathGrade(value.toDouble());
-                    }else if(i == 8){
-                        firstYear.setPortugueseGrade(value.toDouble());
-                    }else if(i == 9){
-                        firstYear.setTextProductionGrade(value.toDouble());
-                    }else if(i == 10){
-                        firstYear.setChemistryGrade(value.toDouble());
-                    }else if(i == 11){
-                        firstYear.setSociologyGrade(value.toDouble());
-                    }
-                }
-
-                //Atualiza notas do segundo ano
-                if(j == 1){
-                    if(i == 0){
-                        secondYear.setBiologyGrade(value.toDouble());
-                    }else if(i == 1){
-                        secondYear.setPhysicalEducationGrade(value.toDouble());
-                    }else if(i == 2){
-                        secondYear.setPhilosophyGrade(value.toDouble());
-                    }else if(i == 3){
-                        secondYear.setPhysicsGrade(value.toDouble());
-                    }else if(i == 4){
-                        secondYear.setGeographyGrade(value.toDouble());
-                    }else if(i == 5){
-                        secondYear.setHistoryGrade(value.toDouble());
-                    }else if(i == 6){
-                        secondYear.setEnglishGrade(value.toDouble());
-                    }else if(i == 7){
-                        secondYear.setMathGrade(value.toDouble());
-                    }else if(i == 8){
-                        secondYear.setPortugueseGrade(value.toDouble());
-                    }else if(i == 9){
-                        secondYear.setTextProductionGrade(value.toDouble());
-                    }else if(i == 10){
-                        secondYear.setChemistryGrade(value.toDouble());
-                    }else if(i == 11){
-                        secondYear.setSociologyGrade(value.toDouble());
-                    }
-                }
-
-                //Atualiza notas do terceiro ano
-                if(j == 2){
-                    if(i == 0){
-                        thirdYear.setBiologyGrade(value.toDouble());
-                    }else if(i == 1){
-                        thirdYear.setPhysicalEducationGrade(value.toDouble());
-                    }else if(i == 2){
-                        thirdYear.setPhilosophyGrade(value.toDouble());
-                    }else if(i == 3){
-                        thirdYear.setPhysicsGrade(value.toDouble());
-                    }else if(i == 4){
-                        thirdYear.setGeographyGrade(value.toDouble());
-                    }else if(i == 5){
-                        thirdYear.setHistoryGrade(value.toDouble());
-                    }else if(i == 6){
-                        thirdYear.setEnglishGrade(value.toDouble());
-                    }else if(i == 7){
-                        thirdYear.setMathGrade(value.toDouble());
-                    }else if(i == 8){
-                        thirdYear.setPortugueseGrade(value.toDouble());
-                    }else if(i == 9){
-                        thirdYear.setTextProductionGrade(value.toDouble());
-                    }else if(i == 10){
-                        thirdYear.setChemistryGrade(value.toDouble());
-                    }else if(i == 11){
-                        thirdYear.setSociologyGrade(value.toDouble());
-                    }
+            if(value.toDouble() >= 0 && value.toDouble() <= 40 && !(value == "Sem Nota"))
+            {
+                if(i == 0){
+                    grade.setBiologyGrade(value.toDouble());
+                }else if(i == 1){
+                    grade.setPhysicalEducationGrade(value.toDouble());
+                }else if(i == 2){
+                    grade.setPhilosophyGrade(value.toDouble());
+                }else if(i == 3){
+                    grade.setPhysicsGrade(value.toDouble());
+                }else if(i == 4){
+                    grade.setGeographyGrade(value.toDouble());
+                }else if(i == 5){
+                    grade.setHistoryGrade(value.toDouble());
+                }else if(i == 6){
+                    grade.setEnglishGrade(value.toDouble());
+                }else if(i == 7){
+                    grade.setMathGrade(value.toDouble());
+                }else if(i == 8){
+                    grade.setPortugueseGrade(value.toDouble());
+                }else if(i == 9){
+                    grade.setTextProductionGrade(value.toDouble());
+                }else if(i == 10){
+                    grade.setChemistryGrade(value.toDouble());
+                }else if(i == 11){
+                    grade.setSociologyGrade(value.toDouble());
                 }
             }
         }
-    }
-
-    //Habilitar árvore de estudantes, botão de exportar e editar
-    ui->studentsTree->setEnabled(true);
-    ui->exportPushButton->setEnabled(true);
-    ui->editStudentPushButton->setEnabled(true);
-    ui->selectFileAction->setEnabled(true);
-    ui->selectFolderAction->setEnabled(true);
-
-    //Bloquear campos de edição
-    ui->nameLine->setReadOnly(true);
-    ui->birthDate->setReadOnly(true);
-    ui->nameLine->setReadOnly(true);
-    ui->naturalnessLine->setReadOnly(true);
-    ui->fatherNameLine->setReadOnly(true);
-    ui->motherNameLine->setReadOnly(true);
-    ui->institutionBackLineEdit->setReadOnly(true);
-    ui->remarksLine->setReadOnly(true);
-
-    //Bloquear tabelas de notas
-    ui->gradesTable->setEditTriggers(QTableWidget::EditTrigger::NoEditTriggers);
-
-}
-
-QString MainWindow::nameStudentForEdit() const
-{
-    return m_nameStudentEdit;
-}
-
-void MainWindow::setNameStudentEdit(const QString &nameStudentEdit)
-{
-    m_nameStudentEdit = nameStudentEdit;
-}
-
-QString MainWindow::nameLineEditText() const
-{
-    return ui->nameLine->text();
+    }lockUi(true);
 }

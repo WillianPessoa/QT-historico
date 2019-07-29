@@ -21,24 +21,47 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="4" column="0">
+    <item row="0" column="0" rowspan="2">
+     <widget class="QTreeWidget" name="studentsTree">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <column>
+       <property name="text">
+        <string notr="true">1</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item row="3" column="0">
      <widget class="QPushButton" name="saveStudentPushButton">
       <property name="text">
        <string>Salvar</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1" rowspan="6">
-     <widget class="QWidget" name="widget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+    <item row="4" column="0">
+     <widget class="QPushButton" name="exportPushButton">
+      <property name="text">
+       <string>Exportar</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="editStudentPushButton">
+      <property name="text">
+       <string>Editar</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" rowspan="5">
+     <widget class="QWidget" name="widget" native="true">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QLabel" name="nameLabel">
            <property name="text">
@@ -49,32 +72,39 @@
          <item>
           <widget class="QLineEdit" name="nameLine"/>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QLabel" name="birthDateLabel">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLabel" name="fatherNameLabel">
            <property name="text">
-            <string>Data de nascimento</string>
+            <string>Nome do pai</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QDateEdit" name="birthDate">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+          <widget class="QLineEdit" name="fatherNameLine"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="motherNameLabel">
+           <property name="text">
+            <string>Nome da mãe</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="motherNameLine"/>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="nacionalityLabel">
+           <property name="text">
+            <string>Nacionalidade</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="nacionalityLineEdit"/>
          </item>
          <item>
           <widget class="QLabel" name="naturalnessLabel">
@@ -99,36 +129,170 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="1" column="0">
-          <widget class="QLabel" name="motherNameLabel">
+         <item>
+          <widget class="QLabel" name="birthDateLabel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
-            <string>Nome da mãe</string>
+            <string>Data de nascimento</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="fatherNameLabel">
+         <item>
+          <widget class="QDateEdit" name="birthDate">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="numberIDLabel">
            <property name="text">
-            <string>Nome do pai</string>
+            <string>Identidade Nº</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="numberIDLineEdit"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="issuingInstituitionLabel">
+           <property name="text">
+            <string>Órgão Expedidor</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="issuingInstituitionLineEdit"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="issuingDateLabel">
+           <property name="text">
+            <string>Data de emissão</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="dateEdit"/>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="0">
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Estabelecimento de Ensino</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Município/Estado</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Frequência</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Ano de Conclusão</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>1º ano</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="motherNameLine"/>
+          <widget class="QLineEdit" name="lineEdit_7"/>
          </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="fatherNameLine"/>
+         <item row="1" column="2">
+          <widget class="QLineEdit" name="lineEdit_8"/>
+         </item>
+         <item row="1" column="3">
+          <widget class="QLineEdit" name="lineEdit"/>
+         </item>
+         <item row="1" column="4">
+          <widget class="QLineEdit" name="lineEdit_4"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>2º ano</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEdit_9"/>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLineEdit" name="lineEdit_10"/>
+         </item>
+         <item row="2" column="3">
+          <widget class="QLineEdit" name="lineEdit_2"/>
+         </item>
+         <item row="2" column="4">
+          <widget class="QLineEdit" name="lineEdit_6"/>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>3º ano</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="lineEdit_11"/>
+         </item>
+         <item row="3" column="2">
+          <widget class="QLineEdit" name="lineEdit_12"/>
+         </item>
+         <item row="3" column="3">
+          <widget class="QLineEdit" name="lineEdit_3"/>
+         </item>
+         <item row="3" column="4">
+          <widget class="QLineEdit" name="lineEdit_5"/>
          </item>
         </layout>
        </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item row="4" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLabel" name="issuingInstituitionLabel">
+          <widget class="QLabel" name="previusInstituitionLabel">
            <property name="text">
             <string>Instituição anterior</string>
            </property>
@@ -146,11 +310,8 @@
          </item>
         </layout>
        </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
+       <item row="5" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <widget class="QLabel" name="remarksLabel">
            <property name="text">
@@ -163,7 +324,7 @@
          </item>
         </layout>
        </item>
-       <item>
+       <item row="6" column="0">
         <widget class="QTableWidget" name="gradesTable">
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
@@ -178,7 +339,7 @@
           <number>200</number>
          </attribute>
          <attribute name="verticalHeaderMinimumSectionSize">
-          <number>38</number>
+          <number>30</number>
          </attribute>
          <attribute name="verticalHeaderStretchLastSection">
           <bool>true</bool>
@@ -186,35 +347,6 @@
         </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QPushButton" name="exportPushButton">
-      <property name="text">
-       <string>Exportar</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="editStudentPushButton">
-      <property name="text">
-       <string>Editar</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" rowspan="3">
-     <widget class="QTreeWidget" name="studentsTree">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <column>
-       <property name="text">
-        <string notr="true">1</string>
-       </property>
-      </column>
      </widget>
     </item>
    </layout>

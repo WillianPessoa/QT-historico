@@ -34,15 +34,16 @@ public slots:
     void saveStudent(Student &student);
 
     QString nameStudentForEdit() const;
-    void setNameStudentEdit(const QString &nameStudentForEdit);
+    void setNameStudentForEdit(const QString &nameStudentForEdit);
 
-    QTreeWidget *getTree();
-    QPushButton *getEditStudentButton();
-    QPushButton *getSaveStudentButton();
-    bool nameLineIsReadOnly();
+    QTreeWidget *studentsTree();
+    QPushButton *editStudentPushButton();
+    QPushButton *saveStudentPushButton();
     QString nameLineEditText() const;
 
-    void setNameStudent(Student &student, const QString &newName);
+    void setNameStudent(Student &student, const QString &name);
+
+    void lockUi(bool value);
 
 signals:
     void exportTranscripts();

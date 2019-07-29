@@ -10,6 +10,7 @@ namespace {
    const QString KEY_MOTHER = "Mae";
    const QString KEY_FATHER = "Pai";
    const QString KEY_NATURALNESS = "Naturalidade";
+   const QString KEY_NATIONALITY = "Nacionalidade";
    const QString KEY_ID_NUMBER = "RG";
    const QString KEY_ID_ISSUING_INSTITUTION = "Orgao Emissor";
    const QString KEY_ID_ISSUE_DATE = "Data de Emissao";
@@ -128,7 +129,7 @@ Student::Student(const IndividualSheet &studentSheet) :
     m_fatherName(studentSheet.fatherName()),
     m_motherName(studentSheet.motherName()),
     m_naturalness(studentSheet.naturalness()),
-    m_remarks("")
+    m_remarks()
 {
     insertGrades(studentSheet);
 }
@@ -405,6 +406,136 @@ void Student::writeInJsonObject(QJsonObject &obj) const
     textProductionObj.insert("2", m_secondYearGrades.textProductionGrade());
     textProductionObj.insert("3", m_thirdYearGrades.textProductionGrade());
     obj.insert(KEY_TEXT_PRODUCTION, textProductionObj);
+}
+
+QString Student::firstYearEducationalEstablishment() const
+{
+    return m_firstYearEducationalEstablishment;
+}
+
+void Student::setFirstYearEducationalEstablishment(const QString &firstYearEducationalEstablishment)
+{
+    m_firstYearEducationalEstablishment = firstYearEducationalEstablishment;
+}
+
+QString Student::secondYearEducationalEstablishment() const
+{
+    return m_secondYearEducationalEstablishment;
+}
+
+void Student::setSecondYearEducationalEstablishment(const QString &secondYearEducationalEstablishment)
+{
+    m_secondYearEducationalEstablishment = secondYearEducationalEstablishment;
+}
+
+QString Student::thirdYearEducationalEstablishment() const
+{
+    return m_thirdYearEducationalEstablishment;
+}
+
+QString Student::firstYearState() const
+{
+    return m_firstYearState;
+}
+
+void Student::setFirstYearState(const QString &firstYearState)
+{
+    m_firstYearState = firstYearState;
+}
+
+QString Student::secondYearState() const
+{
+    return m_secondYearState;
+}
+
+void Student::setSecondYearState(const QString &secondYearState)
+{
+    m_secondYearState = secondYearState;
+}
+
+QString Student::thirdYearState() const
+{
+    return m_thirdYearState;
+}
+
+void Student::setThirdYearState(const QString &thirdYearState)
+{
+    m_thirdYearState = thirdYearState;
+}
+
+double Student::firstYearFrequency() const
+{
+    return m_firstYearFrequency;
+}
+
+void Student::setFirstYearFrequency(double firstYearFrequency)
+{
+    m_firstYearFrequency = firstYearFrequency;
+}
+
+double Student::secondYearFrequency() const
+{
+    return m_secondYearFrequency;
+}
+
+void Student::setSecondYearFrequency(double secondYearFrequency)
+{
+    m_secondYearFrequency = secondYearFrequency;
+}
+
+double Student::thirdYearFrequency() const
+{
+    return m_thirdYearFrequency;
+}
+
+void Student::setThirdYearFrequency(double thirdYearFrequency)
+{
+    m_thirdYearFrequency = thirdYearFrequency;
+}
+
+int Student::firstYearConclusion() const
+{
+    return m_firstYearConclusion;
+}
+
+void Student::setFirstYearConclusion(int firstYearConclusion)
+{
+    m_firstYearConclusion = firstYearConclusion;
+}
+
+int Student::secondYearConclusion() const
+{
+    return m_secondYearConclusion;
+}
+
+void Student::setSecondYearConclusion(int secondYearConclusion)
+{
+    m_secondYearConclusion = secondYearConclusion;
+}
+
+int Student::thirdYearConclusion() const
+{
+    return m_thirdYearConclusion;
+}
+
+void Student::setThirdYearConclusion(int thirdYearConclusion)
+{
+    m_thirdYearConclusion = thirdYearConclusion;
+}
+
+void Student::setThirdYearEducationalEstablishment(const QString &thirdYearEducationalEstablishment)
+{
+    m_thirdYearEducationalEstablishment = thirdYearEducationalEstablishment;
+}
+
+QString Student::getNationality() const
+{
+    return m_nationality;
+}
+
+void Student::setNationality(const QString &nationality)
+{
+    m_nationality = nationality;
 }
 
 QString Student::remarks() const

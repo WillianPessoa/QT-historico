@@ -13,7 +13,7 @@ TranscriptMaker::TranscriptMaker(QObject *parent) :
     m_mainWindow(),
     m_index(0)
 {
-    connect(this->m_mainWindow.getTree(), &QTreeWidget::itemClicked,
+    connect(this->m_mainWindow.studentsTree(), &QTreeWidget::itemClicked,
             this, &TranscriptMaker::displayStudent);
 }
 
@@ -52,7 +52,7 @@ void TranscriptMaker::makeConnections()
     });
 
     //Edição de estudantes
-    connect(this->m_mainWindow.getEditStudentButton(), &QPushButton::clicked, [this] ()
+    connect(this->m_mainWindow.editStudentPushButton(), &QPushButton::clicked, [this] ()
     {
         if(!(this->m_mainWindow.nameLineEditText() == "")){
             this->m_mainWindow.editStudent();
@@ -62,7 +62,7 @@ void TranscriptMaker::makeConnections()
     });
 
     //Salvar dados editados do estudante
-    connect(this->m_mainWindow.getSaveStudentButton(), &QPushButton::clicked, [this] ()
+    connect(this->m_mainWindow.saveStudentPushButton(), &QPushButton::clicked, [this] ()
     {
         if(!(this->m_mainWindow.nameLineEditText() == ""))
         {
@@ -74,17 +74,11 @@ void TranscriptMaker::makeConnections()
                     this->m_mainWindow.saveStudent(student);
                     this->m_studentManager.replaceStudent(i, student);
                     m_index = 0;
-                    this->m_mainWindow.getTree()->clear();
+                    this->m_mainWindow.studentsTree()->clear();
                     populateTree();
+                    break;
                 }
             }
-
-            qDebug() << "Nomes dos estudantes: ";
-            for(int i = 0; i < this->m_studentManager.students().size(); i++)
-            {
-                qDebug() << "\t" << this->m_studentManager.students().at(i).name();
-            }
-
         }else{
             QMessageBox::about(&m_mainWindow, "Erro", "Não há alunos para salvar informações!");
         }
@@ -93,7 +87,7 @@ void TranscriptMaker::makeConnections()
     // Exportar e Salvar dados
     connect(&m_mainWindow, &MainWindow::exportTranscripts, [this] ()
     {
-        if(this->m_mainWindow.getTree()->topLevelItemCount() > 0){
+        if(this->m_mainWindow.studentsTree()->topLevelItemCount() > 0){
             Exporter::exportHistoric(m_studentManager.students(), QDir::home());
             DataPersist::saveData(m_studentManager.students());
             QMessageBox::about(&m_mainWindow, "Históricos exportados", "Os históricos foram exportados para o diretório " + QDir::homePath());
@@ -125,7 +119,7 @@ void TranscriptMaker::populateTree()
         QString itemName = m_studentManager.students().at(index).name().toUpper();
         QTreeWidgetItem *item = new QTreeWidgetItem;
         item->setText(0, itemName);
-        this->m_mainWindow.getTree()->insertTopLevelItem(index, item);
+        this->m_mainWindow.studentsTree()->insertTopLevelItem(index, item);
     }
     m_index = index;
 }
@@ -135,7 +129,7 @@ void TranscriptMaker::displayStudent(QTreeWidgetItem *item, int column)
     for(Student st : this->m_studentManager.students())
         if(st.name() == item->text(column))
         {
-            m_mainWindow.setNameStudentEdit(st.name());
+            m_mainWindow.setNameStudentForEdit(st.name());
             this->m_mainWindow.showStudent(st);
             this->m_mainWindow.gradesDisplay(st);
         }
