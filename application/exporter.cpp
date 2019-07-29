@@ -418,45 +418,100 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
         QXlsx::Document historic(addressModelHistoricStudent);
 
         //Adicionar dados básicos do aluno
-        qDebug() << "Gravando dados pessoais ...\n" << endl;
+        qDebug() << "Gravando informações básicas e pessoais do aluno  ...\n" << endl;
 
         const QString name = student.name();
         historic.write("C13", name);                                  //name
-        qDebug() << "Nome: " << name << endl;
+        qDebug() << "Nome: " << name;
 
         //TODO: implementar estrutura para verificar se a data de nascimento esta correta
         //      se não estiver, concertar invertendo a ordem que aparecem os membros
         const QString dateOfBirth = student.dateOfBirth().toString("dd/MM/yyyy");
-        historic.write("C14", dateOfBirth);    //data de nascimento
-        qDebug() << "Data de Nascimento: " << dateOfBirth << endl;
+        historic.write("C14", dateOfBirth);                     //data de nascimento
+        qDebug() << "Data de Nascimento: " << dateOfBirth;
 
         const QString naturalness = student.naturalness();
-        historic.write("K14", naturalness);
-        qDebug() << "Naturalidade: " << naturalness << endl;
+        historic.write("K14", naturalness);                     //naturalidade
+        qDebug() << "Naturalidade: " << naturalness;
 
-        const QString nationalness = (naturalness == "RIO DE JANEIRO - RJ") ? "BRASILEIRA" : "";
-        historic.write("G14", nationalness);
-        qDebug() << "Nacionalidade: " << nationalness << endl;
+        const QString nationality = student.nationality();
+        historic.write("G14", nationality);                     //nacionalidade
+        qDebug() << "Nacionalidade: " << nationality;
 
         const QString fatherName = student.fatherName();
-        historic.write("B15", fatherName);                            //pai
-        qDebug() << "Nome do pai: " << fatherName << endl;
+        historic.write("B15", fatherName);                      //nome do opai
+        qDebug() << "Nome do pai: " << fatherName;
 
         const QString motherName = student.motherName();
-        historic.write("I15", motherName);                           //mae
-        qDebug() << "Nome da Mãe: " << motherName << endl;
+        historic.write("I15", motherName);                      //nome da mãe
+        qDebug() << "Nome da Mãe: " << motherName;
 
         const QString IDNumber = student.IDNumber();
-        historic.write("C16", IDNumber);                              //rg
-        qDebug() << "Número da Identidade: " << IDNumber << endl;
+        historic.write("C16", IDNumber);                        //número da identidade
+        qDebug() << "Número da Identidade: " << IDNumber;
 
         const QString IDIssuingInstitution = student.IDIssuingInstitution();
-        historic.write("H16", student.IDIssuingInstitution());                 //orgão expeditor
-        qDebug() << "Orgão de Expedição: " << IDIssuingInstitution << endl;
+        historic.write("H16", student.IDIssuingInstitution());                  //orgão expeditor
+        qDebug() << "Orgão de Expedição: " << IDIssuingInstitution;
 
         const QString IDIssueDate = student.IDIssueDate();
-        historic.write("L16", IDIssueDate);                          //data de emissao
-        qDebug() << "Data de Emissão: " << IDIssueDate << endl;
+        historic.write("L16", IDIssueDate);                                     //data de emissão
+        qDebug() << "Data de Emissão: " << IDIssueDate;
+
+        //Estabelecimentos de ensino
+        const QString firstYearEducationalEstablishment = student.firstYearEducationalEstablishment();
+        historic.write("B45", firstYearEducationalEstablishment);      //Estabelecimento(1º ano)
+        qDebug() << "Estabelecimento de ensino (1º ano): " + firstYearEducationalEstablishment;
+
+        const QString secondYearEducationalEstablishment = student.secondYearEducationalEstablishment();
+        historic.write("B46", secondYearEducationalEstablishment);      //Estabelecimento(2º ano)
+        qDebug() << "Estabelecimento de ensino (2º ano): " + secondYearEducationalEstablishment;
+
+        const QString thirdYearEducationalEstablishment = student.thirdYearEducationalEstablishment();
+        historic.write("B47", thirdYearEducationalEstablishment);      //Estabelecimento(3º ano)
+        qDebug() << "Estabelecimento de ensino (3º ano): " + thirdYearEducationalEstablishment;
+
+        //Município/Estado dos anos de ensino médio
+        const QString firstYearState = student.firstYearState();
+        historic.write("H45", firstYearState);                         //Estado (1º ano)
+        qDebug() << "Estado (1º ano): " + firstYearState;
+
+        const QString secondYearState = student.secondYearState();
+        historic.write("H46", secondYearState);                         //Estado (2º ano)
+        qDebug() << "Estado (2º ano): " + secondYearState;
+
+        const QString thirdYearState = student.thirdYearState();
+        historic.write("H47", thirdYearState);                         //Estado (3º ano)
+        qDebug() << "Estado (3º ano): " + thirdYearState;
+
+        //Frequência anual de cada série
+        const double firstYearFrequency = student.firstYearFrequency();
+        historic.write("E42", firstYearFrequency);                     //Frequencia (1º ano)
+        qDebug() << "Frequencia (1º ano): " << firstYearFrequency;
+
+        const double secondYearFrequency = student.secondYearFrequency();
+        historic.write("G42", secondYearFrequency);                     //Frequencia (2º ano)
+        qDebug() << "Frequencia (2º ano): " << secondYearFrequency;
+
+        const double thirdYearFrequency = student.thirdYearFrequency();
+        historic.write("I42", thirdYearFrequency);                     //Frequencia (3º ano)
+        qDebug() << "Frequencia (3º ano): " << thirdYearFrequency;
+
+        //Anos de conclusão das séries
+        const int firstYearConclusion = student.firstYearConclusion();
+        historic.write("K45", firstYearConclusion);                    //Ano de conclusão (1º ano)
+        historic.write("E17", "ANO: " + QString::number(firstYearConclusion));
+        qDebug() << "Ano de conclusão (1º ano): " << firstYearConclusion;
+
+        const int secondYearConclusion = student.secondYearConclusion();
+        historic.write("K46", secondYearConclusion);                    //Ano de conclusão (2º ano)
+        historic.write("G17", "ANO: " + QString::number(secondYearConclusion));
+        qDebug() << "Ano de conclusão (1º ano): " << secondYearConclusion;
+
+        const int thirdYearConclusion = student.thirdYearConclusion();
+        historic.write("K47", thirdYearConclusion);                    //Ano de conclusão (3º ano)
+        historic.write("I17", "ANO: " + QString::number(thirdYearConclusion));
+        qDebug() << "Ano de conclusão (1º ano): " << thirdYearConclusion;
 
         //***Adicionando instituição anterior
         QString instituitionBackText;
@@ -468,11 +523,15 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
             instituitionBackText.append("Segue em Anexo Histórico Escolar Anterior emitido pelo(a) " + student.institutionBack() + " de acordo com Deliberação CEE nº 363/17, art. 5º.");
         }
 
-        historic.write("A51", instituitionBackText);
-        qDebug() << "Escola Anterior: " << instituitionBackText << endl;
+        historic.write("A51", instituitionBackText);                            //Instituição anterior
+        qDebug() << "Escola Anterior: " << instituitionBackText;
+
+        const QString remarks = "OBSERVAÇÕES: " + student.remarks();
+        historic.write("A48", remarks);                                         //Observações
+        qDebug() << "OBSERVAÇÕES: " + remarks;
 
         const QDate expeditionDate = QDate::currentDate();
-        historic.write("A55", "DATA DA EXPEDIÇÃO: RJ, " + expeditionDate.toString("dd/MM/yyyy"));
+        historic.write("A55", "DATA DA EXPEDIÇÃO: RJ, " + expeditionDate.toString("dd/MM/yyyy"));   //Data de expedição do histórico
         qDebug() << "Data da Expedição: " << expeditionDate.toString("dd/MM/yyyy") << endl;
 
         //Variaveis e Listas com letras de células de matérias, notas e cargas horárias
@@ -492,22 +551,21 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
                 continue;
             }
 
-            //lista com células e letras de células no modelo de histórico
-            //Lista para auxiliar no processo de escrita das notas nas células corretas do histórico
-            //ordem: ano(ANO: ...), ano(xxxx), célula da matéria e carga horária da matéria
-            QStringList cellsAndLetters = {"E17", "K45"};
+//            lista com células e letras de células no modelo de histórico
+//            Lista para auxiliar no processo de escrita das notas nas células corretas do histórico
+//            QStringList cellsAndLetters = {"E17", "K45"}; //ano --> "ANO: ...", ano --> "xxxx"
 
-            //Condições para definir os elementos da lista
-            if(gradeYearCurrent.series() == "2"){
-                cellsAndLetters.insert(0, "G17");
-                cellsAndLetters.insert(1, "K46");
-            }else if(gradeYearCurrent.series() == "3"){
-                cellsAndLetters.insert(0, "I17");
-                cellsAndLetters.insert(1, "K47");
-            }
+//            //Condições para definir os elementos da lista
+//            if(gradeYearCurrent.series() == "2"){
+//                cellsAndLetters.insert(0, "G17");
+//                cellsAndLetters.insert(1, "K46");
+//            }else if(gradeYearCurrent.series() == "3"){
+//                cellsAndLetters.insert(0, "I17");
+//                cellsAndLetters.insert(1, "K47");
+//            }
 
-            historic.write(cellsAndLetters.at(0), "ANO: " + gradeYearCurrent.year());
-            historic.write(cellsAndLetters.at(1), gradeYearCurrent.year());
+//            historic.write(cellsAndLetters.at(0), "ANO: " + gradeYearCurrent.year());
+//            historic.write(cellsAndLetters.at(1), gradeYearCurrent.year());
 
             qDebug() << "Adicionando notas do " << numberGradeYear << "º ano ...\n" << endl;
             for(int line = 21; line <= 36; line++){
@@ -552,7 +610,7 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
                     gradeTemp = gradeYearCurrent.textProductionGrade();
                 }
 
-                //Variaveis antigas para auxiliar na exportação das notas
+                //Variaveis para auxiliar na exportação das notas
                 QString workload = historic.read(workloadsLetters.at(numberGradeYear - 1) + numberLineStr).toString();
                 QString cellGradeInHistoric = gradesLetters.at(numberGradeYear - 1) + numberLineStr;
 
@@ -560,7 +618,7 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
                     dataComplete = false;
                     historic.write(cellGradeInHistoric, "*");
                     qDebug() << "Nota de " << subjectInCell
-                             << " ou/e sua carga horaria é invalida." << endl;
+                             << " ou/e sua carga horaria é invalida.";
                 }else if((!workload.isEmpty()) && gradeTemp >= 1 && gradeTemp <= 40){
                     historic.write(cellGradeInHistoric, gradeTemp);
                 }else if(!workload.isEmpty()){
@@ -570,7 +628,7 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
         }
 
         if(!dataComplete){
-            qDebug() << "O histórico do aluno(a) " << student.name() << " foi feito com os dados imcompletos." << endl;
+            qDebug() << "\nO histórico do aluno(a) " << student.name() << " foi feito com os dados imcompletos." << endl;
         }
 
         //salvar histórico
