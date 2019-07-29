@@ -88,16 +88,40 @@ QString MainWindow::nameLineEditText() const
 
 void MainWindow::showStudent(const Student &student)
 {
+    //Informações Básicas
     ui->motherNameLine->setText(student.motherName());
     ui->fatherNameLine->setText(student.fatherName());
     ui->birthDate->setDate(student.dateOfBirth());
-    //TODO: Colocar campo para nacionalidade
+    ui->nacionalityLineEdit->setText(student.nationality());
     ui->naturalnessLine->setText(student.naturalness());
     ui->nameLine->setText(student.name());
     ui->institutionBackLineEdit->setText(student.institutionBack().toUpper());
     ui->remarksLine->setText(student.remarks().toUpper());
 
-    //TODO: Inserir número da identidade, orgão emissor e data de emissão.
+    //Identidade
+    ui->numberIDLineEdit->setText(student.IDNumber());
+    ui->issuingInstituitionLineEdit->setText(student.IDIssuingInstitution());
+    ui->issuingDateLineEdit->setDate(QDate::fromString(student.IDIssueDate(), "dd/MM/yyyy"));
+
+    //Estabelecimentos de ensino
+    ui->firstYearEstablishLineEdit->setText(student.firstYearEducationalEstablishment());
+    ui->secondYearEstablishLineEdit->setText(student.secondYearEducationalEstablishment());
+    ui->thirdYearEstablishLineEdit->setText(student.thirdYearEducationalEstablishment());
+
+    //Estados/Municipios de ensino
+    ui->firstStateLineEdit->setText(student.firstYearState());
+    ui->secondStateLineEdit->setText(student.secondYearState());
+    ui->thirdStateLineEdit->setText(student.thirdYearState());
+
+    //Frequêcias anuais
+    ui->firstYearFrequencyLineEdit->setText(QString::number(student.firstYearFrequency()));
+    ui->secondYearFrequencyLineEdit->setText(QString::number(student.secondYearFrequency()));
+    ui->thirdYearFrequencyLineEdit->setText(QString::number(student.thirdYearFrequency()));
+
+    //Anos de conclusão
+    ui->firstYearConclusionLineEdit->setText(QString::number(student.firstYearConclusion()));
+    ui->secondYearConclusionLineEdit->setText(QString::number(student.secondYearConclusion()));
+    ui->thirdYearConclusionLineEdit->setText(QString::number(student.thirdYearConclusion()));
 }
 
 void MainWindow::generateTree(const Student &student)
@@ -235,16 +259,41 @@ void MainWindow::lockUi(bool value)
     ui->selectFileAction->setEnabled(value);
     ui->selectFolderAction->setEnabled(value);
 
+    //Informações Básicas
     ui->nameLine->setReadOnly(value);
     ui->birthDate->setReadOnly(value);
     ui->nameLine->setReadOnly(value);
+    ui->nacionalityLineEdit->setReadOnly(value);
     ui->naturalnessLine->setReadOnly(value);
     ui->fatherNameLine->setReadOnly(value);
     ui->motherNameLine->setReadOnly(value);
     ui->institutionBackLineEdit->setReadOnly(value);
     ui->remarksLine->setReadOnly(value);
 
-    //TODO: Bloquear outros campos: Identidade
+    //Identidade
+    ui->numberIDLineEdit->setReadOnly(value);
+    ui->issuingInstituitionLineEdit->setReadOnly(value);
+    ui->issuingDateLineEdit->setReadOnly(value);
+
+    //Estabelecimento de ensino
+    ui->firstYearEstablishLineEdit->setReadOnly(value);
+    ui->secondYearEstablishLineEdit->setReadOnly(value);
+    ui->thirdYearEstablishLineEdit->setReadOnly(value);
+
+    //Estado de cada série
+    ui->firstStateLineEdit->setReadOnly(value);
+    ui->secondStateLineEdit->setReadOnly(value);
+    ui->thirdStateLineEdit->setReadOnly(value);
+
+    //Frequência de cada série
+    ui->firstYearFrequencyLineEdit->setReadOnly(value);
+    ui->secondYearFrequencyLineEdit->setReadOnly(value);
+    ui->thirdYearFrequencyLineEdit->setReadOnly(value);
+
+    //Ano de conclusão de cada série
+    ui->firstYearConclusionLineEdit->setReadOnly(value);
+    ui->secondYearConclusionLineEdit->setReadOnly(value);
+    ui->thirdYearConclusionLineEdit->setReadOnly(value);
 
     if(value){  //Bloqueia tabela com notas
         ui->gradesTable->setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
@@ -264,21 +313,40 @@ void MainWindow::editStudent()  //false
 
 void MainWindow::saveStudent(Student &student)
 {
-    //Atualizar dados pessoais do aluno
+    //Atualizar informações básicas
     student.setName(ui->nameLine->text().toUpper());
     student.setFatherName(ui->fatherNameLine->text().toUpper());
     student.setMotherName(ui->motherNameLine->text().toUpper());
     student.setDateOfBirth(ui->birthDate->date());
-    //TODO: Atualizar nacionalidade
+    student.setNationality(ui->nacionalityLineEdit->text().toUpper());
     student.setNaturalness(ui->naturalnessLine->text().toUpper());
     student.setInstitutionBack(ui->institutionBackLineEdit->text());
     student.setRemarks(ui->remarksLine->text());
 
-    /*Colocar na interface primeiro
-    *student.setIDNumber();
-    *student.setIDIssueDate();
-    *student.setIDIssuingInstitution();
-    */
+    //Identidade
+    student.setIDNumber(ui->numberIDLineEdit->text());
+    student.setIDIssueDate(ui->birthDate->date().toString("dd/MM/yyyy"));
+    student.setIDIssuingInstitution(ui->issuingInstituitionLineEdit->text().toUpper());
+
+    //Estabelecimento de ensino
+    student.setFirstYearEducationalEstablishment(ui->firstYearEstablishLineEdit->text().toUpper());
+    student.setSecondYearEducationalEstablishment(ui->secondYearEstablishLineEdit->text().toUpper());
+    student.setThirdYearEducationalEstablishment(ui->thirdYearEstablishLineEdit->text().toUpper());
+
+    //Município/Estado dos anos de ensino médio
+    student.setFirstYearState(ui->firstStateLineEdit->text().toUpper());
+    student.setSecondYearState(ui->secondStateLineEdit->text().toUpper());
+    student.setThirdYearState(ui->thirdStateLineEdit->text().toUpper());
+
+    //Frequência anual de cada série --> TODO: Concertar erros
+    student.setFirstYearFrequency(ui->firstYearFrequencyLineEdit->text().toDouble());
+    student.setSecondYearFrequency(ui->secondYearFrequencyLineEdit->text().toDouble());
+    student.setThirdYearFrequency(ui->thirdYearFrequencyLineEdit->text().toDouble());
+
+    //Anos de conclusão das séries
+    student.setFirstYearConclusion(ui->firstYearConclusionLineEdit->text().toInt());
+    student.setSecondYearConclusion(ui->secondYearConclusionLineEdit->text().toInt());
+    student.setThirdYearConclusion(ui->thirdYearConclusionLineEdit->text().toInt());
 
     //Salvar notas
     for(int j = 0; j < 3; j++)

@@ -184,14 +184,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QDateEdit" name="dateEdit"/>
+          <widget class="QDateEdit" name="issuingDateLineEdit"/>
          </item>
         </layout>
        </item>
        <item row="3" column="0">
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="1">
-          <widget class="QLabel" name="label_6">
+          <widget class="QLabel" name="educationStablishmentLabel">
            <property name="text">
             <string>Estabelecimento de Ensino</string>
            </property>
@@ -201,7 +201,7 @@
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="stateLabel">
            <property name="text">
             <string>Município/Estado</string>
            </property>
@@ -211,7 +211,7 @@
           </widget>
          </item>
          <item row="0" column="3">
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="frequencyLabel">
            <property name="text">
             <string>Frequência</string>
            </property>
@@ -221,7 +221,7 @@
           </widget>
          </item>
          <item row="0" column="4">
-          <widget class="QLabel" name="label_5">
+          <widget class="QLabel" name="yearConclusionLabel">
            <property name="text">
             <string>Ano de Conclusão</string>
            </property>
@@ -231,61 +231,61 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="label_8">
+          <widget class="QLabel" name="firstYearLabel">
            <property name="text">
             <string>1º ano</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_7"/>
+          <widget class="QLineEdit" name="firstYearEstablishLineEdit"/>
          </item>
          <item row="1" column="2">
-          <widget class="QLineEdit" name="lineEdit_8"/>
+          <widget class="QLineEdit" name="firstStateLineEdit"/>
          </item>
          <item row="1" column="3">
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="firstYearFrequencyLineEdit"/>
          </item>
          <item row="1" column="4">
-          <widget class="QLineEdit" name="lineEdit_4"/>
+          <widget class="QLineEdit" name="firstYearConclusionLineEdit"/>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="label_9">
+          <widget class="QLabel" name="secondYearLabel">
            <property name="text">
             <string>2º ano</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_9"/>
+          <widget class="QLineEdit" name="secondYearEstablishLineEdit"/>
          </item>
          <item row="2" column="2">
-          <widget class="QLineEdit" name="lineEdit_10"/>
+          <widget class="QLineEdit" name="secondStateLineEdit"/>
          </item>
          <item row="2" column="3">
-          <widget class="QLineEdit" name="lineEdit_2"/>
+          <widget class="QLineEdit" name="secondYearFrequencyLineEdit"/>
          </item>
          <item row="2" column="4">
-          <widget class="QLineEdit" name="lineEdit_6"/>
+          <widget class="QLineEdit" name="secondYearConclusionLineEdit"/>
          </item>
          <item row="3" column="0">
-          <widget class="QLabel" name="label_10">
+          <widget class="QLabel" name="thirdYearTextLabel">
            <property name="text">
             <string>3º ano</string>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEdit_11"/>
+          <widget class="QLineEdit" name="thirdYearEstablishLineEdit"/>
          </item>
          <item row="3" column="2">
-          <widget class="QLineEdit" name="lineEdit_12"/>
+          <widget class="QLineEdit" name="thirdStateLineEdit"/>
          </item>
          <item row="3" column="3">
-          <widget class="QLineEdit" name="lineEdit_3"/>
+          <widget class="QLineEdit" name="thirdYearFrequencyLineEdit"/>
          </item>
          <item row="3" column="4">
-          <widget class="QLineEdit" name="lineEdit_5"/>
+          <widget class="QLineEdit" name="thirdYearConclusionLineEdit"/>
          </item>
         </layout>
        </item>

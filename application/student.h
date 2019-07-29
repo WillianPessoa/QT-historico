@@ -35,7 +35,7 @@ public:
     QString motherName() const;
     void setMotherName(const QString &motherName);
 
-    QString getNationality() const;
+    QString nationality() const;
     void setNationality(const QString &nationality);
 
     QString naturalness() const;

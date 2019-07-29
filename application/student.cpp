@@ -15,6 +15,22 @@ namespace {
    const QString KEY_ID_ISSUING_INSTITUTION = "Orgao Emissor";
    const QString KEY_ID_ISSUE_DATE = "Data de Emissao";
 
+   const QString KEY_FIRST_EDUCATIONAL_ESTABLISHMENT = "Estabelecimento de ensino 1º ano";
+   const QString KEY_SECOND_EDUCATIONAL_ESTABLISHMENT = "Estabelecimento de ensino 2 ano";
+   const QString KEY_THIRD_EDUCATIONAL_ESTABLISHMENT = "Estabelecimento de ensino 3 ano";
+
+   const QString KEY_FIRST_YEAR_STATE = "Estado 1 ano";
+   const QString KEY_SECOND_YEAR_STATE = "Estado 2 ano";
+   const QString KEY_THIRD_YEAR_STATE = "Estado 3 ano";
+
+   const QString KEY_FIRST_YEAR_FREQUENCY = "Frequencia 1 ano";
+   const QString KEY_SECOND_YEAR_FREQUENCY = "Frequencia 2 ano";
+   const QString KEY_THIRD_YEAR_FREQUENCY = "Frequencia 3 ano";
+
+   const QString KEY_FIRST_YEAR_CONCLUSION = "Ano de conclusão 1 ano";
+   const QString KEY_SECOND_YEAR_CONCLUSION = "Ano de conclusão 2 ano";
+   const QString KEY_THIRD_YEAR_CONCLUSION = "Ano de conclusão 3 ano";
+
    const QString KEY_PORTUGUESE = "Portugues";
    const QString KEY_ART = "Arte";
    const QString KEY_PHYSICAL_EDUCATION = "Educacao Fisica";
@@ -48,11 +64,28 @@ Student::Student(QJsonObject aluno)
     m_dateOfBirth = QDate::fromString(strDate, "dd/MM/yyyy");
     m_fatherName = aluno.value(KEY_MOTHER).toString();
     m_motherName = aluno.value(KEY_FATHER).toString();
+    m_nationality = aluno.value(KEY_NATIONALITY).toString();
     m_naturalness = aluno.value(KEY_NATURALNESS).toString();
     m_IDNumber = aluno.value(KEY_ID_NUMBER).toString();
     m_IDIssuingInstitution = aluno.value(KEY_ID_ISSUING_INSTITUTION).toString();
     m_IDIssueDate = aluno.value(KEY_ID_ISSUE_DATE).toString();
     m_remarks = aluno.value(KEY_REMARKS).toString();
+
+    m_firstYearEducationalEstablishment = aluno.value(KEY_FIRST_EDUCATIONAL_ESTABLISHMENT).toString();
+    m_secondYearEducationalEstablishment = aluno.value(KEY_SECOND_EDUCATIONAL_ESTABLISHMENT).toString();
+    m_thirdYearEducationalEstablishment = aluno.value(KEY_THIRD_EDUCATIONAL_ESTABLISHMENT).toString();
+
+    m_firstYearState = aluno.value(KEY_FIRST_YEAR_STATE).toString();
+    m_secondYearState = aluno.value(KEY_SECOND_YEAR_STATE).toString();
+    m_thirdYearState = aluno.value(KEY_THIRD_YEAR_STATE).toString();
+
+    m_firstYearFrequency = aluno.value(KEY_FIRST_YEAR_FREQUENCY).toDouble();
+    m_secondYearFrequency = aluno.value(KEY_SECOND_YEAR_FREQUENCY).toDouble();
+    m_thirdYearFrequency = aluno.value(KEY_THIRD_YEAR_FREQUENCY).toDouble();
+
+    m_firstYearConclusion = aluno.value(KEY_FIRST_YEAR_CONCLUSION).toInt();
+    m_secondYearConclusion = aluno.value(KEY_SECOND_YEAR_CONCLUSION).toInt();
+    m_thirdYearConclusion = aluno.value(KEY_THIRD_YEAR_CONCLUSION).toInt();
 
     QJsonObject art = aluno.value(KEY_ART).toObject();
     QJsonObject math = aluno.value(KEY_MATH).toObject();
@@ -129,11 +162,36 @@ Student::Student(const IndividualSheet &studentSheet) :
     m_fatherName(studentSheet.fatherName()),
     m_motherName(studentSheet.motherName()),
     m_naturalness(studentSheet.naturalness()),
-    m_remarks()
+    m_remarks(),
+    m_nationality(),
+    m_IDNumber(),
+    m_IDIssuingInstitution(),
+    m_IDIssueDate(),
+    m_firstYearEducationalEstablishment(),
+    m_secondYearEducationalEstablishment(),
+    m_thirdYearEducationalEstablishment(),
+    m_firstYearState(),
+    m_secondYearState(),
+    m_thirdYearState(),
+    m_firstYearFrequency(),
+    m_secondYearFrequency(),
+    m_thirdYearFrequency(),
+    m_firstYearConclusion(),
+    m_secondYearConclusion(),
+    m_thirdYearConclusion()
 {
+    if(studentSheet.grade() == "1"){
+        m_firstYearConclusion = studentSheet.year().toInt();
+    }else if(studentSheet.grade() == "2"){
+        m_secondYearConclusion = studentSheet.year().toInt();
+    }else if(studentSheet.grade() == "3"){
+        m_thirdYearConclusion = studentSheet.year().toInt();
+    }
+
     insertGrades(studentSheet);
 }
 
+//TODO: Passar mais informações para o construtor abaixo
 Student::Student(const QString &name, const QDate &dateOfBirth, const QString &fatherName,
                  const QString &motherName, const QString &naturalness, const QString &IDNumber,
                  const QString &IDissuingInstituation, const QString &IDissueDate, const QString &remarks) :
@@ -306,10 +364,28 @@ void Student::writeInJsonObject(QJsonObject &obj) const
     obj.insert(KEY_FATHER, m_fatherName);
     obj.insert(KEY_MOTHER, m_motherName);
     obj.insert(KEY_ID_NUMBER, m_IDNumber);
+    obj.insert(KEY_NATIONALITY, m_nationality);
     obj.insert(KEY_NATURALNESS, m_naturalness);
     obj.insert(KEY_ID_ISSUING_INSTITUTION, m_IDIssuingInstitution);
     obj.insert(KEY_ID_ISSUE_DATE, m_IDIssueDate);
     obj.insert(KEY_REMARKS, m_remarks);
+
+    //Estabelecimentos de ensinos
+    obj.insert(KEY_FIRST_EDUCATIONAL_ESTABLISHMENT, m_firstYearEducationalEstablishment);
+    obj.insert(KEY_SECOND_EDUCATIONAL_ESTABLISHMENT, m_secondYearEducationalEstablishment);
+    obj.insert(KEY_THIRD_EDUCATIONAL_ESTABLISHMENT, m_thirdYearEducationalEstablishment);
+
+    obj.insert(KEY_FIRST_YEAR_STATE, m_firstYearState);
+    obj.insert(KEY_SECOND_YEAR_STATE, m_secondYearState);
+    obj.insert(KEY_THIRD_YEAR_STATE, m_thirdYearState);
+
+    obj.insert(KEY_FIRST_YEAR_FREQUENCY, m_firstYearFrequency);
+    obj.insert(KEY_SECOND_YEAR_FREQUENCY, m_secondYearFrequency);
+    obj.insert(KEY_THIRD_YEAR_FREQUENCY, m_thirdYearFrequency);
+
+    obj.insert(KEY_FIRST_YEAR_CONCLUSION, m_firstYearConclusion);
+    obj.insert(KEY_SECOND_YEAR_CONCLUSION, m_secondYearConclusion);
+    obj.insert(KEY_THIRD_YEAR_CONCLUSION, m_thirdYearConclusion);
 
     QJsonObject portugueseObj;
     portugueseObj.insert("1", m_firstYearGrades.portugueseGrade());
@@ -528,7 +604,7 @@ void Student::setThirdYearEducationalEstablishment(const QString &thirdYearEduca
     m_thirdYearEducationalEstablishment = thirdYearEducationalEstablishment;
 }
 
-QString Student::getNationality() const
+QString Student::nationality() const
 {
     return m_nationality;
 }
