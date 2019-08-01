@@ -29,7 +29,6 @@ public slots:
 
     void selectFolder();
     void selectFile();
-
     void editStudent();
     void saveStudent(Student &student);
 
@@ -43,7 +42,7 @@ public slots:
 
     void setNameStudent(Student &student, const QString &name);
 
-    void lockUi(bool value);
+    void lockUi(const bool value);
 
 signals:
     void exportTranscripts();

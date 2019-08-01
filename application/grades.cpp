@@ -222,3 +222,32 @@ bool Grades::wasInitialized() const   //Alteração de comparação "!= -1" para
     if (m_textProductionGrade >= 0) wasInit = true;
     return wasInit;
 }
+
+bool Grades::firstYearWasInitialized() const{
+    bool wasInit = false;
+    if (m_portugueseGrade >= 0) wasInit = true;
+    if (m_physicalEducationGrade >= 0) wasInit = true;
+    if (m_mathGrade >= 0) wasInit = true;
+    if (m_chemistryGrade >= 0) wasInit = true;
+    if (m_physicsGrade >= 0) wasInit = true;
+    if (m_biologyGrade >= 0) wasInit = true;
+    if (m_historyGrade >= 0) wasInit = true;
+    if (m_geographyGrade >= 0) wasInit = true;
+    if (m_sociologyGrade >= 0) wasInit = true;
+    if (m_philosophyGrade >= 0) wasInit = true;
+    if (m_englishGrade >= 0) wasInit = true;
+    return wasInit;
+}
+
+bool Grades::secondYearWasInitialized() const{
+    bool wasInit = firstYearWasInitialized();
+    if (m_artGrade >= 0) wasInit = true;
+    if (m_mathProblemSolvingGrade >= 0) wasInit = true;
+    return wasInit;
+}
+
+bool Grades::thirdYearWasInitialized() const{
+    bool wasInit = firstYearWasInitialized();
+    if (m_textProductionGrade >= 0) wasInit = true;
+    return wasInit;
+}

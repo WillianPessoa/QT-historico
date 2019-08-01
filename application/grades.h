@@ -63,6 +63,9 @@ public:
     void setTextProductionGrade(const double &textProductionGrade);
 
     bool wasInitialized() const;
+    bool firstYearWasInitialized() const;
+    bool secondYearWasInitialized() const;
+    bool thirdYearWasInitialized() const;
 
 private:
     QString m_year;

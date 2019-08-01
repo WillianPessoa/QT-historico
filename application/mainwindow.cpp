@@ -114,14 +114,14 @@ void MainWindow::showStudent(const Student &student)
     ui->thirdStateLineEdit->setText(student.thirdYearState());
 
     //Frequêcias anuais
-    ui->firstYearFrequencyLineEdit->setText(QString::number(student.firstYearFrequency()));
-    ui->secondYearFrequencyLineEdit->setText(QString::number(student.secondYearFrequency()));
-    ui->thirdYearFrequencyLineEdit->setText(QString::number(student.thirdYearFrequency()));
+    ui->firstYearFrequencyLineEdit->setText(int(student.firstYearFrequency()) == 0 ? "" : QString::number(student.firstYearFrequency()));
+    ui->secondYearFrequencyLineEdit->setText(int(student.secondYearFrequency()) == 0 ? "" : QString::number(student.secondYearFrequency()));
+    ui->thirdYearFrequencyLineEdit->setText(int(student.thirdYearFrequency()) == 0 ? "" : QString::number(student.thirdYearFrequency()));
 
     //Anos de conclusão
-    ui->firstYearConclusionLineEdit->setText(QString::number(student.firstYearConclusion()));
-    ui->secondYearConclusionLineEdit->setText(QString::number(student.secondYearConclusion()));
-    ui->thirdYearConclusionLineEdit->setText(QString::number(student.thirdYearConclusion()));
+    ui->firstYearConclusionLineEdit->setText(student.firstYearConclusion() == 0 ? "" : QString::number(student.firstYearConclusion()));
+    ui->secondYearConclusionLineEdit->setText(student.secondYearConclusion() == 0 ? "" : QString::number(student.secondYearConclusion()));
+    ui->thirdYearConclusionLineEdit->setText(student.thirdYearConclusion() == 0 ? "" : QString::number(student.thirdYearConclusion()));
 }
 
 void MainWindow::generateTree(const Student &student)
@@ -133,93 +133,66 @@ void MainWindow::generateTree(const Student &student)
 
 void MainWindow::gradesDisplay(const Student &student)
 {
-    Grades yearGrades[3] = {student.firstYearGrades(),
-                            student.secondYearGrades(),
-                            student.thirdYearGrades()};
-    unsigned int n = 0;
-
     for(int i = 0; i < 3; i++)
     {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].biologyGrade() >= 0 ? QString::number(yearGrades[i].biologyGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
+        double grade;
+        Grades yearGrade = student.getGrades(QString::number(i + 1));
 
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].physicalEducationGrade()>=0? QString::number(yearGrades[i].physicalEducationGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
-
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].philosophyGrade()>=0? QString::number(yearGrades[i].philosophyGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
-
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].physicsGrade()>=0? QString::number(yearGrades[i].physicsGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
-
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].geographyGrade()>=0? QString::number(yearGrades[i].geographyGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
-
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].historyGrade()>=0? QString::number(yearGrades[i].historyGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
-
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].englishGrade()>=0? QString::number(yearGrades[i].englishGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
-
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].mathGrade()>=0? QString::number(yearGrades[i].mathGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
-
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].portugueseGrade()>=0? QString::number(yearGrades[i].portugueseGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
-
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].textProductionGrade()>=0? QString::number(yearGrades[i].textProductionGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
-
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].chemistryGrade()>=0? QString::number(yearGrades[i].chemistryGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
-    }
-
-    for(int i = 0; i < 3; i++)
-    {
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setText( yearGrades[i].sociologyGrade()>=0? QString::number(yearGrades[i].sociologyGrade()) : "Sem Nota" );
-        ui->gradesTable->setItem(n++/3,i,item);
+        qDebug() << "\nExibindo notas " << i + 1 << "º ano do aluno na interface gráfica ..." << endl;
+        for(int j = 0; j < 12; j++)
+        {
+            QTableWidgetItem *item = new QTableWidgetItem();
+            if(j == 0){
+                grade = yearGrade.biologyGrade();
+                item->setText(grade >= 0 && grade <= 40 ? QString::number(grade) : "");
+                qDebug() << "BIOLOGIA: " << grade;
+            }else if(j == 1){
+                grade = yearGrade.physicalEducationGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "EDUCAÇÃO FÍSICA: " << grade;
+            }else if(j == 2){
+                grade = yearGrade.philosophyGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "FILOSOFIA: " << grade;
+            }else if(j == 3){
+                grade = yearGrade.physicsGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "FÍSICA: " << grade;
+            }else if(j == 4){
+                grade = yearGrade.geographyGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "GEOGRAFIA: " << grade;
+            }else if(j == 5){
+                grade = yearGrade.historyGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "HISTÓRIA: " << grade;
+            }else if(j == 6){
+                grade = yearGrade.englishGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "INGLÊS: " << grade;
+            }else if(j == 7){
+                grade = yearGrade.mathGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "MATEMÁTICA: " << grade;
+            }else if(j == 8){
+                grade = yearGrade.portugueseGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "PORTUGUÊS: " << grade;
+            }else if(j == 9){
+                grade = yearGrade.textProductionGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "PRODUÇÃO DE TEXTO: " << grade;
+            }else if(j == 10){
+                grade = yearGrade.chemistryGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "QUÍMICA: " << grade;
+            }else if(j == 11){
+                grade = yearGrade.sociologyGrade();
+                item->setText((grade >= 0 && grade <= 40) ? QString::number(grade) : "");
+                qDebug() << "SOCIOLOGIA: " << grade;
+            }
+            ui->gradesTable->setItem(j, i, item);
+        }
     }
 }
 
@@ -238,7 +211,7 @@ void MainWindow::selectFolder()
 void MainWindow::selectFile()
 {
     //open window for select file
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), m_openFolder, tr("Excel Files (*.xlsx)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), m_openFolder, tr("Excel Files (*.xlsx *.xls)"));
 
     if(!fileName.isEmpty())
     {
@@ -251,7 +224,7 @@ void MainWindow::selectFile()
     }
 }
 
-void MainWindow::lockUi(bool value)
+void MainWindow::lockUi(const bool value)
 {
     ui->studentsTree->setEnabled(value);
     ui->exportPushButton->setEnabled(value);
@@ -313,76 +286,158 @@ void MainWindow::editStudent()  //false
 
 void MainWindow::saveStudent(Student &student)
 {
-    //Atualizar informações básicas
-    student.setName(ui->nameLine->text().toUpper());
-    student.setFatherName(ui->fatherNameLine->text().toUpper());
-    student.setMotherName(ui->motherNameLine->text().toUpper());
-    student.setDateOfBirth(ui->birthDate->date());
-    student.setNationality(ui->nacionalityLineEdit->text().toUpper());
-    student.setNaturalness(ui->naturalnessLine->text().toUpper());
-    student.setInstitutionBack(ui->institutionBackLineEdit->text());
-    student.setRemarks(ui->remarksLine->text());
 
-    //Identidade
-    student.setIDNumber(ui->numberIDLineEdit->text());
-    student.setIDIssueDate(ui->birthDate->date().toString("dd/MM/yyyy"));
-    student.setIDIssuingInstitution(ui->issuingInstituitionLineEdit->text().toUpper());
+    qDebug() << "Salvando dados do aluno ... " << endl;
 
-    //Estabelecimento de ensino
-    student.setFirstYearEducationalEstablishment(ui->firstYearEstablishLineEdit->text().toUpper());
-    student.setSecondYearEducationalEstablishment(ui->secondYearEstablishLineEdit->text().toUpper());
-    student.setThirdYearEducationalEstablishment(ui->thirdYearEstablishLineEdit->text().toUpper());
+    const QString name = ui->nameLine->text().toUpper();
+    student.setName(name);
+    qDebug() << "Nome: " << name;
 
-    //Município/Estado dos anos de ensino médio
-    student.setFirstYearState(ui->firstStateLineEdit->text().toUpper());
-    student.setSecondYearState(ui->secondStateLineEdit->text().toUpper());
-    student.setThirdYearState(ui->thirdStateLineEdit->text().toUpper());
+    const QString fatherName = ui->fatherNameLine->text().toUpper();
+    student.setFatherName(fatherName);
+    qDebug() << "Nome do pai: " << fatherName;
 
-    //Frequência anual de cada série --> TODO: Concertar erros
-    student.setFirstYearFrequency(ui->firstYearFrequencyLineEdit->text().toDouble());
-    student.setSecondYearFrequency(ui->secondYearFrequencyLineEdit->text().toDouble());
-    student.setThirdYearFrequency(ui->thirdYearFrequencyLineEdit->text().toDouble());
+    const QString motherName = ui->motherNameLine->text().toUpper();
+    student.setMotherName(motherName);
+    qDebug() << "Nome da mãe: " << motherName;
 
-    //Anos de conclusão das séries
-    student.setFirstYearConclusion(ui->firstYearConclusionLineEdit->text().toInt());
-    student.setSecondYearConclusion(ui->secondYearConclusionLineEdit->text().toInt());
-    student.setThirdYearConclusion(ui->thirdYearConclusionLineEdit->text().toInt());
+    const QDate dateOfBirth = ui->birthDate->date();
+    student.setDateOfBirth(dateOfBirth);
+    qDebug() << "Data de nascimento: " << dateOfBirth.toString("dd/MM/yyyy");
 
-    //Salvar notas
+    const QString nationality = ui->nacionalityLineEdit->text().toUpper();
+    student.setNationality(nationality);
+    qDebug() << "Nacionalidade: " << nationality;
+
+    const QString naturalness = ui->naturalnessLine->text().toUpper();
+    student.setNaturalness(naturalness);
+    qDebug() << "Naturalidade: " << naturalness;
+
+    const QString instituitionBack = ui->institutionBackLineEdit->text();
+    student.setInstitutionBack(instituitionBack);
+    qDebug() << "Instituiação anterior: " << instituitionBack;
+
+    const QString remarks = ui->remarksLine->text();
+    student.setRemarks(remarks);
+    qDebug() << "Observações: " << remarks;
+
+    const QString IDNumber = ui->numberIDLineEdit->text();
+    student.setIDNumber(IDNumber);
+    qDebug() << "Número da identidade: " << IDNumber;
+
+    const QString IDIssueDate = ui->issuingDateLineEdit->date().toString("dd/MM/yyyy");
+    student.setIDIssueDate(IDIssueDate);
+    qDebug() << "Data de expedição: " << IDIssueDate;
+
+    const QString IDIssuingInstituition = ui->issuingInstituitionLineEdit->text().toUpper();
+    student.setIDIssuingInstitution(IDIssuingInstituition);
+    qDebug() << "Orgão emissor: " << IDIssuingInstituition;
+
+    const QString firstEducationalEstablishment = ui->firstYearEstablishLineEdit->text().toUpper();
+    student.setFirstYearEducationalEstablishment(firstEducationalEstablishment);
+    qDebug() << "Estabelecimento de Ensino (1º ano): " << firstEducationalEstablishment;
+
+    const QString secondEducationalEstablishment = ui->secondYearEstablishLineEdit->text().toUpper();
+    student.setSecondYearEducationalEstablishment(secondEducationalEstablishment);
+    qDebug() << "Estabelecimento de Ensino (2º ano): " << secondEducationalEstablishment;
+
+    const QString thirdEducationalEstablishment = ui->thirdYearEstablishLineEdit->text().toUpper();
+    student.setThirdYearEducationalEstablishment(thirdEducationalEstablishment);
+    qDebug() << "Estabelecimento de Ensino (3º ano): " << thirdEducationalEstablishment;
+
+    const QString firstYearState = ui->firstStateLineEdit->text().toUpper();
+    student.setFirstYearState(firstYearState);
+    qDebug() << "Estado/Municipio (1º ano): " << firstYearState;
+
+    const QString secondYearState = ui->secondStateLineEdit->text().toUpper();
+    student.setSecondYearState(secondYearState);
+    qDebug() << "Estado/Municipio (2º ano): " << secondYearState;
+
+    const QString thirdYearState = ui->thirdStateLineEdit->text().toUpper();
+    student.setThirdYearState(thirdYearState);
+    qDebug() << "Estado/Municipio (3º ano): " << thirdYearState;
+
+    const double firstYearFrequency = ui->firstYearFrequencyLineEdit->text().toDouble();
+    student.setFirstYearFrequency(firstYearFrequency);
+    qDebug() << "Frequência (1º ano): " << firstYearFrequency;
+
+    const double secondYearFrequency = ui->secondYearFrequencyLineEdit->text().toDouble();
+    student.setSecondYearFrequency(secondYearFrequency);
+    qDebug() << "Frequência (2º ano): " << secondYearFrequency;
+
+    const double thirdYearFrequency = ui->thirdYearFrequencyLineEdit->text().toDouble();
+    student.setThirdYearFrequency(thirdYearFrequency);
+    qDebug() << "Frequência (3º ano): " << thirdYearFrequency;
+
+    const int firstYearConclusion = ui->firstYearConclusionLineEdit->text().toInt();
+    student.setFirstYearConclusion(firstYearConclusion);
+    qDebug() << "Ano de conclusão (1º ano): " << firstYearConclusion;
+
+    const int secondYearConclusion = ui->secondYearConclusionLineEdit->text().toInt();
+    student.setSecondYearConclusion(secondYearConclusion);
+    qDebug() << "Ano de conclusão (2º ano): " << secondYearConclusion;
+
+    const int thirdYearConclusion = ui->thirdYearConclusionLineEdit->text().toInt();
+    student.setThirdYearConclusion(thirdYearConclusion);
+    qDebug() << "Ano de conclusão (3º ano): " << thirdYearConclusion;
+
     for(int j = 0; j < 3; j++)
     {
-        Grades &grade = student.getGradesRef(QString::number(j + 1));
+        qDebug() << "\nSalvando notas do " << j + 1 << " ano ..." << endl;
 
+        Grades &grade = student.getGradesRef(QString::number(j + 1));
         for(int i = 0; i < 12; i++)
         {
-            QString value = ui->gradesTable->item(i, j)->text();
+            QString noteText = ui->gradesTable->item(i, j)->text();
 
-            if(value.toDouble() >= 0 && value.toDouble() <= 40 && !(value == "Sem Nota"))
+            //Primeira verificação de validade
+            bool noteIsDouble;
+            double note = noteText.toDouble(&noteIsDouble);
+
+            //Segunda verificação de validade
+            if(noteText.count(",") == 1){
+                note = noteText.replace("," , ".").toDouble();
+                noteIsDouble = true;
+            }
+
+            if(noteIsDouble && (note >= 0 && note <= 40))
             {
                 if(i == 0){
-                    grade.setBiologyGrade(value.toDouble());
+                    grade.setBiologyGrade(note);
+                    qDebug() << "BIOLOGIA: " << note;
                 }else if(i == 1){
-                    grade.setPhysicalEducationGrade(value.toDouble());
+                    grade.setPhysicalEducationGrade(note);
+                    qDebug() << "EDUCAÇÃO FÍSICA: " << note;
                 }else if(i == 2){
-                    grade.setPhilosophyGrade(value.toDouble());
+                    grade.setPhilosophyGrade(note);
+                    qDebug() << "FILOSOFIA: " << note;
                 }else if(i == 3){
-                    grade.setPhysicsGrade(value.toDouble());
+                    grade.setPhysicsGrade(note);
+                    qDebug() << "FÍSICA: " << note;
                 }else if(i == 4){
-                    grade.setGeographyGrade(value.toDouble());
+                    grade.setGeographyGrade(note);
+                    qDebug() << "GEOGRAFIA: " << note;
                 }else if(i == 5){
-                    grade.setHistoryGrade(value.toDouble());
+                    grade.setHistoryGrade(note);
+                    qDebug() << "HISTÓRIA: " << note;
                 }else if(i == 6){
-                    grade.setEnglishGrade(value.toDouble());
+                    grade.setEnglishGrade(note);
+                    qDebug() << "INGLÊS: " << note;
                 }else if(i == 7){
-                    grade.setMathGrade(value.toDouble());
+                    grade.setMathGrade(note);
+                    qDebug() << "MATEMÁTICA: " << note;
                 }else if(i == 8){
-                    grade.setPortugueseGrade(value.toDouble());
+                    grade.setPortugueseGrade(note);
+                    qDebug() << "PORTUGUÊS: " << note;
                 }else if(i == 9){
-                    grade.setTextProductionGrade(value.toDouble());
+                    grade.setTextProductionGrade(note);
+                    qDebug() << "PRODUÇÃO DE TEXTO: " << note;
                 }else if(i == 10){
-                    grade.setChemistryGrade(value.toDouble());
+                    grade.setChemistryGrade(note);
+                    qDebug() << "QUÍMICA: " << note;
                 }else if(i == 11){
-                    grade.setSociologyGrade(value.toDouble());
+                    grade.setSociologyGrade(note);
+                    qDebug() << "SOCIOLOGIA: " << note;
                 }
             }
         }

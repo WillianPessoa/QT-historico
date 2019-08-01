@@ -78,12 +78,14 @@ IndividualSheet Reader::getStudentsDataFrom(const QString &filename)
     qDebug() << "Pai: " << fathername;
     studentSheet.setFatherName(fathername);  //Pega o nome do pai
 
+    /*
     const QString fullDate = xlsx.read("W13").toString().remove("DATA DE NASCIMENTO : ").simplified().split(" ").first();
     qDebug() << "Data de nascimento:" << fullDate;
     const QStringList splitedDate = fullDate.split("/");
     assert(splitedDate.size() == 3);
     const QDate dateofbirth(splitedDate.at(2).toInt(), splitedDate.at(1).toInt(), splitedDate.at(0).toInt());
     studentSheet.setDateOfBirth(dateofbirth); //Data de nascimento e hora
+    */
 
     const QString naturalness = xlsx.read("D16").toString().remove("NATURAL:").simplified();
     qDebug() << "Natural:" << naturalness;

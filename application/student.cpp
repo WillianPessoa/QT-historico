@@ -14,6 +14,7 @@ namespace {
    const QString KEY_ID_NUMBER = "RG";
    const QString KEY_ID_ISSUING_INSTITUTION = "Orgao Emissor";
    const QString KEY_ID_ISSUE_DATE = "Data de Emissao";
+   const QString KEY_INSTITUITION_BACK = "Instituição anterior";
 
    const QString KEY_FIRST_EDUCATIONAL_ESTABLISHMENT = "Estabelecimento de ensino 1º ano";
    const QString KEY_SECOND_EDUCATIONAL_ESTABLISHMENT = "Estabelecimento de ensino 2 ano";
@@ -70,6 +71,7 @@ Student::Student(QJsonObject aluno)
     m_IDIssuingInstitution = aluno.value(KEY_ID_ISSUING_INSTITUTION).toString();
     m_IDIssueDate = aluno.value(KEY_ID_ISSUE_DATE).toString();
     m_remarks = aluno.value(KEY_REMARKS).toString();
+    m_institutionBack = aluno.value(KEY_INSTITUITION_BACK).toString();
 
     m_firstYearEducationalEstablishment = aluno.value(KEY_FIRST_EDUCATIONAL_ESTABLISHMENT).toString();
     m_secondYearEducationalEstablishment = aluno.value(KEY_SECOND_EDUCATIONAL_ESTABLISHMENT).toString();
@@ -369,8 +371,8 @@ void Student::writeInJsonObject(QJsonObject &obj) const
     obj.insert(KEY_ID_ISSUING_INSTITUTION, m_IDIssuingInstitution);
     obj.insert(KEY_ID_ISSUE_DATE, m_IDIssueDate);
     obj.insert(KEY_REMARKS, m_remarks);
+    obj.insert(KEY_INSTITUITION_BACK, m_institutionBack);
 
-    //Estabelecimentos de ensinos
     obj.insert(KEY_FIRST_EDUCATIONAL_ESTABLISHMENT, m_firstYearEducationalEstablishment);
     obj.insert(KEY_SECOND_EDUCATIONAL_ESTABLISHMENT, m_secondYearEducationalEstablishment);
     obj.insert(KEY_THIRD_EDUCATIONAL_ESTABLISHMENT, m_thirdYearEducationalEstablishment);

@@ -327,8 +327,13 @@ Exporter::Exporter()
         //Adicionando bordas finas em algumas células
         if(i >= 37 && i <= 42){
             QString row = QString::number(i);
+            QStringList lista = {"E", "G", "I"};
             for(int j = 0; j < cellsBorderThinLetters.size(); j++){
-                modelHistoric.write(cellsBorderThinLetters.at(j) + row, "", borderThinCell);
+                if(i == 42 && lista.contains(cellsBorderThinLetters.at(j))){
+                    modelHistoric.write(cellsBorderThinLetters.at(j) + row, "", borderThinAlignHCenter);
+                }else{
+                    modelHistoric.write(cellsBorderThinLetters.at(j) + row, "", borderThinCell);
+                }
             }
         }
 
@@ -379,11 +384,11 @@ Exporter::Exporter()
 
                 if(i == 0){         //colocando Série/Ano --> xª
                     modelHistoric.write(cell, QString::number(j + 1) + "ª", borderMediumLeftBoldHCenter);
-                }else if (i == 1){  //Estabelecimento de Ensino
+                }/*else if (i == 1){  //Estabelecimento de Ensino
                     modelHistoric.write(cell, "CIEP 165 BRIGADEIRO SÉRGIO CARVALHO");
                 }else if(i == 2){   //Estado
                     modelHistoric.write(cell, "RIO DE JANEIRO/RJ");
-                }
+                }*/
             }
         }
 
@@ -392,6 +397,10 @@ Exporter::Exporter()
             modelHistoric.write(finalCells.at(i), finalText.at(i));
         }
     }
+
+    modelHistoric.write("E42", "", borderThinAlignHCenter);
+    modelHistoric.write("G42", "", borderThinAlignHCenter);
+    modelHistoric.write("I42", "", borderThinAlignHCenter);
 
     //Escrevendo "Carga Horária" e "Total" e a carga horária total do E.M. no histórico
     modelHistoric.write("K17", "CARGA\nHORÁRIA");
@@ -407,7 +416,7 @@ Exporter::Exporter()
 
 void Exporter::exportHistoric(const QList<Student> &students, const QDir &exportHistoryDir)
 {
-    for(const Student &student : students){
+    for(Student student : students){
 
         qDebug() << "Montando histórico do aluno(a) " << student.name() << endl;
 
@@ -486,31 +495,31 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
 
         //Frequência anual de cada série
         const double firstYearFrequency = student.firstYearFrequency();
-        historic.write("E42", firstYearFrequency);                     //Frequencia (1º ano)
+        historic.write("E42", int(firstYearFrequency) == 0 ? "" : QString::number(firstYearFrequency) + "%");
         qDebug() << "Frequencia (1º ano): " << firstYearFrequency;
 
         const double secondYearFrequency = student.secondYearFrequency();
-        historic.write("G42", secondYearFrequency);                     //Frequencia (2º ano)
+        historic.write("G42", int(secondYearFrequency) == 0 ? "" : QString::number(secondYearFrequency) + "%");
         qDebug() << "Frequencia (2º ano): " << secondYearFrequency;
 
         const double thirdYearFrequency = student.thirdYearFrequency();
-        historic.write("I42", thirdYearFrequency);                     //Frequencia (3º ano)
+        historic.write("I42", int(thirdYearFrequency) == 0 ? "" : QString::number(thirdYearFrequency) + "%");
         qDebug() << "Frequencia (3º ano): " << thirdYearFrequency;
 
         //Anos de conclusão das séries
         const int firstYearConclusion = student.firstYearConclusion();
-        historic.write("K45", firstYearConclusion);                    //Ano de conclusão (1º ano)
-        historic.write("E17", "ANO: " + QString::number(firstYearConclusion));
+        historic.write("K45", firstYearConclusion == 0 ? "" : QString::number(firstYearConclusion));
+        historic.write("E17", "ANO: " + (firstYearConclusion == 0 ? "" : QString::number(firstYearConclusion)));
         qDebug() << "Ano de conclusão (1º ano): " << firstYearConclusion;
 
         const int secondYearConclusion = student.secondYearConclusion();
-        historic.write("K46", secondYearConclusion);                    //Ano de conclusão (2º ano)
-        historic.write("G17", "ANO: " + QString::number(secondYearConclusion));
+        historic.write("K46", secondYearConclusion == 0 ? "" : QString::number(secondYearConclusion));
+        historic.write("G17", "ANO: " + (secondYearConclusion == 0 ? "" : QString::number(secondYearConclusion)));
         qDebug() << "Ano de conclusão (1º ano): " << secondYearConclusion;
 
         const int thirdYearConclusion = student.thirdYearConclusion();
-        historic.write("K47", thirdYearConclusion);                    //Ano de conclusão (3º ano)
-        historic.write("I17", "ANO: " + QString::number(thirdYearConclusion));
+        historic.write("K47", thirdYearConclusion == 0 ? "" : QString::number(thirdYearConclusion));
+        historic.write("I17", "ANO: " + (thirdYearConclusion == 0 ? "" : QString::number(thirdYearConclusion)));
         qDebug() << "Ano de conclusão (1º ano): " << thirdYearConclusion;
 
         //***Adicionando instituição anterior
@@ -528,7 +537,7 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
 
         const QString remarks = "OBSERVAÇÕES: " + student.remarks();
         historic.write("A48", remarks);                                         //Observações
-        qDebug() << "OBSERVAÇÕES: " + remarks;
+        qDebug() << remarks;
 
         const QDate expeditionDate = QDate::currentDate();
         historic.write("A55", "DATA DA EXPEDIÇÃO: RJ, " + expeditionDate.toString("dd/MM/yyyy"));   //Data de expedição do histórico
@@ -542,40 +551,21 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
         bool dataComplete = true;   //variavel para auxiliar na verificação se os dados estão imcompletos
 
         //Estrutura de repetição para analisar as grades dos 3 anos escolares do(a) aluno(a)
-        for(int numberGradeYear = 1; numberGradeYear <= 3; numberGradeYear++){
+        for(int numberGradeYear = 0; numberGradeYear < 3; numberGradeYear++){
 
-            Grades gradeYearCurrent = student.getGrades(QString::number(numberGradeYear));
+            Grades gradeYearCurrent = student.getGrades(QString::number(numberGradeYear + 1));
 
-            if(gradeYearCurrent.series().isEmpty()){
-                dataComplete = false;
-                continue;
-            }
+            bool wasInit = (numberGradeYear == 0) ? gradeYearCurrent.firstYearWasInitialized() :
+                           (numberGradeYear == 1) ? gradeYearCurrent.secondYearWasInitialized() :
+                           (numberGradeYear == 2) ? gradeYearCurrent.thirdYearWasInitialized() : false;
 
-//            lista com células e letras de células no modelo de histórico
-//            Lista para auxiliar no processo de escrita das notas nas células corretas do histórico
-//            QStringList cellsAndLetters = {"E17", "K45"}; //ano --> "ANO: ...", ano --> "xxxx"
-
-//            //Condições para definir os elementos da lista
-//            if(gradeYearCurrent.series() == "2"){
-//                cellsAndLetters.insert(0, "G17");
-//                cellsAndLetters.insert(1, "K46");
-//            }else if(gradeYearCurrent.series() == "3"){
-//                cellsAndLetters.insert(0, "I17");
-//                cellsAndLetters.insert(1, "K47");
-//            }
-
-//            historic.write(cellsAndLetters.at(0), "ANO: " + gradeYearCurrent.year());
-//            historic.write(cellsAndLetters.at(1), gradeYearCurrent.year());
-
-            qDebug() << "Adicionando notas do " << numberGradeYear << "º ano ...\n" << endl;
+            qDebug() << "Adicionando notas do " << numberGradeYear + 1 << "º ano ...\n" << endl;
             for(int line = 21; line <= 36; line++){
 
                 double gradeTemp = 0;
                 QString numberLineStr = QString::number(line);
-
-                //Estrutura de decisões para achar a nota da matéria
-                //Armazena nota na variavel temporária
                 QString subjectInCell = historic.read(subjectLetter + numberLineStr).toString();
+
                 if(subjectInCell == "LÍNGUA PORTUGUESA E LITERATURA"){
                     gradeTemp = gradeYearCurrent.portugueseGrade();
                 }else if(subjectInCell == "ARTE"){
@@ -611,17 +601,15 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
                 }
 
                 //Variaveis para auxiliar na exportação das notas
-                QString workload = historic.read(workloadsLetters.at(numberGradeYear - 1) + numberLineStr).toString();
-                QString cellGradeInHistoric = gradesLetters.at(numberGradeYear - 1) + numberLineStr;
+                QString workload = historic.read(workloadsLetters.at(numberGradeYear) + numberLineStr).toString();
+                QString cellGradeInHistoric = gradesLetters.at(numberGradeYear) + numberLineStr;
 
-                if((!workload.isEmpty()) && (gradeTemp < 0)){
-                    dataComplete = false;
-                    historic.write(cellGradeInHistoric, "*");
-                    qDebug() << "Nota de " << subjectInCell
-                             << " ou/e sua carga horaria é invalida.";
-                }else if((!workload.isEmpty()) && gradeTemp >= 1 && gradeTemp <= 40){
+                //TODO: Escrever a nota no histórico formatada com 2 casas decimais
+
+                if(!workload.isEmpty() && (gradeTemp >= 0 && gradeTemp <= 40)){
                     historic.write(cellGradeInHistoric, gradeTemp);
-                }else if(!workload.isEmpty()){
+                }else if(!workload.isEmpty() && wasInit){   //gradeTemp <= -1 &&
+                    dataComplete = false;
                     historic.write(cellGradeInHistoric, "*");
                 }
             }
@@ -632,7 +620,7 @@ void Exporter::exportHistoric(const QList<Student> &students, const QDir &export
         }
 
         //salvar histórico
-        qDebug() << "HISTÓRICO PRONTO!" << endl;
+        qDebug() << "HISTÓRICO PRONTO!";
         historic.saveAs(addressModelHistoricStudent);
         qDebug() << "Salvo no endereço: " << addressModelHistoricStudent << endl;
     }
